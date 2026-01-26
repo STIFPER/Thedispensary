@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE DISPENSARY - Flower Menu</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],        
+                        mont: ['Montserrat', 'sans-serif'],    
+                    },
+                    colors: {
+                        bg: '#1d1e1e',          
+                        primary: '#a0d4b2',     
+                        
+                        // Terpenes Colors
+                        't-myrcene': '#2b398c',
+                        't-caryophyllene': '#77823d',
+                        't-humulene': '#fd8b03',
+                        't-limonene': '#7bc70f',
+                        't-ocimene': '#009282',
+                        't-phellandrene': '#fd0106',
+                        't-pinene': '#08a152',
+                        't-terpinolene': '#4b5e3d',
+                        't-terpineol': '#ee5a29',
+                        't-linalool': '#9094d8',
+                        't-bisabolol': '#e6c122',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #1d1e1e; color: white; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1d1e1e; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#a0d4b2] selection:text-black">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // --- DATA ---
+        const products = [
+            // SATIVA
+            { cat: 'SATIVA', name: 'LEMON UPZ', tags: ['NEW'], thc: '24-28%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['LIMONENE (LEMON)', 'CARYOPHYLLENE (PEPPER)'] },
+            { cat: 'SATIVA', name: 'PINEAPPLE XPRESS 2.0', tags: ['BEST SELLER'], thc: '32-35%', cbd: '1-2%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MUSK)', 'PINENE (PINE)'] },
+            { cat: 'SATIVA', name: 'MANGO SUNSET HAZE', tags: [], thc: '20-24%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MANGO)', 'LIMONENE (LEMON)'] },
+            { cat: 'SATIVA', name: "SANTA'S COOKIES", tags: ['BUY 1 GET 1'], thc: '22-26%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['LINALOOL (FLORAL)', 'CARYOPHYLLENE (EARTHY)'] },
+            { cat: 'SATIVA', name: 'TROP CHERRY GAS #14', tags: ['BUY 1 GET 1'], thc: '20-22%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MUSK)', 'LIMONENE (CITRUS)'] },
+
+            // INDICA
+            { cat: 'INDICA', name: 'SWEET OCTANE', tags: ['NEW'], thc: '24-28%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'LIMONENE (GAS)'] },
+            { cat: 'INDICA', name: 'CASHEW SUNDAE', tags: [], thc: '19-21%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['BISABOLOL (NUTTY)', 'CARYOPHYLLENE (EARTHY)'] },
+            { cat: 'INDICA', name: 'CRESCENDO', tags: ['BUY 1 GET 1'], thc: '17-19%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['TERPINOLENE (FRUITY)', 'LINALOOL (FLORAL)'] },
+
+            // HYBRID
+            { cat: 'HYBRID', name: 'WINTER MINTS', tags: [], thc: '24-28%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['LIMONENE (CITRUS)', 'LINALOOL (FLORAL)'] },
+            { cat: 'HYBRID', name: 'OREOZ', tags: [], thc: '20-24%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'CARYOPHYLLENE (EARTHY)'] },
+            { cat: 'HYBRID', name: 'PURE MICHIGAN', tags: [], thc: '20-22%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'CARYOPHYLLENE (PEPPER)'] },
+
+            // CBD
+            { cat: 'CBD', name: "CHARLOTTE'S ANGEL", tags: [], thc: 'N/A', cbd: '16%', p1: 400, p35: 1250, terpenes: ['MYRCENE (FRUIT)', 'LIMONENE (LEMON)'] },
+
+            // COMPOUND
+            { cat: 'COMPOUND', name: 'DA FUNK', tags: ['SATIVA'], thc: '21-23%', cbd: '<1%', p1: 700, p35: 2500, terpenes: ['OCIMENE (FRUIT)', 'MYRCENE (MUSK)'] },
+            { cat: 'COMPOUND', name: 'APPLES & BANANAS', tags: ['HYBRID'], thc: '24-26%', cbd: '0.1%', p1: 700, p35: 2500, terpenes: ['LIMONENE (LEMON)', 'CARYOPHYLLENE (SPICES)'] },
+            { cat: 'COMPOUND', name: 'GOOFIEZ', tags: ['INDICA'], thc: '23-25%', cbd: '0%', p1: 700, p35: 2500, terpenes: ['LIMONENE (LEMON)', 'MYRCENE (MANGO)'] },
+        ];
+
+        const preRolls = ['PINEAPPLE XPRESS 2.0', 'BERRY BOOMSTICK', 'MATCHA LOLLIPOP', 'CUBAN DOOBIE', 'VANILLA FRUITTEN PIE', 'MANGO SUNSET HAZE', 'CASHEW SUNDAE'];
+
+        // --- COMPONENTS ---
+
+        const TerpeneBadge = ({ name }) => {
+            const key = name.split(' ')[0].toLowerCase().trim();
+            const colorMap = {
+                'myrcene': 'bg-t-myrcene',
+                'caryophyllene': 'bg-t-caryophyllene',
+                'humulene': 'bg-t-humulene',
+                'limonene': 'bg-t-limonene',
+                'ocimene': 'bg-t-ocimene',
+                'phellandrene': 'bg-t-phellandrene',
+                'pinene': 'bg-t-pinene',
+                'terpinolene': 'bg-t-terpinolene',
+                'terpineol': 'bg-t-terpineol',
+                'linalool': 'bg-t-linalool',
+                'bisabolol': 'bg-t-bisabolol',
+            };
+            const bgClass = colorMap[key] || 'bg-gray-600';
+
+            return (
+                <span className={`inline-block ${bgClass} text-white font-mont font-bold text-[9px] px-2 py-0.5 rounded-sm mr-1 mb-1 uppercase tracking-wide`}>
+                    {name}
+                </span>
+            );
+        };
+
+        // --- SVG ICONS ---
+        const SvgNew = () => (
+            <svg viewBox="0 0 54.2 54.2" className="w-full h-auto drop-shadow-md">
+                <path fill="#4aed47" d="M54.2,27.1c0,2.2-4.7,3.8-5.2,5.9-.6,2.1,2.7,5.8,1.6,7.7s-5.9.9-7.5,2.4-.6,6.4-2.4,7.5-5.6-2.2-7.7-1.6-3.6,5.2-5.9,5.2-3.8-4.7-5.9-5.2-5.8,2.7-7.7,1.6-.9-5.9-2.4-7.5-6.4-.6-7.5-2.4,2.2-5.6,1.6-7.7S0,29.3,0,27.1s4.7-3.8,5.2-5.9-2.7-5.8-1.6-7.7,5.9-.9,7.5-2.4.6-6.4,2.4-7.5,5.6,2.2,7.7,1.6S24.9,0,27.1,0s3.8,4.7,5.9,5.2c2.1.5,5.8-2.7,7.7-1.6s.9,5.9,2.4,7.5,6.4.6,7.5,2.4-2.2,5.6-1.6,7.7,5.2,3.6,5.2,5.9Z"/>
+                <g className="isolation-isolate">
+                    <g>
+                        <path fill="#fff" d="M19.5,20.7v10.3h-2.3l-3.7-5.4h0v5.4h-2.8v-10.3h2.4l3.7,5.4h0v-5.4h2.8Z"/>
+                        <path fill="#fff" d="M20.9,31v-10.3h7.5v2.3h-4.6v1.8h4.3v2.3h-4.3v1.8h4.6v2.3h-7.4Z"/>
+                        <path fill="#fff" d="M32.4,31l-3.1-10.3h3.1l1.4,6.4h0l1.7-6.4h2.5l1.7,6.4h0l1.4-6.4h3.1l-3,10.3h-2.7l-1.8-5.8h0l-1.8,5.8h-2.7Z"/>
+                    </g>
+                </g>
+            </svg>
+        );
+
+        const SvgBestSeller = () => (
+            <svg viewBox="0 0 56.14 54.82" className="w-full h-auto drop-shadow-md">
+                <g>
+                    <polygon fill="#ffb300" points="34.49 54.74 28.23 51.35 22 54.82 17.82 49.05 10.71 49.47 9.45 42.46 2.86 39.75 4.76 32.89 0 27.59 4.7 22.23 2.7 15.39 9.26 12.6 10.43 5.57 17.55 5.9 21.65 .08 27.92 3.46 34.14 0 38.32 5.77 45.43 5.35 46.7 12.36 53.29 15.07 51.38 21.93 56.14 27.23 51.45 32.59 53.44 39.43 46.89 42.22 45.72 49.24 38.6 48.91 34.49 54.74"/>
+                    <g>
+                        <path fill="#fff" d="M31.27,11.47c.16-.05.29-.11.43-.14.72-.16,1.45-.34,2.17-.47.52-.1,1,.08,1.46.3.58.28.8.76.71,1.37-.04.28.06.47.27.64.79.65.9,1.07.55,2.03-.05.14-.13.27-.14.41-.01.17-.02.4.07.51.67.81.44,2.09-.09,2.67-.23.26-.3.51-.2.84.12.4,0,.75-.27,1.06-.53.61-1.18,1.05-1.95,1.19-1.28.24-2.57.4-3.86.53-.93.09-1.88.07-2.82.09-.42.01-.73-.14-1.01-.48-1.49-1.75-2.26-3.78-2.44-6.04-.02-.32.02-.64.06-.95.04-.28.18-.53.45-.66.56-.27.87-.71,1-1.33.17-.81.57-1.52,1.08-2.18.87-1.13,1.43-2.41,1.84-3.77.03-.09.01-.2,0-.3-.08-.33-.18-.66-.25-.99-.14-.7.31-1.26,1.03-1.26.6,0,1.04.28,1.39.74.79,1.03,1.03,2.17.72,3.42-.07.3-.14.6-.21.91-.08.36-.12.72-.02,1.1.06.22.02.47.02.75Z"/>
+                        <path fill="#fff" d="M24.05,23.71c-.53.12-1.06.21-1.57.35-.48.13-.87,0-1.23-.3-.55-.46-.92-1.06-1.23-1.69-.67-1.37-1.19-2.8-1.32-4.33-.04-.46.01-.95.11-1.41.09-.44.4-.73.87-.83.93-.2,1.86-.41,2.79-.61.15-.03.31-.06.46-.06.32,0,.44.11.42.43-.13,1.94.33,3.73,1.36,5.38.43.69.86,1.38,1.29,2.08.27.43.23.53-.27.64-.56.12-1.11.24-1.67.37h0Z"/>
+                    </g>
+                    <g>
+                        <path fill="#fff" d="M13.9,26.19h3.33c1.76,0,2.69.75,2.69,1.92,0,.85-.6,1.5-1.49,1.68v.08c.99.04,1.79.75,1.79,1.83,0,1.26-1.03,2.18-2.7,2.18h-3.62v-7.69ZM16.84,29.3c.55,0,.93-.26.93-.74s-.38-.74-.9-.74h-.89v1.47h.86ZM16.96,32.21c.7,0,1.05-.27,1.05-.78,0-.54-.39-.84-1.02-.84h-1.01v1.62h.98Z"/>
+                        <path fill="#fff" d="M21.37,26.19h5.54v1.68h-3.45v1.32h3.17v1.68h-3.17v1.32h3.44v1.68h-5.53v-7.69Z"/>
+                        <path fill="#fff" d="M31.46,27.8c-.65,0-.93.25-.93.59-.02.37.31.58,1.04.74l.63.13c1.7.36,2.39,1.19,2.4,2.36,0,1.52-1.17,2.36-3.12,2.36s-3.31-.86-3.32-2.79h1.98c.03.71.51,1.08,1.31,1.08.67,0,1.01-.27,1.02-.65,0-.35-.3-.56-1.16-.75l-.77-.17c-1.36-.29-2.2-.96-2.19-2.16-.01-1.46,1.28-2.45,3.11-2.45s3.03,1,3.03,2.51h-2c-.04-.5-.36-.8-1.04-.8Z"/>
+                        <path fill="#fff" d="M35.59,26.19h6.68v1.68h-2.31v6.01h-2.06v-6.01h-2.31v-1.68Z"/>
+                        <path fill="#fff" d="M14.83,37.12c-.5,0-.71.19-.71.45-.01.28.24.45.8.56l.48.1c1.3.28,1.84.91,1.85,1.81,0,1.17-.9,1.81-2.4,1.81s-2.54-.66-2.55-2.15h1.52c.03.54.39.83,1,.83.51,0,.78-.2.79-.5,0-.27-.23-.43-.89-.58l-.59-.13c-1.05-.23-1.69-.74-1.68-1.66,0-1.12.98-1.88,2.39-1.88s2.32.77,2.33,1.93h-1.53c-.03-.38-.28-.61-.8-.61Z"/>
+                        <path fill="#fff" d="M18.18,35.89h4.26v1.29h-2.65v1.02h2.43v1.29h-2.43v1.02h2.64v1.29h-4.25v-5.91Z"/>
+                        <path fill="#fff" d="M23.55,35.89h1.6v4.61h2.39v1.29h-3.99v-5.91Z"/>
+                        <path fill="#fff" d="M28.51,35.89h1.6v4.61h2.39v1.29h-3.99v-5.91Z"/>
+                        <path fill="#fff" d="M33.48,35.89h4.26v1.29h-2.65v1.02h2.43v1.29h-2.43v1.02h2.64v1.29h-4.25v-5.91Z"/>
+                        <path fill="#fff" d="M38.85,35.89h2.55c1.31,0,2.19.75,2.19,2.01,0,.82-.37,1.39-1,1.7l1.2,2.2h-1.74l-1.04-1.95h-.55v1.95h-1.6v-5.91ZM41.02,38.6c.56,0,.9-.2.9-.7s-.34-.73-.9-.73h-.57v1.43h.57Z"/>
+                    </g>
+                    <path fill="#fff" d="M27.98,43.64l.88,1.78,1.97.29-1.43,1.39.34,1.96-1.76-.93-1.76.93.34-1.96-1.43-1.39,1.97-.29.88-1.78"/>
+                </g>
+            </svg>
+        );
+
+        // Buy 1 Get 1 (For Products)
+        const SvgBuy1Get1 = () => (
+            <svg viewBox="0 0 55.02 55.02" className="w-full h-auto drop-shadow-md">
+                <g>
+                    <path fill="#ed1c24" d="M55.02,27.51c0,2.26-4.76,3.86-5.32,5.95s2.73,5.92,1.64,7.81-6.03.93-7.59,2.48-.57,6.48-2.48,7.59-5.66-2.21-7.81-1.64-3.69,5.32-5.95,5.32-3.86-4.76-5.95-5.32-5.92,2.73-7.81,1.64-.93-6.03-2.48-7.59-6.48-.57-7.59-2.48,2.21-5.66,1.64-7.81S0,29.77,0,27.51s4.76-3.86,5.32-5.95-2.73-5.92-1.64-7.81,6.03-.93,7.59-2.48.57-6.48,2.48-7.59,5.66,2.21,7.81,1.64S25.25,0,27.51,0s3.86,4.76,5.95,5.32,5.92-2.73,7.81-1.64.93,6.03,2.48,7.59,6.48.57,7.59,2.48-2.21,5.66-1.64,7.81,5.32,3.69,5.32,5.95Z"/>
+                    <g>
+                        <g>
+                            <g>
+                                <path fill="#a0d4b2" d="M13.41,13.19h3.04c1.6,0,2.45.68,2.45,1.75,0,.77-.54,1.37-1.35,1.53v.07c.9.03,1.63.68,1.63,1.67,0,1.15-.94,1.98-2.46,1.98h-3.29v-7ZM16.09,16.02c.5,0,.85-.24.85-.67s-.35-.67-.82-.67h-.81v1.34h.78ZM16.2,18.67c.64,0,.96-.24.96-.71,0-.49-.35-.77-.93-.77h-.92v1.48h.89Z"/>
+                                <path fill="#a0d4b2" d="M26.27,13.19v4.48c0,1.6-1.22,2.6-3.02,2.6s-3.02-1-3.02-2.6v-4.48h1.9v4.32c0,.65.47,1.12,1.12,1.12s1.12-.47,1.12-1.12v-4.32h1.9Z"/>
+                                <path fill="#a0d4b2" d="M29.39,13.19l1.37,2.84h.05l1.37-2.84h2.12l-2.57,4.8v2.2h-1.89v-2.2l-2.57-4.8h2.12Z"/>
+                                <path fill="#a0d4b2" d="M41.05,20.19h-1.9v-5.25h-.04l-1.53.92v-1.61l1.72-1.05h1.75v7Z"/>
+                                <path fill="#a0d4b2" d="M16.84,26.33c-.96,0-1.5.71-1.5,1.93s.51,1.96,1.49,1.96c.85,0,1.28-.39,1.3-1h-1.27v-1.35h3.1v.97c0,1.91-1.31,3.04-3.14,3.04-2.04,0-3.43-1.37-3.43-3.58s1.53-3.61,3.42-3.61c1.65,0,2.93,1,3.08,2.41h-1.92c-.12-.48-.52-.75-1.11-.75Z"/>
+                                <path fill="#a0d4b2" d="M21.24,24.77h5.04v1.53h-3.14v1.2h2.88v1.53h-2.88v1.2h3.13v1.53h-5.03v-7Z"/>
+                                <path fill="#a0d4b2" d="M27.42,24.77h6.08v1.53h-2.11v5.47h-1.87v-5.47h-2.11v-1.53Z"/>
+                                <path fill="#a0d4b2" d="M40.35,31.77h-1.9v-5.25h-.04l-1.53.92v-1.61l1.72-1.05h1.75v7Z"/>
+                            </g>
+                            <g>
+                                <path fill="#a0d4b2" d="M13.49,35.02h5.47v1.7h-3.36v1.34h3.03v1.7h-3.03v3.04h-2.11v-7.78Z"/>
+                                <path fill="#a0d4b2" d="M20.16,35.02h3.36c1.73,0,2.89.99,2.89,2.64,0,1.08-.49,1.83-1.32,2.23l1.58,2.9h-2.29l-1.37-2.57h-.73v2.57h-2.11v-7.78ZM23.02,38.6c.74,0,1.18-.26,1.18-.93s-.44-.96-1.18-.96h-.75v1.88h.75Z"/>
+                                <path fill="#a0d4b2" d="M27.73,35.02h5.61v1.7h-3.5v1.34h3.21v1.7h-3.21v1.34h3.48v1.7h-5.59v-7.78Z"/>
+                                <path fill="#a0d4b2" d="M34.81,35.02h5.61v1.7h-3.5v1.34h3.21v1.7h-3.21v1.34h3.48v1.7h-5.59v-7.78Z"/>
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <g>
+                                    <path fill="#fff" d="M13.41,13.19h3.04c1.6,0,2.45.68,2.45,1.75,0,.77-.54,1.37-1.35,1.53v.07c.9.03,1.63.68,1.63,1.67,0,1.15-.94,1.98-2.46,1.98h-3.29v-7ZM16.09,16.02c.5,0,.85-.24.85-.67s-.35-.67-.82-.67h-.81v1.34h.78ZM16.2,18.67c.64,0,.96-.24.96-.71,0-.49-.35-.77-.93-.77h-.92v1.48h.89Z"/>
+                                    <path fill="#fff" d="M26.27,13.19v4.48c0,1.6-1.22,2.6-3.02,2.6s-3.02-1-3.02-2.6v-4.48h1.9v4.32c0,.65.47,1.12,1.12,1.12s1.12-.47,1.12-1.12v-4.32h1.9Z"/>
+                                    <path fill="#fff" d="M29.39,13.19l1.37,2.84h.05l1.37-2.84h2.12l-2.57,4.8v2.2h-1.89v-2.2l-2.57-4.8h2.12Z"/>
+                                    <path fill="#fff" d="M37.61,18.82l2.61-2.16c.52-.43.83-.75.83-1.24,0-.54-.37-.86-.9-.86s-.88.33-.88.92h-1.8c0-1.47,1.06-2.38,2.69-2.38s2.75.85,2.75,2.16c0,.81-.41,1.5-2,2.83l-.66.55v.04h2.73v1.52h-5.37v-1.37Z"/>
+                                    <path fill="#fff" d="M16.84,26.33c-.96,0-1.5.71-1.5,1.93s.51,1.96,1.49,1.96c.85,0,1.28-.39,1.3-1h-1.27v-1.35h3.1v.97c0,1.91-1.31,3.04-3.14,3.04-2.04,0-3.43-1.37-3.43-3.58s1.53-3.61,3.42-3.61c1.65,0,2.93,1,3.08,2.41h-1.92c-.12-.48-.52-.75-1.11-.75Z"/>
+                                    <path fill="#fff" d="M21.24,24.77h5.04v1.53h-3.14v1.2h2.88v1.53h-2.88v1.2h3.13v1.53h-5.03v-7Z"/>
+                                    <path fill="#fff" d="M27.42,24.77h6.08v1.53h-2.11v5.47h-1.87v-5.47h-2.11v-1.53Z"/>
+                                    <path fill="#fff" d="M40.35,31.77h-1.9v-5.25h-.04l-1.53.92v-1.61l1.72-1.05h1.75v7Z"/>
+                                </g>
+                                <g>
+                                    <path fill="#fff" d="M13.49,35.02h5.47v1.7h-3.36v1.34h3.02v1.7h-3.02v3.04h-2.11v-7.78Z"/>
+                                    <path fill="#fff" d="M20.16,35.02h3.36c1.73,0,2.89.99,2.89,2.64,0,1.08-.49,1.83-1.32,2.23l1.58,2.9h-2.29l-1.37-2.57h-.73v2.57h-2.11v-7.78ZM23.02,38.6c.74,0,1.19-.26,1.19-.93s-.44-.96-1.19-.96h-.75v1.88h.75Z"/>
+                                    <path fill="#fff" d="M27.73,35.02h5.61v1.7h-3.5v1.34h3.21v1.7h-3.21v1.34h3.48v1.7h-5.59v-7.78Z"/>
+                                    <path fill="#fff" d="M34.81,35.02h5.61v1.7h-3.5v1.34h3.21v1.7h-3.21v1.34h3.48v1.7h-5.59v-7.78Z"/>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        );
+
+        // Buy 2 Get 1 (For Pre-rolls) - UPDATED
+        const SvgBuy2Get1 = () => (
+            <svg viewBox="0 0 55.02 55.02" className="w-full h-auto drop-shadow-md">
+                <g id="Layer_36" data-name="Layer 36">
+                    <g>
+                        <path fill="#ed1d7a" d="M55.02,27.51c0,2.26-4.76,3.86-5.32,5.95s2.73,5.92,1.64,7.81-6.03.93-7.59,2.48-.57,6.48-2.48,7.59-5.66-2.21-7.81-1.64-3.69,5.32-5.95,5.32-3.86-4.76-5.95-5.32-5.92,2.73-7.81,1.64-.93-6.03-2.48-7.59-6.48-.57-7.59-2.48,2.21-5.66,1.64-7.81S0,29.77,0,27.51s4.76-3.86,5.32-5.95-2.73-5.92-1.64-7.81,6.03-.93,7.59-2.48.57-6.48,2.48-7.59,5.66,2.21,7.81,1.64S25.25,0,27.51,0s3.86,4.76,5.95,5.32,5.92-2.73,7.81-1.64.93,6.03,2.48,7.59,6.48.57,7.59,2.48-2.21,5.66-1.64,7.81,5.32,3.69,5.32,5.95Z"/>
+                        <g>
+                            <g>
+                                <g>
+                                    <path fill="#a0d4b2" d="M13.41,13.19h3.04c1.6,0,2.45.68,2.45,1.75,0,.77-.54,1.37-1.35,1.53v.07c.9.03,1.63.68,1.63,1.67,0,1.15-.94,1.98-2.46,1.98h-3.29v-7ZM16.09,16.02c.5,0,.85-.24.85-.67s-.35-.67-.82-.67h-.81v1.34h.78ZM16.2,18.67c.64,0,.96-.24.96-.71,0-.49-.35-.77-.93-.77h-.92v1.48h.89Z"/>
+                                    <path fill="#a0d4b2" d="M26.27,13.19v4.48c0,1.6-1.22,2.6-3.02,2.6s-3.02-1-3.02-2.6v-4.48h1.9v4.32c0,.65.47,1.12,1.12,1.12s1.12-.47,1.12-1.12v-4.32h1.9Z"/>
+                                    <path fill="#a0d4b2" d="M29.39,13.19l1.37,2.84h.05l1.37-2.84h2.12l-2.57,4.8v2.2h-1.89v-2.2l-2.57-4.8h2.12Z"/>
+                                    <path fill="#a0d4b2" d="M37.61,18.82l2.61-2.16c.52-.43.83-.75.83-1.24,0-.54-.37-.86-.9-.86s-.88.33-.88.92h-1.8c0-1.47,1.06-2.38,2.69-2.38s2.75.85,2.75,2.16c0,.81-.41,1.5-2,2.83l-.66.55v.04h2.73v1.52h-5.37v-1.37Z"/>
+                                    <path fill="#a0d4b2" d="M16.84,26.33c-.96,0-1.5.71-1.5,1.93s.51,1.96,1.49,1.96c.85,0,1.28-.39,1.3-1h-1.27v-1.35h3.1v.97c0,1.91-1.31,3.04-3.14,3.04-2.04,0-3.43-1.37-3.43-3.58s1.53-3.61,3.42-3.61c1.65,0,2.93,1,3.08,2.41h-1.92c-.12-.48-.52-.75-1.11-.75Z"/>
+                                    <path fill="#a0d4b2" d="M21.24,24.77h5.04v1.53h-3.14v1.2h2.88v1.53h-2.88v1.2h3.13v1.53h-5.03v-7Z"/>
+                                    <path fill="#a0d4b2" d="M27.42,24.77h6.08v1.53h-2.11v5.47h-1.87v-5.47h-2.11v-1.53Z"/>
+                                    <path fill="#a0d4b2" d="M40.35,31.77h-1.9v-5.25h-.04l-1.53.92v-1.61l1.72-1.05h1.75v7Z"/>
+                                </g>
+                                <g>
+                                    <path fill="#a0d4b2" d="M13.49,35.02h5.47v1.7h-3.36v1.34h3.02v1.7h-3.02v3.04h-2.11v-7.78Z"/>
+                                    <path fill="#a0d4b2" d="M20.16,35.02h3.36c1.73,0,2.89.99,2.89,2.64,0,1.08-.49,1.83-1.32,2.23l1.58,2.9h-2.29l-1.37-2.57h-.73v2.57h-2.11v-7.78ZM23.02,38.6c.74,0,1.19-.26,1.19-.93s-.44-.96-1.19-.96h-.75v1.88h.75Z"/>
+                                    <path fill="#a0d4b2" d="M27.73,35.02h5.61v1.7h-3.5v1.34h3.21v1.7h-3.21v1.34h3.48v1.7h-5.59v-7.78Z"/>
+                                    <path fill="#a0d4b2" d="M34.81,35.02h5.61v1.7h-3.5v1.34h3.21v1.7h-3.21v1.34h3.48v1.7h-5.59v-7.78Z"/>
+                                </g>
+                            </g>
+                            <g>
+                                <g>
+                                    <path fill="#fff" d="M13.41,13.19h3.04c1.6,0,2.45.68,2.45,1.75,0,.77-.54,1.37-1.35,1.53v.07c.9.03,1.63.68,1.63,1.67,0,1.15-.94,1.98-2.46,1.98h-3.29v-7ZM16.09,16.02c.5,0,.85-.24.85-.67s-.35-.67-.82-.67h-.81v1.34h.78ZM16.2,18.67c.64,0,.96-.24.96-.71,0-.49-.35-.77-.93-.77h-.92v1.48h.89Z"/>
+                                    <path fill="#fff" d="M26.27,13.19v4.48c0,1.6-1.22,2.6-3.02,2.6s-3.02-1-3.02-2.6v-4.48h1.9v4.32c0,.65.47,1.12,1.12,1.12s1.12-.47,1.12-1.12v-4.32h1.9Z"/>
+                                    <path fill="#fff" d="M29.39,13.19l1.37,2.84h.05l1.37-2.84h2.12l-2.57,4.8v2.2h-1.89v-2.2l-2.57-4.8h2.12Z"/>
+                                    <path fill="#fff" d="M37.61,18.82l2.61-2.16c.52-.43.83-.75.83-1.24,0-.54-.37-.86-.9-.86s-.88.33-.88.92h-1.8c0-1.47,1.06-2.38,2.69-2.38s2.75.85,2.75,2.16c0,.81-.41,1.5-2,2.83l-.66.55v.04h2.73v1.52h-5.37v-1.37Z"/>
+                                    <path fill="#fff" d="M16.84,26.33c-.96,0-1.5.71-1.5,1.93s.51,1.96,1.49,1.96c.85,0,1.28-.39,1.3-1h-1.27v-1.35h3.1v.97c0,1.91-1.31,3.04-3.14,3.04-2.04,0-3.43-1.37-3.43-3.58s1.53-3.61,3.42-3.61c1.65,0,2.93,1,3.08,2.41h-1.92c-.12-.48-.52-.75-1.11-.75Z"/>
+                                    <path fill="#fff" d="M21.24,24.77h5.04v1.53h-3.14v1.2h2.88v1.53h-2.88v1.2h3.13v1.53h-5.03v-7Z"/>
+                                    <path fill="#fff" d="M27.42,24.77h6.08v1.53h-2.11v5.47h-1.87v-5.47h-2.11v-1.53Z"/>
+                                    <path fill="#fff" d="M40.35,31.77h-1.9v-5.25h-.04l-1.53.92v-1.61l1.72-1.05h1.75v7Z"/>
+                                </g>
+                                <g>
+                                    <path fill="#fff" d="M13.49,35.02h5.47v1.7h-3.36v1.34h3.02v1.7h-3.02v3.04h-2.11v-7.78Z"/>
+                                    <path fill="#fff" d="M20.16,35.02h3.36c1.73,0,2.89.99,2.89,2.64,0,1.08-.49,1.83-1.32,2.23l1.58,2.9h-2.29l-1.37-2.57h-.73v2.57h-2.11v-7.78ZM23.02,38.6c.74,0,1.19-.26,1.19-.93s-.44-.96-1.19-.96h-.75v1.88h.75Z"/>
+                                    <path fill="#fff" d="M27.73,35.02h5.61v1.7h-3.5v1.34h3.21v1.7h-3.21v1.34h3.48v1.7h-5.59v-7.78Z"/>
+                                    <path fill="#fff" d="M34.81,35.02h5.61v1.7h-3.5v1.34h3.21v1.7h-3.21v1.34h3.48v1.7h-5.59v-7.78Z"/>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        );
+
+        const StatusBadge = ({ tags }) => {
+            const containerClass = "flex items-center justify-center mr-3 w-[50px] shrink-0";
+            
+            if (!tags || tags.length === 0) {
+                return <div className={containerClass}></div>;
+            }
+
+            const tag = tags[0];
+
+            if (tag === 'NEW') {
+                return <div className={containerClass}><SvgNew /></div>;
+            } else if (tag === 'BEST SELLER') {
+                return <div className={containerClass}><SvgBestSeller /></div>;
+            } else if (tag.includes('BUY 1')) {
+                return <div className={containerClass}><SvgBuy1Get1 /></div>;
+            }
+
+            return <div className={containerClass}></div>;
+        };
+
+        const ProductCard = ({ product, onClick }) => (
+            <div onClick={() => onClick(product)} className="group cursor-pointer py-3 px-3 hover:bg-white/5 transition-all duration-200 flex items-start justify-between border-b border-gray-700/50 last:border-0">
+                <div className="flex items-center flex-1 pr-2">
+                    <StatusBadge tags={product.tags} />
+                    <div className="flex flex-col justify-center">
+                        <h3 className="font-inter font-black text-white text-base md:text-lg uppercase leading-tight group-hover:text-primary transition-colors mb-1">
+                            {product.name}
+                        </h3>
+                        <div className="flex items-center gap-3 mb-1.5">
+                            <span className="font-inter font-black text-white text-xs">THC {product.thc}</span>
+                            <span className="font-inter font-black text-white text-xs">CBD {product.cbd}</span>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                            {product.terpenes.map((t, i) => <TerpeneBadge key={i} name={t} />)}
+                        </div>
+                    </div>
+                </div>
+                <div className="text-right whitespace-nowrap pl-2 self-start pt-1">
+                    <div className="font-inter font-black text-lg md:text-xl text-primary tracking-tight">
+                        {product.p1} <span className="text-gray-500 text-sm align-middle mx-1 font-bold">|</span> {product.p35}
+                    </div>
+                </div>
+            </div>
+        );
+
+        const BoxHeader = ({ title, bgColor }) => (
+            <div className="flex justify-between items-center px-4 py-2 border-b border-white/10" style={{ backgroundColor: bgColor }}>
+                <h2 className="font-inter font-black text-2xl text-white uppercase tracking-tight">{title}</h2>
+                <span className="font-inter font-black text-white text-sm">1G | 3.5G</span>
+            </div>
+        );
+
+        const App = () => {
+            const [selectedProduct, setSelectedProduct] = useState(null);
+
+            // Filter Products
+            const sativa = products.filter(p => p.cat === 'SATIVA');
+            const indica = products.filter(p => p.cat === 'INDICA');
+            const hybrid = products.filter(p => p.cat === 'HYBRID');
+            const cbd = products.filter(p => p.cat === 'CBD');
+            const compound = products.filter(p => p.cat === 'COMPOUND');
+
+            return (
+                <div className="min-h-screen flex flex-col pb-10">
+                    
+                    {/* Sticky Nav */}
+                    <nav className="sticky top-0 z-40 bg-[#1d1e1e]/95 backdrop-blur border-b border-gray-700 py-3">
+                        <div className="max-w-[1400px] mx-auto px-4 overflow-x-auto no-scrollbar">
+                            <div className="flex space-x-8 whitespace-nowrap font-inter font-bold text-sm text-gray-400 uppercase tracking-wide">
+                                <button className="text-primary border-b-2 border-primary pb-1">MENU FLOWER</button>
+                                <button className="hover:text-white transition-colors">STRAIN OF THE MONTH</button>
+                                <button className="hover:text-white transition-colors">GREEN FRIDAY</button>
+                                <button className="hover:text-white transition-colors text-primary">CONTACT</button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Header */}
+                    <header className="max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 text-center flex flex-col items-center">
+                        <h2 className="font-inter font-black text-2xl text-white uppercase tracking-wider opacity-80 mb-2">THE DISPENSARY</h2>
+                        <h1 className="font-inter font-black text-[40px] text-primary uppercase leading-none tracking-tight mb-2">FLOWER MENU</h1>
+                        <p className="font-inter font-black text-lg text-white uppercase tracking-[0.2em] mb-6">JANUARY 2026</p>
+                        
+                        <div className="border-t border-b border-gray-600 py-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-xs font-inter uppercase tracking-wide text-gray-400 w-full">
+                            <div><strong className="block text-white mb-1 text-sm font-black">TRUSTED QUALITY</strong>HAND-TRIMMED, LAB-TESTED</div>
+                            <div className="md:border-x border-gray-600"><strong className="block text-white mb-1 text-sm font-black">GACP CERTIFIED</strong>MEDICAL STANDARDS COMPLIANT</div>
+                            <div><strong className="block text-white mb-1 text-sm font-black">PRESCRIPTION AVAILABLE</strong>DOCTOR'S PRESCRIPTIONS IN-STORE</div>
+                        </div>
+                    </header>
+
+                    {/* CONTENT GRID */}
+                    <main className="flex flex-col md:flex-row gap-6 max-w-[1400px] mx-auto w-full px-4">
+                        
+                        {/* LEFT COLUMN */}
+                        <div className="w-full md:w-1/2 flex flex-col gap-6">
+                            {/* 1. SATIVA */}
+                            <div className="border border-white/20 rounded-sm overflow-hidden flex flex-col bg-white/[0.01]">
+                                <BoxHeader title="SATIVA" bgColor="#9e9e5e" />
+                                <div className="p-2 space-y-1">
+                                    {sativa.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+                                </div>
+                            </div>
+                            {/* 2. CBD */}
+                            <div className="border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
+                                <BoxHeader title="CBD" bgColor="#9e5e97" />
+                                <div className="p-2">
+                                    {cbd.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+                                </div>
+                            </div>
+                            
+                            {/* 3. PRE-ROLLS */}
+                            <div className="border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col flex-1">
+                                {/* Header Row */}
+                                <div className="flex justify-between items-center px-4 py-3 border-b border-white/20">
+                                    <h2 className="font-inter font-black text-3xl text-primary uppercase">PRE-ROLLS</h2>
+                                    <div className="font-inter font-black text-2xl text-white">550/JOINT</div>
+                                </div>
+                                
+                                {/* Content Body */}
+                                <div className="p-4 flex flex-col flex-1">
+                                    {/* Moved Badge Inside Content Area, Aligned Right under Price */}
+                                    <div className="flex justify-end mb-2 mr-6">
+                                         <span className="w-[55px] h-auto drop-shadow-sm transform hover:scale-105 transition-transform duration-200">
+                                            <SvgBuy2Get1 />
+                                        </span>
+                                    </div>
+
+                                    {/* List */}
+                                    <div className="grid grid-cols-2 gap-x-2 gap-y-3 content-center flex-1">
+                                        {preRolls.map((name, i) => (
+                                            <div key={i} className="font-inter font-black text-[10px] md:text-xs text-gray-300 uppercase tracking-wide border-b border-gray-700/50 pb-1 flex items-start text-left">
+                                                <span className="text-primary mr-1.5">•</span>
+                                                <span>{name}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="px-4 pb-2 text-center text-[10px] text-gray-500 font-inter font-bold uppercase">(ROLLING SERVICE AVAILABLE FOR ALL STRAINS)</div>
+                            </div>
+                        </div>
+
+                        {/* RIGHT COLUMN */}
+                        <div className="w-full md:w-1/2 flex flex-col gap-6">
+                            {/* 4. INDICA */}
+                            <div className="border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
+                                <BoxHeader title="INDICA" bgColor="#158cab" />
+                                <div className="p-2 space-y-1">
+                                    {indica.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+                                </div>
+                            </div>
+                            {/* 5. HYBRID */}
+                            <div className="border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
+                                <BoxHeader title="HYBRID" bgColor="#797a72" />
+                                <div className="p-2 space-y-1">
+                                    {hybrid.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+                                </div>
+                            </div>
+                            {/* 6. COMPOUND GENETICS */}
+                            <div className="border border-blue-900/60 rounded-sm overflow-hidden bg-[#0a101f] relative flex flex-col">
+                                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{backgroundImage: 'radial-gradient(circle, #333 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+                                <div className="flex justify-between items-center px-4 py-3 border-b border-blue-900/40 relative z-10">
+                                    <h2 className="font-inter font-black text-2xl text-white uppercase tracking-tight">COMPOUND GENETICS</h2>
+                                    <span className="font-inter font-black text-white text-sm opacity-80">1G | 3.5G</span>
+                                </div>
+                                <div className="p-2 space-y-1 relative z-10 flex-1">
+                                    {compound.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+                                </div>
+                            </div>
+                        </div>
+
+                    </main>
+
+                    {/* MODAL POPUP */}
+                    {selectedProduct && (
+                        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fadeIn">
+                            <div className="bg-[#1d1e1e] border border-gray-600 w-full max-w-md p-6 rounded-lg relative shadow-2xl">
+                                <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 text-white hover:text-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                                
+                                <div className="mb-4 flex"><StatusBadge tags={selectedProduct.tags} /></div>
+                                
+                                <h2 className="font-inter font-black text-4xl text-primary uppercase leading-none mb-1">{selectedProduct.name}</h2>
+                                
+                                <p className="font-inter font-black text-gray-500 uppercase mb-6 tracking-widest text-sm">
+                                    {selectedProduct.cat === 'COMPOUND' ? 'COMPOUND GENETICS' : selectedProduct.cat}
+                                </p>
+
+                                <div className="space-y-4 border-t border-gray-700 pt-4">
+                                    <div className="flex justify-between items-center"><span className="font-inter font-black text-gray-400 text-sm">THC / CBD</span><span className="font-inter font-black text-white text-xl">THC {selectedProduct.thc} | CBD {selectedProduct.cbd}</span></div>
+                                    <div className="flex justify-between items-center"><span className="font-inter font-black text-gray-400 text-sm">PRICE (1G / 3.5G)</span><span className="font-inter font-black text-primary text-2xl">{selectedProduct.p1} / {selectedProduct.p35}</span></div>
+                                </div>
+                                <div className="mt-6 border-t border-gray-700 pt-4">
+                                    <p className="font-inter font-bold text-gray-500 text-xs uppercase mb-3">TERPENES PROFILE</p>
+                                    <div className="flex flex-wrap gap-2">{selectedProduct.terpenes.map((t, i) => <span key={i} className="bg-gray-800 border border-gray-600 text-white font-mont font-bold text-xs px-3 py-1 rounded-full uppercase">{t}</span>)}</div>
+                                </div>
+                                <button onClick={() => setSelectedProduct(null)} className="w-full mt-8 bg-primary hover:bg-white text-black font-inter font-black py-3 uppercase rounded transition-colors">CLOSE</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
