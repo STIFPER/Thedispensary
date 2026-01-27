@@ -57,9 +57,8 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* --- UPDATED BADGE STYLES WITH LOCKING --- */
+        /* --- BADGE STYLES (LOCKED) --- */
         .badge {
-            /* Basic Flex & Font */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -69,10 +68,10 @@
             font-family: 'Inter', sans-serif;
             font-weight: 900;
             
-            /* --- LOCK SIZE PROPERTIES --- */
-            flex-shrink: 0;  /* ห้ามโดนบีบเมื่อจอเล็ก */
-            flex-grow: 0;    /* ห้ามขยายตามเนื้อหา */
-            box-sizing: border-box; /* คิดขอบรวมในขนาด */
+            /* Strict Locking */
+            flex-shrink: 0;
+            flex-grow: 0;
+            box-sizing: border-box;
             
             /* Starburst Shape */
             clip-path: polygon(
@@ -166,42 +165,40 @@
             );
         };
 
-        // --- BADGE COMPONENTS ---
+        // --- BADGE COMPONENTS WITH REDUCED SIZES (-15%) ---
         
-        // This component renders the badge with strict sizing logic applied
         const BadgeElement = ({ type, size = 'sm' }) => {
-            // Configuration for different sizes
-            // 'full': 120px (Modal/Reference)
-            // 'md': 80px (Header)
-            // 'sm': 60px (List Item)
+            // Sizes Reduced by ~15%
+            // 'full': 120px -> 102px
+            // 'md': 80px -> 68px
+            // 'sm': 60px -> 52px
             
             const styles = {
                 full: {
-                    size: '120px',
-                    fontNew: '26px',
-                    fontBest: '22px',
-                    fontBuy: '18px',
+                    size: '102px',
+                    fontNew: '22px', // was 26
+                    fontBest: '18px', // was 22
+                    fontBuy: '15px', // was 18
                     lh: '1.1'
                 },
                 md: {
-                    size: '80px',
-                    fontNew: '18px',
-                    fontBest: '15px',
-                    fontBuy: '12px',
+                    size: '68px',
+                    fontNew: '15px', // was 18
+                    fontBest: '13px', // was 15
+                    fontBuy: '10px', // was 12
                     lh: '1.1'
                 },
                 sm: {
-                    size: '60px',
-                    fontNew: '13px',
-                    fontBest: '11px',
-                    fontBuy: '9px',
+                    size: '52px',
+                    fontNew: '11px', // was 13
+                    fontBest: '9px', // was 11
+                    fontBuy: '8px', // was 9
                     lh: '1.1'
                 }
             };
             
             const config = styles[size];
             
-            // Inline style to enforce specific dimensions for this instance while respecting CSS locking
             const boxStyle = {
                 width: config.size,
                 height: config.size,
@@ -247,7 +244,7 @@
             
             if (!tags || tags.length === 0) {
                 // Placeholder with same size to keep alignment
-                const placeholderSize = size === 'sm' ? '60px' : size === 'md' ? '80px' : '120px';
+                const placeholderSize = size === 'sm' ? '52px' : size === 'md' ? '68px' : '102px';
                 return <div style={{width: placeholderSize}} className="mr-2"></div>;
             }
 
@@ -266,7 +263,7 @@
                 );
             }
 
-            const placeholderSize = size === 'sm' ? '60px' : size === 'md' ? '80px' : '120px';
+            const placeholderSize = size === 'sm' ? '52px' : size === 'md' ? '68px' : '102px';
             return <div style={{width: placeholderSize}} className="mr-2"></div>;
         };
 
@@ -369,14 +366,14 @@
                                 </div>
                                 
                                 {/* Content Body */}
-                                <div className="p-4 flex flex-col flex-1 relative">
-                                    {/* Badge Positioned absolutely or floating right */}
-                                    <div className="absolute top-2 right-4 z-10">
+                                <div className="p-4 flex flex-col flex-1">
+                                    {/* FIX: Moved Badge to static flow (flex container) to avoid overlap */}
+                                    <div className="flex justify-end mb-2">
                                          <BadgeElement type="BUY 2" size="md" />
                                     </div>
 
                                     {/* List */}
-                                    <div className="grid grid-cols-2 gap-x-2 gap-y-3 content-center flex-1 mt-2">
+                                    <div className="grid grid-cols-2 gap-x-2 gap-y-3 content-center flex-1">
                                         {preRolls.map((name, i) => (
                                             <div key={i} className="font-inter font-black text-[10px] md:text-xs text-gray-300 uppercase tracking-wide border-b border-gray-700/50 pb-1 flex items-start text-left">
                                                 <span className="text-primary mr-1.5">•</span>
