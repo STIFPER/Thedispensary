@@ -253,9 +253,7 @@
             };
             
             const clearCart = () => {
-                if(window.confirm('Clear all items from your order?')) {
-                    setCart([]);
-                }
+                setCart([]);
             };
 
             const totalGrams = cart.reduce((sum, item) => {
@@ -341,7 +339,7 @@
                                 </div>
                             </div>
                             
-                            {/* 3. PRE-ROLLS */}
+                            {/* 3. PRE-ROLLS (Improved Selection UI - FIX WRAPPING) */}
                             <div className="order-6 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col flex-1">
                                 <div className="flex justify-between items-center px-4 py-3 border-b border-white/20 bg-[#1d1e1e]">
                                     <h2 className="font-black text-2xl md:text-3xl text-[#a0d4b2] uppercase">PRE-ROLLS</h2>
@@ -351,12 +349,21 @@
                                     <div className="flex justify-end mb-2">
                                         <BadgeElement type="BUY 2" size="md" />
                                     </div>
-                                    <div className="grid grid-cols-2 gap-x-2 gap-y-3 content-center flex-1">
+                                    <div className="grid grid-cols-2 gap-2 content-center flex-1">
                                         {preRolls.map((name, i) => (
-                                            <button key={i} onClick={() => addToCart({ name: name }, 'JOINT', 550)} className="font-black text-[10px] md:text-xs text-gray-300 uppercase tracking-wide border-b border-gray-700/50 pb-1 flex items-start text-left hover:text-white hover:bg-white/5 transition-colors group">
-                                                <span className="text-[#a0d4b2] mr-1.5 group-hover:scale-125 transition-transform">•</span>
-                                                <span>{name}</span>
-                                                <div className="ml-auto opacity-0 group-hover:opacity-100 text-[#a0d4b2]"><Plus size={12} /></div>
+                                            <button 
+                                                key={i} 
+                                                onClick={() => addToCart({ name: name }, 'JOINT', 550)} 
+                                                className="group relative bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#a0d4b2] p-2 rounded flex items-center justify-between transition-all active:scale-95 active:bg-[#a0d4b2]/20 text-left h-full"
+                                            >
+                                                <div className="flex items-center min-w-0 flex-1 pr-2">
+                                                    <span className="text-[#a0d4b2] mr-2 text-xs shrink-0">●</span>
+                                                    {/* FIX: Removed truncate, added leading-tight to allow wrapping cleanly */}
+                                                    <span className="font-black text-[10px] md:text-xs text-white uppercase tracking-wide leading-tight">{name}</span>
+                                                </div>
+                                                <div className="bg-[#1d1e1e] p-1 rounded text-[#a0d4b2] group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors shrink-0 border border-[#a0d4b2]/20 group-hover:border-transparent">
+                                                    <Plus size={14} />
+                                                </div>
                                             </button>
                                         ))}
                                     </div>
@@ -442,74 +449,78 @@
                         </div>
                     )}
 
-                    {/* CART SUMMARY MODAL */}
+                    {/* CART SUMMARY MODAL (Revised: Square corners) */}
                     {isCartOpen && (
-                        <div className="fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4 backdrop-blur-sm animate-fadeIn" onClick={() => setIsCartOpen(false)}>
-                            <div className="bg-[#1d1e1e] border-2 border-[#a0d4b2] w-full max-w-md rounded-xl relative shadow-2xl flex flex-col max-h-[85vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
-                                <div className="bg-[#a0d4b2] p-4 flex justify-between items-center text-black shrink-0 relative">
-                                    <div>
-                                        <h2 className="font-black text-2xl uppercase tracking-tight leading-none">YOUR ORDER</h2>
-                                        <p className="font-bold text-xs uppercase opacity-75 tracking-widest">Screenshot for Checkout</p>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        {cart.length > 0 && (
-                                            <button onClick={clearCart} className="bg-red-500/20 hover:bg-red-500 hover:text-white p-2 rounded-full transition-colors mr-1" title="Clear Order">
-                                                <Trash2 size={20} className="text-black hover:text-white" />
+                        <div className="fixed inset-0 bg-black/90 z-[60] overflow-y-auto backdrop-blur-sm animate-fadeIn" onClick={() => setIsCartOpen(false)}>
+                            <div className="min-h-full flex items-center justify-center p-4">
+                                {/* Changed rounded-xl to rounded-none (square) */}
+                                <div className="bg-[#1d1e1e] border-2 border-[#a0d4b2] w-full max-w-md relative shadow-2xl flex flex-col my-8" onClick={(e) => e.stopPropagation()}>
+                                    
+                                    <div className="bg-[#a0d4b2] p-4 flex justify-between items-center text-black shrink-0 relative">
+                                        <div>
+                                            <h2 className="font-black text-2xl uppercase tracking-tight leading-none">YOUR ORDER</h2>
+                                            <p className="font-bold text-xs uppercase opacity-75 tracking-widest">Screenshot for Checkout</p>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            {cart.length > 0 && (
+                                                <button onClick={clearCart} className="bg-red-500/20 hover:bg-red-500 hover:text-white p-2 rounded-full transition-colors mr-1" title="Clear Order">
+                                                    <Trash2 size={20} className="text-black hover:text-white" />
+                                                </button>
+                                            )}
+                                            <button onClick={() => setIsCartOpen(false)} className="bg-black/10 hover:bg-black/20 p-2 rounded-full transition-colors">
+                                                <X size={20} className="text-black" />
                                             </button>
-                                        )}
-                                        <button onClick={() => setIsCartOpen(false)} className="bg-black/10 hover:bg-black/20 p-2 rounded-full transition-colors">
-                                            <X size={20} className="text-black" />
-                                        </button>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="p-4 overflow-y-auto flex-1 space-y-4 bg-[#1d1e1e]">
-                                    {cart.length === 0 ? (
-                                        <div className="text-center py-10 text-gray-500 font-bold uppercase tracking-wide">Your cart is empty</div>
-                                    ) : (
-                                        Object.values(groupedCart).map((group, idx) => (
-                                            <div key={idx} className="bg-white/5 border border-white/10 p-3 rounded cart-item-enter relative group flex flex-col gap-2">
-                                                <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                                                    <span className="font-black text-[#a0d4b2] text-lg uppercase tracking-tight">{group.name}</span>
-                                                    <div className="scale-75 origin-right"><StatusBadge tags={group.tags} size="sm" /></div>
-                                                </div>
-                                                <div className="flex flex-col gap-2">
-                                                    {group.items.map((item, i) => (
-                                                        <div key={item.id} className="flex justify-between items-start pl-2 border-l-2 border-[#a0d4b2]/30">
-                                                            <div className="flex flex-col">
-                                                                <div className="flex items-center gap-2">
-                                                                    <span className="font-bold text-black bg-white text-[10px] px-1.5 rounded">{item.size}</span>
-                                                                    <span className="text-xs text-gray-400">× 1</span>
+                                    <div className="p-4 space-y-4 bg-[#1d1e1e]">
+                                        {cart.length === 0 ? (
+                                            <div className="text-center py-10 text-gray-500 font-bold uppercase tracking-wide">Your cart is empty</div>
+                                        ) : (
+                                            Object.values(groupedCart).map((group, idx) => (
+                                                <div key={idx} className="bg-white/5 border border-white/10 p-3 cart-item-enter relative group flex flex-col gap-2">
+                                                    <div className="flex justify-between items-center border-b border-white/10 pb-2">
+                                                        <span className="font-black text-[#a0d4b2] text-lg uppercase tracking-tight">{group.name}</span>
+                                                        <div className="scale-75 origin-right"><StatusBadge tags={group.tags} size="sm" /></div>
+                                                    </div>
+                                                    <div className="flex flex-col gap-2">
+                                                        {group.items.map((item, i) => (
+                                                            <div key={item.id} className="flex justify-between items-start pl-2 border-l-2 border-[#a0d4b2]/30">
+                                                                <div className="flex flex-col">
+                                                                    <div className="flex items-center gap-2">
+                                                                        <span className="font-bold text-black bg-white text-[10px] px-1.5 rounded">{item.size}</span>
+                                                                        <span className="text-xs text-gray-400">× 1</span>
+                                                                    </div>
+                                                                    {item.promo && <div className="text-[#E61633] text-[9px] font-black uppercase mt-0.5 tracking-wide">{item.promo}</div>}
                                                                 </div>
-                                                                {item.promo && <div className="text-[#E61633] text-[9px] font-black uppercase mt-0.5 tracking-wide">{item.promo}</div>}
+                                                                <button onClick={() => removeFromCart(item.id)} className="text-gray-600 hover:text-red-500 p-1 opacity-50 hover:opacity-100 transition-opacity"><Trash2 size={14} /></button>
                                                             </div>
-                                                            <button onClick={() => removeFromCart(item.id)} className="text-gray-600 hover:text-red-500 p-1 opacity-50 hover:opacity-100 transition-opacity"><Trash2 size={14} /></button>
-                                                        </div>
-                                                    ))}
+                                                        ))}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))
-                                    )}
-                                </div>
-
-                                <div className="p-4 border-t border-gray-700 bg-black/20 shrink-0">
-                                    <div className="flex flex-col gap-2 mb-4">
-                                        {totalGrams > 0 && (
-                                            <div className="flex justify-between items-end border-b border-gray-700/50 pb-2">
-                                                <span className="font-bold text-gray-400 text-sm uppercase">Total Flower</span>
-                                                <span className="font-black text-[#a0d4b2] text-3xl">{totalGrams} <span className="text-sm align-top text-gray-500">G</span></span>
-                                            </div>
+                                            ))
                                         )}
-                                        {totalJoints > 0 && (
-                                            <div className="flex justify-between items-end">
-                                                <span className="font-bold text-gray-400 text-sm uppercase">Total Pre-rolls</span>
-                                                <span className="font-black text-[#a0d4b2] text-3xl">{totalJoints} <span className="text-sm align-top text-gray-500">JOINTS</span></span>
-                                            </div>
-                                        )}
-                                        {totalGrams === 0 && totalJoints === 0 && <div className="text-center text-gray-500 text-xs italic py-2">No items selected</div>}
                                     </div>
-                                    <button className="w-full bg-[#a0d4b2] text-black font-black py-4 uppercase rounded text-sm tracking-widest hover:bg-white transition-colors">Ready to Capture</button>
-                                    <p className="text-center text-[9px] text-gray-600 font-bold mt-2 uppercase">Order verification required</p>
+
+                                    <div className="p-4 border-t border-gray-700 bg-black/20 shrink-0">
+                                        <div className="flex flex-col gap-2 mb-4">
+                                            {totalGrams > 0 && (
+                                                <div className="flex justify-between items-end border-b border-gray-700/50 pb-2">
+                                                    <span className="font-bold text-gray-400 text-sm uppercase">Total Flower</span>
+                                                    <span className="font-black text-[#a0d4b2] text-3xl">{totalGrams} <span className="text-sm align-top text-gray-500">G</span></span>
+                                                </div>
+                                            )}
+                                            {totalJoints > 0 && (
+                                                <div className="flex justify-between items-end">
+                                                    <span className="font-bold text-gray-400 text-sm uppercase">Total Pre-rolls</span>
+                                                    <span className="font-black text-[#a0d4b2] text-3xl">{totalJoints} <span className="text-sm align-top text-gray-500">JOINTS</span></span>
+                                                </div>
+                                            )}
+                                            {totalGrams === 0 && totalJoints === 0 && <div className="text-center text-gray-500 text-xs italic py-2">No items selected</div>}
+                                        </div>
+                                        <button className="w-full bg-[#a0d4b2] text-black font-black py-4 uppercase rounded text-sm tracking-widest hover:bg-white transition-colors">Ready to Capture</button>
+                                        <p className="text-center text-[9px] text-gray-600 font-bold mt-2 uppercase">Order verification required</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
