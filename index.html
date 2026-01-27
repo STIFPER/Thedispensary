@@ -1,486 +1,628 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE DISPENSARY - Flower Menu</title>
+import React, { useState, useEffect } from 'react';
+import { X, Menu, Search, ShoppingBag, Info, Trash2, Plus, RefreshCw } from 'lucide-react';
+
+// --- DATA & CONFIG ---
+const terpeneColors = {
+  'myrcene': '#2b398c',
+  'caryophyllene': '#77823d',
+  'humulene': '#fd8b03',
+  'limonene': '#7bc70f',
+  'ocimene': '#009282',
+  'phellandrene': '#fd0106',
+  'pinene': '#08a152',
+  'terpinolene': '#4b5e3d',
+  'terpineol': '#ee5a29',
+  'linalool': '#9094d8',
+  'bisabolol': '#e6c122',
+};
+
+const products = [
+  // SATIVA
+  { cat: 'SATIVA', name: 'LEMON UPZ', tags: ['NEW'], thc: '24-28%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['LIMONENE (LEMON)', 'CARYOPHYLLENE (PEPPER)'] },
+  { cat: 'SATIVA', name: 'PINEAPPLE XPRESS 2.0', tags: ['BEST SELLER'], thc: '32-35%', cbd: '1-2%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MUSK)', 'PINENE (PINE)'] },
+  { cat: 'SATIVA', name: 'MANGO SUNSET HAZE', tags: [], thc: '20-24%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MANGO)', 'LIMONENE (LEMON)'] },
+  { cat: 'SATIVA', name: "SANTA'S COOKIES", tags: ['BUY 1 GET 1'], thc: '22-26%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['LINALOOL (FLORAL)', 'CARYOPHYLLENE (EARTHY)'] },
+  { cat: 'SATIVA', name: 'TROP CHERRY GAS #14', tags: ['BUY 1 GET 1'], thc: '20-22%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MUSK)', 'LIMONENE (CITRUS)'] },
+
+  // INDICA
+  { cat: 'INDICA', name: 'SWEET OCTANE', tags: ['NEW'], thc: '24-28%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'LIMONENE (GAS)'] },
+  { cat: 'INDICA', name: 'CASHEW SUNDAE', tags: [], thc: '19-21%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['BISABOLOL (NUTTY)', 'CARYOPHYLLENE (EARTHY)'] },
+  { cat: 'INDICA', name: 'CRESCENDO', tags: ['BUY 1 GET 1'], thc: '17-19%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['TERPINOLENE (FRUITY)', 'LINALOOL (FLORAL)'] },
+
+  // HYBRID
+  { cat: 'HYBRID', name: 'WINTER MINTS', tags: [], thc: '24-28%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['LIMONENE (CITRUS)', 'LINALOOL (FLORAL)'] },
+  { cat: 'HYBRID', name: 'OREOZ', tags: [], thc: '20-24%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'CARYOPHYLLENE (EARTHY)'] },
+  { cat: 'HYBRID', name: 'PURE MICHIGAN', tags: [], thc: '20-22%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'CARYOPHYLLENE (PEPPER)'] },
+
+  // CBD
+  { cat: 'CBD', name: "CHARLOTTE'S ANGEL", tags: [], thc: 'N/A', cbd: '16%', p1: 400, p35: 1250, terpenes: ['MYRCENE (FRUIT)', 'LIMONENE (LEMON)'] },
+
+  // COMPOUND
+  { cat: 'COMPOUND', name: 'DA FUNK', tags: ['SATIVA'], thc: '21-23%', cbd: '<1%', p1: 700, p35: 2500, terpenes: ['OCIMENE (FRUIT)', 'MYRCENE (MUSK)'] },
+  { cat: 'COMPOUND', name: 'APPLES & BANANAS', tags: ['HYBRID'], thc: '24-26%', cbd: '0.1%', p1: 700, p35: 2500, terpenes: ['LIMONENE (LEMON)', 'CARYOPHYLLENE (SPICES)'] },
+  { cat: 'COMPOUND', name: 'GOOFIEZ', tags: ['INDICA'], thc: '23-25%', cbd: '0%', p1: 700, p35: 2500, terpenes: ['LIMONENE (LEMON)', 'MYRCENE (MANGO)'] },
+];
+
+const preRolls = ['PINEAPPLE XPRESS 2.0', 'BERRY BOOMSTICK', 'MATCHA LOLLIPOP', 'CUBAN DOOBIE', 'VANILLA FRUITTEN PIE', 'MANGO SUNSET HAZE', 'CASHEW SUNDAE'];
+
+// --- SUB-COMPONENTS ---
+
+const TerpeneBadge = ({ name }) => {
+  const key = name.split(' ')[0].toLowerCase().trim();
+  const color = terpeneColors[key] || '#4b5563'; // Default gray-600
+
+  return (
+    <span 
+      className="inline-block text-white font-mont font-bold text-[9px] px-2 py-0.5 rounded-sm mr-1 mb-1 uppercase tracking-wide shadow-sm"
+      style={{ backgroundColor: color }}
+    >
+      {name}
+    </span>
+  );
+};
+
+const BadgeElement = ({ type, size = 'sm' }) => {
+  const styles = {
+    full: { size: '102px', fontNew: '22px', fontBest: '18px', fontBuy: '15px', lh: '1.1' },
+    md: { size: '68px', fontNew: '15px', fontBest: '13px', fontBuy: '10px', lh: '1.1' },
+    sm: { size: '52px', fontNew: '11px', fontBest: '9px', fontBuy: '8px', lh: '1.1' }
+  };
+  
+  const config = styles[size];
+  const boxStyle = {
+    width: config.size,
+    height: config.size,
+    minWidth: config.size,
+    minHeight: config.size
+  };
+
+  let content = null;
+  let bgClass = '';
+
+  if (type === 'NEW') {
+    bgClass = 'bg-[#A4F21E]';
+    content = <span style={{fontSize: config.fontNew}}>NEW</span>;
+  } else if (type === 'BEST SELLER') {
+    bgClass = 'bg-[#FFC107]';
+    content = (
+      <>
+        <span style={{fontSize: config.fontBest, lineHeight: config.lh}}>BEST</span>
+        <span style={{fontSize: config.fontBest, lineHeight: config.lh}}>SELLER</span>
+      </>
+    );
+  } else if (type === 'BUY 1' || type.includes('BUY 1')) {
+    bgClass = 'bg-[#E61633]';
+    content = (
+      <>
+        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>BUY 1</span>
+        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>GET 1</span>
+        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>FREE</span>
+      </>
+    );
+  } else if (type === 'BUY 2') {
+    bgClass = 'bg-[#FF2E7E]';
+    content = (
+      <>
+        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>BUY 2</span>
+        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>GET 1</span>
+        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>FREE</span>
+      </>
+    );
+  }
+
+  if (!content) return null;
+
+  return (
+    <div className={`badge ${bgClass}`} style={boxStyle}>
+      {content}
+    </div>
+  );
+};
+
+const StatusBadge = ({ tags, size = 'sm' }) => {
+  const containerClass = "flex items-center justify-center mr-2 shrink-0";
+  
+  if (!tags || tags.length === 0) {
+    const placeholderSize = size === 'sm' ? '52px' : size === 'md' ? '68px' : '102px';
+    return <div style={{width: placeholderSize}} className="mr-2"></div>;
+  }
+
+  const tag = tags[0];
+  let type = '';
+  if (tag === 'NEW') type = 'NEW';
+  else if (tag === 'BEST SELLER') type = 'BEST SELLER';
+  else if (tag.includes('BUY 1')) type = 'BUY 1';
+  
+  if (type) {
+    return (
+      <div className={containerClass}>
+        <BadgeElement type={type} size={size} />
+      </div>
+    );
+  }
+
+  const placeholderSize = size === 'sm' ? '52px' : size === 'md' ? '68px' : '102px';
+  return <div style={{width: placeholderSize}} className="mr-2"></div>;
+};
+
+const ProductCard = ({ product, onClick }) => (
+  <div onClick={() => onClick(product)} className="group cursor-pointer py-3 px-2 hover:bg-white/5 transition-all duration-200 flex items-center justify-between border-b border-gray-700/50 last:border-0">
+    <div className="flex items-center flex-1 pr-2">
+      <StatusBadge tags={product.tags} size="sm" />
+      <div className="flex flex-col justify-center">
+        <h3 className="font-inter font-black text-white text-base md:text-lg uppercase leading-tight group-hover:text-[#a0d4b2] transition-colors mb-1">
+          {product.name}
+        </h3>
+        <div className="flex items-center gap-3 mb-1.5">
+          <span className="font-inter font-black text-white text-xs opacity-90">THC {product.thc}</span>
+          <span className="font-inter font-black text-white text-xs opacity-90">CBD {product.cbd}</span>
+        </div>
+        <div className="flex flex-wrap gap-1">
+          {product.terpenes.map((t, i) => <TerpeneBadge key={i} name={t} />)}
+        </div>
+      </div>
+    </div>
+    <div className="text-right whitespace-nowrap pl-1 self-start pt-3">
+      <div className="font-inter font-black text-lg md:text-xl text-[#a0d4b2] tracking-tight">
+        {product.p1} <span className="text-gray-500 text-sm align-middle mx-1 font-bold">|</span> {product.p35}
+      </div>
+    </div>
+  </div>
+);
+
+const BoxHeader = ({ title, bgColor }) => (
+  <div className="flex justify-between items-center px-4 py-2 border-b border-white/10" style={{ backgroundColor: bgColor }}>
+    <h2 className="font-inter font-black text-xl md:text-2xl text-white uppercase tracking-tight">{title}</h2>
+    <span className="font-inter font-black text-white text-xs md:text-sm opacity-90">1G | 3.5G</span>
+  </div>
+);
+
+// --- MAIN COMPONENT ---
+
+export default function App() {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [lastAddedId, setLastAddedId] = useState(null); // For animation
+
+  // Logic: Add Item to Cart
+  const addToCart = (product, size, price, e) => {
+    if(e) e.stopPropagation();
+
+    // 1. Detect Promotion
+    let promoText = '';
+    let tags = product.tags || [];
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    // Check Pre-rolls
+    if (size === 'JOINT') {
+      promoText = '(BUY 2 GET 1 FREE)';
+    } 
+    // Check Flower Tags
+    else if (tags.length > 0) {
+      const tag = tags[0];
+      if (tag.includes('BUY 1')) promoText = '(BUY 1 GET 1)';
+      else if (tag.includes('BUY 2')) promoText = '(BUY 2 GET 1 FREE)';
+    }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        inter: ['Inter', 'sans-serif'],        
-                        mont: ['Montserrat', 'sans-serif'],    
-                    },
-                    colors: {
-                        bg: '#1d1e1e',          
-                        primary: '#a0d4b2',      
-                        
-                        // Terpenes Colors
-                        't-myrcene': '#2b398c',
-                        't-caryophyllene': '#77823d',
-                        't-humulene': '#fd8b03',
-                        't-limonene': '#7bc70f',
-                        't-ocimene': '#009282',
-                        't-phellandrene': '#fd0106',
-                        't-pinene': '#08a152',
-                        't-terpinolene': '#4b5e3d',
-                        't-terpineol': '#ee5a29',
-                        't-linalool': '#9094d8',
-                        't-bisabolol': '#e6c122',
-                    }
-                }
-            }
-        }
-    </script>
+    const newItem = {
+      id: Date.now(),
+      name: product.name,
+      size: size,
+      price: price,
+      promo: promoText,
+      tags: tags
+    };
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+    setCart([...cart, newItem]);
+    setLastAddedId(newItem.id);
+  };
 
-        body { background-color: #1d1e1e; color: white; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #1d1e1e; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  const removeFromCart = (id) => {
+    setCart(cart.filter(item => item.id !== id));
+  };
+  
+  // NEW: Clear All Logic
+  const clearCart = () => {
+    if(window.confirm('Clear all items from your order?')) {
+        setCart([]);
+    }
+  };
 
-        /* --- BADGE STYLES (LOCKED) --- */
-        .badge {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            
-            /* Strict Locking */
-            flex-shrink: 0;
-            flex-grow: 0;
-            box-sizing: border-box;
-            
-            /* Starburst Shape */
-            clip-path: polygon(
-                50% 0%, 61% 10%, 75% 6%, 79% 20%, 93% 25%, 90% 39%, 
-                100% 50%, 90% 61%, 93% 75%, 79% 80%, 75% 94%, 61% 90%, 
-                50% 100%, 39% 90%, 25% 94%, 21% 80%, 7% 75%, 10% 61%, 
-                0% 50%, 10% 39%, 7% 25%, 21% 20%, 25% 6%, 39% 10%
-            );
-            
-            transition: transform 0.2s;
-        }
+  // Logic: Calculate Totals (Quantity & Volume, NOT Price)
+  const totalGrams = cart.reduce((sum, item) => {
+    if (item.size === '1G') return sum + 1;
+    if (item.size === '3.5G') return sum + 3.5;
+    return sum;
+  }, 0);
 
-        .badge:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
+  const totalJoints = cart.reduce((sum, item) => {
+    if (item.size === 'JOINT') return sum + 1;
+    return sum;
+  }, 0);
 
-        .badge span {
-            display: block;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
-            width: 100%;
-            text-align: center;
-        }
+  // Logic: Group Cart Items by Name
+  const groupedCart = cart.reduce((acc, item) => {
+    if (!acc[item.name]) {
+      acc[item.name] = {
+        name: item.name,
+        tags: item.tags,
+        items: []
+      };
+    }
+    acc[item.name].items.push(item);
+    return acc;
+  }, {});
 
-        /* Bright Colors */
-        .badge-new    { background-color: #A4F21E; }
-        .badge-buy1   { background-color: #E61633; }
-        .badge-buy2   { background-color: #FF2E7E; }
-        .badge-best   { background-color: #FFC107; }
+  const sativa = products.filter(p => p.cat === 'SATIVA');
+  const indica = products.filter(p => p.cat === 'INDICA');
+  const hybrid = products.filter(p => p.cat === 'HYBRID');
+  const cbd = products.filter(p => p.cat === 'CBD');
+  const compound = products.filter(p => p.cat === 'COMPOUND');
 
-    </style>
-</head>
-<body class="antialiased selection:bg-[#a0d4b2] selection:text-black">
-    <div id="root"></div>
-
-    <script type="text/babel">
-        const { useState } = React;
-
-        // --- DATA ---
-        const products = [
-            // SATIVA
-            { cat: 'SATIVA', name: 'LEMON UPZ', tags: ['NEW'], thc: '24-28%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['LIMONENE (LEMON)', 'CARYOPHYLLENE (PEPPER)'] },
-            { cat: 'SATIVA', name: 'PINEAPPLE XPRESS 2.0', tags: ['BEST SELLER'], thc: '32-35%', cbd: '1-2%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MUSK)', 'PINENE (PINE)'] },
-            { cat: 'SATIVA', name: 'MANGO SUNSET HAZE', tags: [], thc: '20-24%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MANGO)', 'LIMONENE (LEMON)'] },
-            { cat: 'SATIVA', name: "SANTA'S COOKIES", tags: ['BUY 1 GET 1'], thc: '22-26%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['LINALOOL (FLORAL)', 'CARYOPHYLLENE (EARTHY)'] },
-            { cat: 'SATIVA', name: 'TROP CHERRY GAS #14', tags: ['BUY 1 GET 1'], thc: '20-22%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MUSK)', 'LIMONENE (CITRUS)'] },
-
-            // INDICA
-            { cat: 'INDICA', name: 'SWEET OCTANE', tags: ['NEW'], thc: '24-28%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'LIMONENE (GAS)'] },
-            { cat: 'INDICA', name: 'CASHEW SUNDAE', tags: [], thc: '19-21%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['BISABOLOL (NUTTY)', 'CARYOPHYLLENE (EARTHY)'] },
-            { cat: 'INDICA', name: 'CRESCENDO', tags: ['BUY 1 GET 1'], thc: '17-19%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['TERPINOLENE (FRUITY)', 'LINALOOL (FLORAL)'] },
-
-            // HYBRID
-            { cat: 'HYBRID', name: 'WINTER MINTS', tags: [], thc: '24-28%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['LIMONENE (CITRUS)', 'LINALOOL (FLORAL)'] },
-            { cat: 'HYBRID', name: 'OREOZ', tags: [], thc: '20-24%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'CARYOPHYLLENE (EARTHY)'] },
-            { cat: 'HYBRID', name: 'PURE MICHIGAN', tags: [], thc: '20-22%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'CARYOPHYLLENE (PEPPER)'] },
-
-            // CBD
-            { cat: 'CBD', name: "CHARLOTTE'S ANGEL", tags: [], thc: 'N/A', cbd: '16%', p1: 400, p35: 1250, terpenes: ['MYRCENE (FRUIT)', 'LIMONENE (LEMON)'] },
-
-            // COMPOUND
-            { cat: 'COMPOUND', name: 'DA FUNK', tags: ['SATIVA'], thc: '21-23%', cbd: '<1%', p1: 700, p35: 2500, terpenes: ['OCIMENE (FRUIT)', 'MYRCENE (MUSK)'] },
-            { cat: 'COMPOUND', name: 'APPLES & BANANAS', tags: ['HYBRID'], thc: '24-26%', cbd: '0.1%', p1: 700, p35: 2500, terpenes: ['LIMONENE (LEMON)', 'CARYOPHYLLENE (SPICES)'] },
-            { cat: 'COMPOUND', name: 'GOOFIEZ', tags: ['INDICA'], thc: '23-25%', cbd: '0%', p1: 700, p35: 2500, terpenes: ['LIMONENE (LEMON)', 'MYRCENE (MANGO)'] },
-        ];
-
-        const preRolls = ['PINEAPPLE XPRESS 2.0', 'BERRY BOOMSTICK', 'MATCHA LOLLIPOP', 'CUBAN DOOBIE', 'VANILLA FRUITTEN PIE', 'MANGO SUNSET HAZE', 'CASHEW SUNDAE'];
-
-        // --- COMPONENTS ---
-
-        const TerpeneBadge = ({ name }) => {
-            const key = name.split(' ')[0].toLowerCase().trim();
-            const colorMap = {
-                'myrcene': 'bg-t-myrcene',
-                'caryophyllene': 'bg-t-caryophyllene',
-                'humulene': 'bg-t-humulene',
-                'limonene': 'bg-t-limonene',
-                'ocimene': 'bg-t-ocimene',
-                'phellandrene': 'bg-t-phellandrene',
-                'pinene': 'bg-t-pinene',
-                'terpinolene': 'bg-t-terpinolene',
-                'terpineol': 'bg-t-terpineol',
-                'linalool': 'bg-t-linalool',
-                'bisabolol': 'bg-t-bisabolol',
-            };
-            const bgClass = colorMap[key] || 'bg-gray-600';
-
-            return (
-                <span className={`inline-block ${bgClass} text-white font-mont font-bold text-[9px] px-2 py-0.5 rounded-sm mr-1 mb-1 uppercase tracking-wide`}>
-                    {name}
-                </span>
-            );
-        };
-
-        // --- BADGE COMPONENTS ---
-        
-        const BadgeElement = ({ type, size = 'sm' }) => {
-            const styles = {
-                full: {
-                    size: '102px',
-                    fontNew: '22px', 
-                    fontBest: '18px', 
-                    fontBuy: '15px', 
-                    lh: '1.1'
-                },
-                md: {
-                    size: '68px',
-                    fontNew: '15px', 
-                    fontBest: '13px', 
-                    fontBuy: '10px', 
-                    lh: '1.1'
-                },
-                sm: {
-                    size: '52px',
-                    fontNew: '11px', 
-                    fontBest: '9px', 
-                    fontBuy: '8px', 
-                    lh: '1.1'
-                }
-            };
-            
-            const config = styles[size];
-            
-            const boxStyle = {
-                width: config.size,
-                height: config.size,
-                minWidth: config.size,
-                minHeight: config.size
-            };
-
-            if (type === 'NEW') {
-                return (
-                    <div className="badge badge-new" style={boxStyle}>
-                        <span style={{fontSize: config.fontNew}}>NEW</span>
-                    </div>
-                );
-            } else if (type === 'BEST SELLER') {
-                return (
-                    <div className="badge badge-best" style={boxStyle}>
-                        <span style={{fontSize: config.fontBest, lineHeight: config.lh}}>BEST</span>
-                        <span style={{fontSize: config.fontBest, lineHeight: config.lh}}>SELLER</span>
-                    </div>
-                );
-            } else if (type === 'BUY 1') {
-                return (
-                    <div className="badge badge-buy1" style={boxStyle}>
-                        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>BUY 1</span>
-                        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>GET 1</span>
-                        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>FREE</span>
-                    </div>
-                );
-            } else if (type === 'BUY 2') {
-                return (
-                    <div className="badge badge-buy2" style={boxStyle}>
-                        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>BUY 2</span>
-                        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>GET 1</span>
-                        <span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>FREE</span>
-                    </div>
-                );
-            }
-            return null;
-        };
-
-        const StatusBadge = ({ tags, size = 'sm' }) => {
-            const containerClass = "flex items-center justify-center mr-2 shrink-0";
-            
-            if (!tags || tags.length === 0) {
-                // Placeholder with same size to keep alignment
-                const placeholderSize = size === 'sm' ? '52px' : size === 'md' ? '68px' : '102px';
-                return <div style={{width: placeholderSize}} className="mr-2"></div>;
-            }
-
-            const tag = tags[0];
-            let type = '';
-
-            if (tag === 'NEW') type = 'NEW';
-            else if (tag === 'BEST SELLER') type = 'BEST SELLER';
-            else if (tag.includes('BUY 1')) type = 'BUY 1';
-            
-            if (type) {
-                return (
-                    <div className={containerClass}>
-                        <BadgeElement type={type} size={size} />
-                    </div>
-                );
-            }
-
-            const placeholderSize = size === 'sm' ? '52px' : size === 'md' ? '68px' : '102px';
-            return <div style={{width: placeholderSize}} className="mr-2"></div>;
-        };
-
-        const ProductCard = ({ product, onClick }) => (
-            <div onClick={() => onClick(product)} className="group cursor-pointer py-3 px-2 hover:bg-white/5 transition-all duration-200 flex items-center justify-between border-b border-gray-700/50 last:border-0">
-                <div className="flex items-center flex-1 pr-2">
-                    <StatusBadge tags={product.tags} size="sm" />
-                    <div className="flex flex-col justify-center">
-                        <h3 className="font-inter font-black text-white text-base md:text-lg uppercase leading-tight group-hover:text-primary transition-colors mb-1">
-                            {product.name}
-                        </h3>
-                        <div className="flex items-center gap-3 mb-1.5">
-                            <span className="font-inter font-black text-white text-xs">THC {product.thc}</span>
-                            <span className="font-inter font-black text-white text-xs">CBD {product.cbd}</span>
-                        </div>
-                        <div className="flex flex-wrap gap-1">
-                            {product.terpenes.map((t, i) => <TerpeneBadge key={i} name={t} />)}
-                        </div>
-                    </div>
-                </div>
-                <div className="text-right whitespace-nowrap pl-1 self-start pt-3">
-                    <div className="font-inter font-black text-lg md:text-xl text-primary tracking-tight">
-                        {product.p1} <span className="text-gray-500 text-sm align-middle mx-1 font-bold">|</span> {product.p35}
-                    </div>
-                </div>
-            </div>
+  // Inject Styles
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@600;700&display=swap');
+      
+      .font-inter { font-family: 'Inter', sans-serif; }
+      .font-mont { font-family: 'Montserrat', sans-serif; }
+      
+      .badge {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        font-family: 'Inter', sans-serif;
+        font-weight: 900;
+        flex-shrink: 0;
+        flex-grow: 0;
+        box-sizing: border-box;
+        clip-path: polygon(
+            50% 0%, 61% 10%, 75% 6%, 79% 20%, 93% 25%, 90% 39%, 
+            100% 50%, 90% 61%, 93% 75%, 79% 80%, 75% 94%, 61% 90%, 
+            50% 100%, 39% 90%, 25% 94%, 21% 80%, 7% 75%, 10% 61%, 
+            0% 50%, 10% 39%, 7% 25%, 21% 20%, 25% 6%, 39% 10%
         );
+        transition: transform 0.2s;
+      }
+      .badge:hover {
+        transform: scale(1.1) rotate(5deg);
+      }
+      
+      .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+      
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        const BoxHeader = ({ title, bgColor }) => (
-            <div className="flex justify-between items-center px-4 py-2 border-b border-white/10" style={{ backgroundColor: bgColor }}>
-                <h2 className="font-inter font-black text-2xl text-white uppercase tracking-tight">{title}</h2>
-                <span className="font-inter font-black text-white text-sm">1G | 3.5G</span>
+      .cart-item-enter { animation: slideIn 0.3s ease-out; }
+      @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
+  return (
+    <div className="min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white selection:bg-[#a0d4b2] selection:text-black font-inter">
+      
+      {/* Sticky Nav */}
+      <nav className="sticky top-0 z-40 bg-[#1d1e1e]/95 backdrop-blur-md border-b border-gray-700 py-3 shadow-lg">
+        <div className="max-w-[1400px] mx-auto px-4 flex justify-between items-center">
+          <div className="overflow-x-auto no-scrollbar flex-1 mr-4">
+            <div className="flex space-x-8 whitespace-nowrap font-bold text-sm text-gray-400 uppercase tracking-wide">
+              <button className="text-[#a0d4b2] border-b-2 border-[#a0d4b2] pb-1 hover:text-white transition-colors">MENU FLOWER</button>
+              <button className="hover:text-white transition-colors">STRAIN OF THE MONTH</button>
+              <button className="hover:text-white transition-colors">GREEN FRIDAY</button>
             </div>
-        );
+          </div>
+          
+          {/* Cart Trigger */}
+          <button 
+            onClick={() => setIsCartOpen(true)}
+            className="relative p-2 text-white hover:text-[#a0d4b2] transition-colors"
+          >
+            <ShoppingBag size={24} />
+            {cart.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-[#1d1e1e]">
+                {cart.length}
+              </span>
+            )}
+          </button>
+        </div>
+      </nav>
 
-        const App = () => {
-            const [selectedProduct, setSelectedProduct] = useState(null);
+      {/* Header */}
+      <header className="max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 text-center flex flex-col items-center">
+        <h2 className="font-black text-2xl text-white uppercase tracking-wider opacity-80 mb-2">THE DISPENSARY</h2>
+        <h1 className="font-black text-[40px] md:text-5xl text-[#a0d4b2] uppercase leading-none tracking-tight mb-2">FLOWER MENU</h1>
+        <p className="font-black text-lg text-white uppercase tracking-[0.2em] mb-8">JANUARY 2026</p>
+        
+        <div className="border-t border-b border-gray-600 py-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-xs font-inter uppercase tracking-wide text-gray-400 w-full max-w-4xl">
+          <div><strong className="block text-white mb-1 text-sm font-black">TRUSTED QUALITY</strong>HAND-TRIMMED, LAB-TESTED</div>
+          <div className="md:border-x border-gray-600"><strong className="block text-white mb-1 text-sm font-black">GACP CERTIFIED</strong>MEDICAL STANDARDS COMPLIANT</div>
+          <div><strong className="block text-white mb-1 text-sm font-black">PRESCRIPTION AVAILABLE</strong>DOCTOR'S PRESCRIPTIONS IN-STORE</div>
+        </div>
+      </header>
 
-            // Filter Products
-            const sativa = products.filter(p => p.cat === 'SATIVA');
-            const indica = products.filter(p => p.cat === 'INDICA');
-            const hybrid = products.filter(p => p.cat === 'HYBRID');
-            const cbd = products.filter(p => p.cat === 'CBD');
-            const compound = products.filter(p => p.cat === 'COMPOUND');
+      {/* CONTENT GRID */}
+      <main className="flex flex-col md:flex-row gap-6 max-w-[1400px] mx-auto w-full px-4">
+        
+        {/* LEFT COLUMN */}
+        <div className="contents md:flex md:flex-col md:w-1/2 md:gap-6">
+          {/* 1. SATIVA */}
+          <div className="order-1 border border-white/20 rounded-sm overflow-hidden flex flex-col bg-white/[0.01]">
+            <BoxHeader title="SATIVA" bgColor="#9e9e5e" />
+            <div className="p-2 space-y-1">
+              {sativa.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+            </div>
+          </div>
+          
+          {/* 2. CBD */}
+          <div className="order-4 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
+            <BoxHeader title="CBD" bgColor="#9e5e97" />
+            <div className="p-2">
+              {cbd.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+            </div>
+          </div>
+          
+          {/* 3. PRE-ROLLS (Interactive now) */}
+          <div className="order-6 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col flex-1">
+            <div className="flex justify-between items-center px-4 py-3 border-b border-white/20 bg-[#1d1e1e]">
+              <h2 className="font-black text-2xl md:text-3xl text-[#a0d4b2] uppercase">PRE-ROLLS</h2>
+              <div className="font-black text-xl md:text-2xl text-white">550/JOINT</div>
+            </div>
+            
+            <div className="p-4 flex flex-col flex-1">
+              <div className="flex justify-end mb-2">
+                 <BadgeElement type="BUY 2" size="md" />
+              </div>
+              <div className="grid grid-cols-2 gap-x-2 gap-y-3 content-center flex-1">
+                {preRolls.map((name, i) => (
+                  // LOGIC 2: Pre-rolls act as buttons now
+                  <button 
+                    key={i} 
+                    onClick={() => addToCart({ name: name }, 'JOINT', 550)}
+                    className="font-black text-[10px] md:text-xs text-gray-300 uppercase tracking-wide border-b border-gray-700/50 pb-1 flex items-start text-left hover:text-white hover:bg-white/5 transition-colors group"
+                  >
+                    <span className="text-[#a0d4b2] mr-1.5 group-hover:scale-125 transition-transform">•</span>
+                    <span>{name}</span>
+                    <Plus size={12} className="ml-auto opacity-0 group-hover:opacity-100 text-[#a0d4b2]" />
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="px-4 pb-2 text-center text-[10px] text-gray-500 font-bold uppercase">(CLICK STRAIN TO ADD • ROLLING SERVICE AVAILABLE)</div>
+          </div>
+        </div>
 
-            return (
-                <div className="min-h-screen flex flex-col pb-10">
+        {/* RIGHT COLUMN */}
+        <div className="contents md:flex md:flex-col md:w-1/2 md:gap-6">
+          {/* 4. INDICA */}
+          <div className="order-2 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
+            <BoxHeader title="INDICA" bgColor="#158cab" />
+            <div className="p-2 space-y-1">
+              {indica.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+            </div>
+          </div>
+
+          {/* 5. HYBRID */}
+          <div className="order-3 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
+            <BoxHeader title="HYBRID" bgColor="#797a72" />
+            <div className="p-2 space-y-1">
+              {hybrid.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+            </div>
+          </div>
+
+          {/* 6. COMPOUND */}
+          <div className="order-5 border border-blue-900/60 rounded-sm overflow-hidden bg-[#0a101f] relative flex flex-col">
+            <div className="absolute inset-0 opacity-10 pointer-events-none" style={{backgroundImage: 'radial-gradient(circle, #333 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+            <div className="flex justify-between items-center px-4 py-3 border-b border-blue-900/40 relative z-10 bg-[#0a101f]/80 backdrop-blur-sm">
+              <h2 className="font-black text-xl md:text-2xl text-white uppercase tracking-tight">COMPOUND GENETICS</h2>
+              <span className="font-black text-white text-xs md:text-sm opacity-80">1G | 3.5G</span>
+            </div>
+            <div className="p-2 space-y-1 relative z-10 flex-1">
+              {compound.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      {/* PRODUCT DETAIL MODAL (With Add to Cart Actions) */}
+      {selectedProduct && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fadeIn" onClick={() => setSelectedProduct(null)}>
+          <div className="bg-[#1d1e1e] border border-gray-700 w-full max-w-lg rounded-xl relative shadow-2xl overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
+            
+            {/* Header */}
+            <div className="relative bg-gradient-to-r from-gray-900 to-[#1d1e1e] p-6 border-b border-gray-800">
+              <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10 p-1 bg-black/20 rounded-full">
+                <X size={20} />
+              </button>
+
+              <div className="flex justify-between items-start gap-4">
+                <div className="flex-1">
+                  <p className="font-bold text-gray-500 text-xs uppercase tracking-[0.2em] mb-2">
+                    {selectedProduct.cat === 'COMPOUND' ? 'COMPOUND GENETICS' : selectedProduct.cat}
+                  </p>
+                  <h2 className="font-black text-3xl md:text-4xl text-[#a0d4b2] uppercase leading-none mb-3 tracking-tight">{selectedProduct.name}</h2>
+                  <div className="flex items-center gap-3">
+                    <span className="bg-[#a0d4b2]/10 text-[#a0d4b2] px-2 py-1 rounded text-xs font-bold border border-[#a0d4b2]/20">THC {selectedProduct.thc}</span>
+                    {selectedProduct.cbd !== '0%' && <span className="bg-gray-700/50 text-gray-300 px-2 py-1 rounded text-xs font-bold border border-gray-600">CBD {selectedProduct.cbd}</span>}
+                  </div>
+                </div>
+                <div className="pt-1">
+                   <StatusBadge tags={selectedProduct.tags} size="md" /> 
+                </div>
+              </div>
+            </div>
+
+            {/* Content & Actions */}
+            <div className="p-6 space-y-6 bg-[#1d1e1e]">
+              
+              {/* Price Grid (Action Buttons) */}
+              <div className="grid grid-cols-2 gap-4">
+                <button 
+                  onClick={(e) => addToCart(selectedProduct, '1G', selectedProduct.p1, e)}
+                  className="bg-white/5 p-4 rounded-lg border border-white/10 text-center hover:bg-white/10 hover:border-[#a0d4b2]/50 transition-all active:scale-95 group relative overflow-hidden"
+                >
+                  <span className="block font-bold text-gray-500 text-xs uppercase mb-1">1 Gram</span>
+                  <span className="block font-black text-white text-2xl group-hover:text-[#a0d4b2] transition-colors">{selectedProduct.p1}</span>
+                  <div className="absolute inset-0 bg-[#a0d4b2]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="font-bold text-[#a0d4b2] text-xs tracking-widest bg-black/80 px-2 py-1 rounded">+ ADD</span>
+                  </div>
+                </button>
+                <button 
+                   onClick={(e) => addToCart(selectedProduct, '3.5G', selectedProduct.p35, e)}
+                   className="bg-white/5 p-4 rounded-lg border border-white/10 text-center hover:bg-white/10 hover:border-[#a0d4b2]/50 transition-all active:scale-95 group relative overflow-hidden"
+                >
+                  <span className="block font-bold text-gray-500 text-xs uppercase mb-1">3.5 Grams</span>
+                  <span className="block font-black text-[#a0d4b2] text-2xl group-hover:text-white transition-colors">{selectedProduct.p35}</span>
+                   <div className="absolute inset-0 bg-[#a0d4b2]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="font-bold text-[#a0d4b2] text-xs tracking-widest bg-black/80 px-2 py-1 rounded">+ ADD</span>
+                  </div>
+                </button>
+              </div>
+
+              {/* Terpenes */}
+              <div>
+                <h3 className="font-bold text-gray-400 text-xs uppercase mb-3 flex items-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#a0d4b2] mr-2"></span>
+                  Terpene Profile
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProduct.terpenes.map((t, i) => (
+                    <span key={i} className="bg-gray-800 border border-gray-700 text-gray-300 font-mont font-bold text-[10px] md:text-xs px-3 py-1.5 rounded-md uppercase shadow-sm flex items-center">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+               <button onClick={() => setSelectedProduct(null)} className="w-full bg-white hover:bg-[#a0d4b2] text-black hover:text-black font-black py-3.5 uppercase rounded-lg transition-all duration-300 tracking-wide text-sm shadow-lg hover:shadow-[#a0d4b2]/20">
+                  Back to Menu
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CART SUMMARY MODAL (Logic Fixed: Overflow, Corners, Clear Button) */}
+      {isCartOpen && (
+        <div className="fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4 backdrop-blur-sm animate-fadeIn" onClick={() => setIsCartOpen(false)}>
+          {/* FIX 1 & 2: 
+            - Added 'overflow-hidden' to fix corner glitch 
+            - Changed height to 'max-h-[85vh]' and removed fixed 'h-[85vh]' to let it shrink/grow naturally
+          */}
+          <div className="bg-[#1d1e1e] border-2 border-[#a0d4b2] w-full max-w-md rounded-xl relative shadow-2xl flex flex-col max-h-[85vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            
+            {/* Cart Header */}
+            <div className="bg-[#a0d4b2] p-4 flex justify-between items-center text-black shrink-0 relative">
+              <div>
+                <h2 className="font-black text-2xl uppercase tracking-tight leading-none">YOUR ORDER</h2>
+                <p className="font-bold text-xs uppercase opacity-75 tracking-widest">Screenshot for Checkout</p>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                 {/* NEW: Clear All Button */}
+                 {cart.length > 0 && (
+                   <button onClick={clearCart} className="bg-red-500/20 hover:bg-red-500 hover:text-white p-2 rounded-full transition-colors mr-1" title="Clear Order">
+                     <Trash2 size={20} className="text-black hover:text-white" />
+                   </button>
+                 )}
+
+                 <button onClick={() => setIsCartOpen(false)} className="bg-black/10 hover:bg-black/20 p-2 rounded-full transition-colors">
+                   <X size={20} className="text-black" />
+                 </button>
+              </div>
+            </div>
+
+            {/* Cart List (Grouped) */}
+            <div className="p-4 overflow-y-auto flex-1 space-y-4 bg-[#1d1e1e]">
+              {cart.length === 0 ? (
+                <div className="text-center py-10 text-gray-500 font-bold uppercase tracking-wide">
+                  Your cart is empty
+                </div>
+              ) : (
+                Object.values(groupedCart).map((group, idx) => (
+                  <div key={idx} className="bg-white/5 border border-white/10 p-3 rounded cart-item-enter relative group flex flex-col gap-2">
                     
-                    {/* Sticky Nav */}
-                    <nav className="sticky top-0 z-40 bg-[#1d1e1e]/95 backdrop-blur border-b border-gray-700 py-3">
-                        <div className="max-w-[1400px] mx-auto px-4 overflow-x-auto no-scrollbar">
-                            <div className="flex space-x-8 whitespace-nowrap font-inter font-bold text-sm text-gray-400 uppercase tracking-wide">
-                                <button className="text-primary border-b-2 border-primary pb-1">MENU FLOWER</button>
-                                <button className="hover:text-white transition-colors">STRAIN OF THE MONTH</button>
-                                <button className="hover:text-white transition-colors">GREEN FRIDAY</button>
-                                <button className="hover:text-white transition-colors text-primary">CONTACT</button>
-                            </div>
+                    {/* 1. Header Row: Name & Status Badge */}
+                    <div className="flex justify-between items-center border-b border-white/10 pb-2">
+                       <span className="font-black text-[#a0d4b2] text-lg uppercase tracking-tight">{group.name}</span>
+                       <div className="scale-75 origin-right">
+                         <StatusBadge tags={group.tags} size="sm" />
+                       </div>
+                    </div>
+
+                    {/* 2. Detail Rows */}
+                    <div className="flex flex-col gap-2">
+                      {group.items.map((item, i) => (
+                        <div key={item.id} className="flex justify-between items-start pl-2 border-l-2 border-[#a0d4b2]/30">
+                          <div className="flex flex-col">
+                             <div className="flex items-center gap-2">
+                               <span className="font-bold text-black bg-white text-[10px] px-1.5 rounded">{item.size}</span>
+                               <span className="text-xs text-gray-400">× 1</span>
+                             </div>
+                             {item.promo && (
+                                <div className="text-[#E61633] text-[9px] font-black uppercase mt-0.5 tracking-wide">
+                                  {item.promo}
+                                </div>
+                             )}
+                          </div>
+                          
+                          <button 
+                            onClick={() => removeFromCart(item.id)}
+                            className="text-gray-600 hover:text-red-500 p-1 opacity-50 hover:opacity-100 transition-opacity"
+                          >
+                            <Trash2 size={14} />
+                          </button>
                         </div>
-                    </nav>
+                      ))}
+                    </div>
 
-                    {/* Header */}
-                    <header className="max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 text-center flex flex-col items-center">
-                        <h2 className="font-inter font-black text-2xl text-white uppercase tracking-wider opacity-80 mb-2">THE DISPENSARY</h2>
-                        <h1 className="font-inter font-black text-[40px] text-primary uppercase leading-none tracking-tight mb-2">FLOWER MENU</h1>
-                        <p className="font-inter font-black text-lg text-white uppercase tracking-[0.2em] mb-6">JANUARY 2026</p>
-                        
-                        <div className="border-t border-b border-gray-600 py-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-xs font-inter uppercase tracking-wide text-gray-400 w-full">
-                            <div><strong className="block text-white mb-1 text-sm font-black">TRUSTED QUALITY</strong>HAND-TRIMMED, LAB-TESTED</div>
-                            <div className="md:border-x border-gray-600"><strong className="block text-white mb-1 text-sm font-black">GACP CERTIFIED</strong>MEDICAL STANDARDS COMPLIANT</div>
-                            <div><strong className="block text-white mb-1 text-sm font-black">PRESCRIPTION AVAILABLE</strong>DOCTOR'S PRESCRIPTIONS IN-STORE</div>
-                        </div>
-                    </header>
+                  </div>
+                ))
+              )}
+            </div>
 
-                    {/* CONTENT GRID */}
-                    <main className="flex flex-col md:flex-row gap-6 max-w-[1400px] mx-auto w-full px-4">
-                        
-                        {/* LEFT COLUMN - Modified for Mobile Order */}
-                        <div className="contents md:flex md:flex-col md:w-1/2 md:gap-6">
-                            {/* 1. SATIVA (Order 1 on Mobile) */}
-                            <div className="order-1 border border-white/20 rounded-sm overflow-hidden flex flex-col bg-white/[0.01]">
-                                <BoxHeader title="SATIVA" bgColor="#9e9e5e" />
-                                <div className="p-2 space-y-1">
-                                    {sativa.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
-                                </div>
-                            </div>
-                            {/* 2. CBD (Order 4 on Mobile) */}
-                            <div className="order-4 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
-                                <BoxHeader title="CBD" bgColor="#9e5e97" />
-                                <div className="p-2">
-                                    {cbd.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
-                                </div>
-                            </div>
-                            
-                            {/* 3. PRE-ROLLS (Order 6 on Mobile) */}
-                            <div className="order-6 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col flex-1">
-                                {/* Header Row */}
-                                <div className="flex justify-between items-center px-4 py-3 border-b border-white/20">
-                                    <h2 className="font-inter font-black text-3xl text-primary uppercase">PRE-ROLLS</h2>
-                                    <div className="font-inter font-black text-2xl text-white">550/JOINT</div>
-                                </div>
-                                
-                                {/* Content Body */}
-                                <div className="p-4 flex flex-col flex-1">
-                                    <div className="flex justify-end mb-2">
-                                         <BadgeElement type="BUY 2" size="md" />
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-x-2 gap-y-3 content-center flex-1">
-                                        {preRolls.map((name, i) => (
-                                            <div key={i} className="font-inter font-black text-[10px] md:text-xs text-gray-300 uppercase tracking-wide border-b border-gray-700/50 pb-1 flex items-start text-left">
-                                                <span className="text-primary mr-1.5">•</span>
-                                                <span>{name}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="px-4 pb-2 text-center text-[10px] text-gray-500 font-inter font-bold uppercase">(ROLLING SERVICE AVAILABLE FOR ALL STRAINS)</div>
-                            </div>
-                        </div>
+            {/* Cart Footer */}
+            <div className="p-4 border-t border-gray-700 bg-black/20 shrink-0">
+               <div className="flex flex-col gap-2 mb-4">
+                 
+                 {/* Flower Summary */}
+                 {totalGrams > 0 && (
+                   <div className="flex justify-between items-end border-b border-gray-700/50 pb-2">
+                     <span className="font-bold text-gray-400 text-sm uppercase">Total Flower</span>
+                     <span className="font-black text-[#a0d4b2] text-3xl">{totalGrams} <span className="text-sm align-top text-gray-500">G</span></span>
+                   </div>
+                 )}
 
-                        {/* RIGHT COLUMN - Modified for Mobile Order */}
-                        <div className="contents md:flex md:flex-col md:w-1/2 md:gap-6">
-                            {/* 4. INDICA (Order 2 on Mobile) */}
-                            <div className="order-2 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
-                                <BoxHeader title="INDICA" bgColor="#158cab" />
-                                <div className="p-2 space-y-1">
-                                    {indica.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
-                                </div>
-                            </div>
-                            {/* 5. HYBRID (Order 3 on Mobile) */}
-                            <div className="order-3 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
-                                <BoxHeader title="HYBRID" bgColor="#797a72" />
-                                <div className="p-2 space-y-1">
-                                    {hybrid.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
-                                </div>
-                            </div>
-                            {/* 6. COMPOUND GENETICS (Order 5 on Mobile) */}
-                            <div className="order-5 border border-blue-900/60 rounded-sm overflow-hidden bg-[#0a101f] relative flex flex-col">
-                                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{backgroundImage: 'radial-gradient(circle, #333 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
-                                <div className="flex justify-between items-center px-4 py-3 border-b border-blue-900/40 relative z-10">
-                                    <h2 className="font-inter font-black text-2xl text-white uppercase tracking-tight">COMPOUND GENETICS</h2>
-                                    <span className="font-inter font-black text-white text-sm opacity-80">1G | 3.5G</span>
-                                </div>
-                                <div className="p-2 space-y-1 relative z-10 flex-1">
-                                    {compound.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
-                                </div>
-                            </div>
-                        </div>
+                 {/* Joints Summary */}
+                 {totalJoints > 0 && (
+                   <div className="flex justify-between items-end">
+                     <span className="font-bold text-gray-400 text-sm uppercase">Total Pre-rolls</span>
+                     <span className="font-black text-[#a0d4b2] text-3xl">{totalJoints} <span className="text-sm align-top text-gray-500">JOINTS</span></span>
+                   </div>
+                 )}
 
-                    </main>
+                 {totalGrams === 0 && totalJoints === 0 && (
+                   <div className="text-center text-gray-500 text-xs italic py-2">No items selected</div>
+                 )}
+               </div>
 
-                    {/* MODAL POPUP - REDESIGNED */}
-                    {selectedProduct && (
-                        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fadeIn">
-                            <div className="bg-[#1d1e1e] border border-gray-700 w-full max-w-lg p-0 rounded-xl relative shadow-2xl overflow-hidden flex flex-col">
-                                
-                                {/* Header / Banner Area */}
-                                <div className="relative bg-gradient-to-r from-gray-900 to-[#1d1e1e] p-6 border-b border-gray-800">
-                                    <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                    </button>
+               <button className="w-full bg-[#a0d4b2] text-black font-black py-4 uppercase rounded text-sm tracking-widest hover:bg-white transition-colors">
+                 Ready to Capture
+               </button>
+               <p className="text-center text-[9px] text-gray-600 font-bold mt-2 uppercase">Order verification required</p>
+            </div>
 
-                                    <div className="flex justify-between items-start gap-4">
-                                        <div className="flex-1">
-                                            <p className="font-inter font-bold text-gray-500 text-xs uppercase tracking-[0.2em] mb-2">
-                                                {selectedProduct.cat === 'COMPOUND' ? 'COMPOUND GENETICS' : selectedProduct.cat}
-                                            </p>
-                                            <h2 className="font-inter font-black text-3xl md:text-4xl text-primary uppercase leading-none mb-2">{selectedProduct.name}</h2>
-                                             <div className="flex items-center gap-3">
-                                                <span className="bg-primary/20 text-primary px-2 py-0.5 rounded text-[10px] font-bold">THC {selectedProduct.thc}</span>
-                                                {selectedProduct.cbd !== '0%' && <span className="bg-gray-700 text-gray-300 px-2 py-0.5 rounded text-[10px] font-bold">CBD {selectedProduct.cbd}</span>}
-                                            </div>
-                                        </div>
-                                        <div className="pt-1">
-                                             <StatusBadge tags={selectedProduct.tags} size="md" /> 
-                                        </div>
-                                    </div>
-                                </div>
+          </div>
+        </div>
+      )}
 
-                                {/* Content Area */}
-                                <div className="p-6 space-y-6 bg-[#1d1e1e]">
-                                    
-                                    {/* Price Grid */}
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="bg-white/5 p-4 rounded-lg border border-white/10 text-center hover:border-primary/50 transition-colors">
-                                            <span className="block font-inter font-bold text-gray-500 text-xs uppercase mb-1">1 Gram</span>
-                                            <span className="block font-inter font-black text-white text-2xl">{selectedProduct.p1}</span>
-                                        </div>
-                                        <div className="bg-white/5 p-4 rounded-lg border border-white/10 text-center hover:border-primary/50 transition-colors">
-                                            <span className="block font-inter font-bold text-gray-500 text-xs uppercase mb-1">3.5 Grams</span>
-                                            <span className="block font-inter font-black text-primary text-2xl">{selectedProduct.p35}</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Terpenes */}
-                                    <div>
-                                        <h3 className="font-inter font-bold text-gray-400 text-xs uppercase mb-3 flex items-center">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2"></span>
-                                            Terpene Profile
-                                        </h3>
-                                        <div className="flex flex-wrap gap-2">
-                                            {selectedProduct.terpenes.map((t, i) => (
-                                                <span key={i} className="bg-gray-800 border border-gray-700 text-gray-200 font-mont font-bold text-xs px-3 py-1.5 rounded-md uppercase shadow-sm">
-                                                    {t}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Action Button */}
-                                     <button onClick={() => setSelectedProduct(null)} className="w-full bg-white hover:bg-primary text-black font-inter font-black py-3.5 uppercase rounded-lg transition-colors tracking-wide text-sm">
-                                        Back to Menu
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            );
-        };
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
-</html>
+    </div>
+  );
+}
