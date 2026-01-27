@@ -165,14 +165,9 @@
             );
         };
 
-        // --- BADGE COMPONENTS WITH REDUCED SIZES (-15%) ---
+        // --- BADGE COMPONENTS ---
         
         const BadgeElement = ({ type, size = 'sm' }) => {
-            // Sizes Reduced by ~15%
-            // 'full': 120px -> 102px
-            // 'md': 80px -> 68px
-            // 'sm': 60px -> 52px
-            
             const styles = {
                 full: {
                     size: '102px',
@@ -340,25 +335,25 @@
                     {/* CONTENT GRID */}
                     <main className="flex flex-col md:flex-row gap-6 max-w-[1400px] mx-auto w-full px-4">
                         
-                        {/* LEFT COLUMN */}
-                        <div className="w-full md:w-1/2 flex flex-col gap-6">
-                            {/* 1. SATIVA */}
-                            <div className="border border-white/20 rounded-sm overflow-hidden flex flex-col bg-white/[0.01]">
+                        {/* LEFT COLUMN - Modified for Mobile Order */}
+                        <div className="contents md:flex md:flex-col md:w-1/2 md:gap-6">
+                            {/* 1. SATIVA (Order 1 on Mobile) */}
+                            <div className="order-1 border border-white/20 rounded-sm overflow-hidden flex flex-col bg-white/[0.01]">
                                 <BoxHeader title="SATIVA" bgColor="#9e9e5e" />
                                 <div className="p-2 space-y-1">
                                     {sativa.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
                                 </div>
                             </div>
-                            {/* 2. CBD */}
-                            <div className="border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
+                            {/* 2. CBD (Order 4 on Mobile) */}
+                            <div className="order-4 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
                                 <BoxHeader title="CBD" bgColor="#9e5e97" />
                                 <div className="p-2">
                                     {cbd.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
                                 </div>
                             </div>
                             
-                            {/* 3. PRE-ROLLS */}
-                            <div className="border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col flex-1">
+                            {/* 3. PRE-ROLLS (Order 6 on Mobile) */}
+                            <div className="order-6 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col flex-1">
                                 {/* Header Row */}
                                 <div className="flex justify-between items-center px-4 py-3 border-b border-white/20">
                                     <h2 className="font-inter font-black text-3xl text-primary uppercase">PRE-ROLLS</h2>
@@ -367,12 +362,9 @@
                                 
                                 {/* Content Body */}
                                 <div className="p-4 flex flex-col flex-1">
-                                    {/* FIX: Moved Badge to static flow (flex container) to avoid overlap */}
                                     <div className="flex justify-end mb-2">
                                          <BadgeElement type="BUY 2" size="md" />
                                     </div>
-
-                                    {/* List */}
                                     <div className="grid grid-cols-2 gap-x-2 gap-y-3 content-center flex-1">
                                         {preRolls.map((name, i) => (
                                             <div key={i} className="font-inter font-black text-[10px] md:text-xs text-gray-300 uppercase tracking-wide border-b border-gray-700/50 pb-1 flex items-start text-left">
@@ -386,24 +378,24 @@
                             </div>
                         </div>
 
-                        {/* RIGHT COLUMN */}
-                        <div className="w-full md:w-1/2 flex flex-col gap-6">
-                            {/* 4. INDICA */}
-                            <div className="border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
+                        {/* RIGHT COLUMN - Modified for Mobile Order */}
+                        <div className="contents md:flex md:flex-col md:w-1/2 md:gap-6">
+                            {/* 4. INDICA (Order 2 on Mobile) */}
+                            <div className="order-2 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
                                 <BoxHeader title="INDICA" bgColor="#158cab" />
                                 <div className="p-2 space-y-1">
                                     {indica.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
                                 </div>
                             </div>
-                            {/* 5. HYBRID */}
-                            <div className="border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
+                            {/* 5. HYBRID (Order 3 on Mobile) */}
+                            <div className="order-3 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
                                 <BoxHeader title="HYBRID" bgColor="#797a72" />
                                 <div className="p-2 space-y-1">
                                     {hybrid.map((p, idx) => <ProductCard key={idx} product={p} onClick={setSelectedProduct} />)}
                                 </div>
                             </div>
-                            {/* 6. COMPOUND GENETICS */}
-                            <div className="border border-blue-900/60 rounded-sm overflow-hidden bg-[#0a101f] relative flex flex-col">
+                            {/* 6. COMPOUND GENETICS (Order 5 on Mobile) */}
+                            <div className="order-5 border border-blue-900/60 rounded-sm overflow-hidden bg-[#0a101f] relative flex flex-col">
                                 <div className="absolute inset-0 opacity-10 pointer-events-none" style={{backgroundImage: 'radial-gradient(circle, #333 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
                                 <div className="flex justify-between items-center px-4 py-3 border-b border-blue-900/40 relative z-10">
                                     <h2 className="font-inter font-black text-2xl text-white uppercase tracking-tight">COMPOUND GENETICS</h2>
@@ -440,7 +432,6 @@
                                             </div>
                                         </div>
                                         <div className="pt-1">
-                                            {/* Use 'md' size instead of 'full' to fix the size issue */}
                                              <StatusBadge tags={selectedProduct.tags} size="md" /> 
                                         </div>
                                     </div>
