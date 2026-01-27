@@ -354,8 +354,8 @@
                 // Determine promo logic based on product tags
                 if (tags.length > 0) {
                     const tag = tags[0];
-                    if (tag.includes('BUY 1')) promoText = '(BUY 1 GET 1)';
-                    else if (tag.includes('BUY 2')) promoText = '(BUY 2 GET 1 FREE)';
+                    if (tag.includes('BUY 1')) promoText = 'BUY 1 GET 1 FREE';
+                    else if (tag.includes('BUY 2')) promoText = 'BUY 2 GET 1 FREE';
                 }
 
                 // Create 1G items
@@ -399,7 +399,7 @@
             const addSingleToCart = (product, size, price, e) => {
                 if(e) e.stopPropagation();
                 let promoText = '';
-                if (size === 'JOINT') promoText = '(BUY 2 GET 1 FREE)';
+                if (size === 'JOINT') promoText = 'BUY 2 GET 1 FREE';
                 
                 const newItem = {
                     id: Date.now(),
@@ -628,7 +628,14 @@
                                                                         <span className="font-bold text-black bg-white text-[10px] px-1.5 rounded">{item.size}</span>
                                                                         <span className="text-xs text-gray-400">× 1</span>
                                                                     </div>
-                                                                    {item.promo && <div className="text-[#E61633] text-[9px] font-black uppercase mt-0.5 tracking-wide">{item.promo}</div>}
+                                                                    {item.promo && (
+                                                                        <div 
+                                                                            className="inline-block px-1.5 py-0.5 rounded-[2px] text-[8px] font-black uppercase mt-1 tracking-wide text-white w-fit" 
+                                                                            style={{backgroundColor: item.promo.includes('BUY 1') ? '#E61633' : '#FF2E7E'}}
+                                                                        >
+                                                                            {item.promo}
+                                                                        </div>
+                                                                    )}
                                                                 </div>
                                                                 <button onClick={() => removeFromCart(item.id)} className="text-gray-600 hover:text-red-500 p-1 opacity-50 hover:opacity-100 transition-opacity"><Trash2 size={14} /></button>
                                                             </div>
