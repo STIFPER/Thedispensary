@@ -100,6 +100,9 @@
         const Check = ({ size = 24, className }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="20 6 9 17 4 12"/></svg>
         );
+        const Camera = ({ size = 24, className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+        );
 
         // --- DATA & CONFIG ---
         const terpeneColors = {
@@ -238,6 +241,75 @@
             </div>
         );
 
+        // --- NEW: WELCOME POPUP (HOW TO ORDER) ---
+        const WelcomeModal = ({ onClose }) => {
+            return (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+                    {/* Container: Glass-like dark effect, thin border, glowing shadow */}
+                    <div className="bg-[#1d1e1e]/95 border border-[#a0d4b2]/40 w-full max-w-sm rounded-2xl shadow-[0_0_40px_rgba(160,212,178,0.15)] overflow-hidden relative flex flex-col">
+                        
+                        {/* Decorative subtle background gradient */}
+                        <div className="absolute top-0 right-0 w-40 h-40 bg-[#a0d4b2]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+                        <div className="p-6 relative z-10">
+                            {/* Header */}
+                            <div className="text-center mb-8 border-b border-white/10 pb-4">
+                                <h2 className="font-black text-3xl text-[#a0d4b2] uppercase tracking-tighter mb-1 leading-none">HOW TO ORDER</h2>
+                                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]">Quick Guide</p>
+                            </div>
+
+                            {/* Steps */}
+                            <div className="space-y-6 mb-8">
+                                {/* Step 1 */}
+                                <div className="flex gap-4 items-start group">
+                                    <div className="bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300">1</div>
+                                    <div>
+                                        <h3 className="font-black text-white text-sm uppercase mb-1 tracking-wide">SELECT YOUR STRAINS</h3>
+                                        <p className="text-gray-400 text-xs font-medium leading-relaxed">Choose your preferred flowers or pre-rolls and add them to your cart.</p>
+                                    </div>
+                                </div>
+
+                                {/* Step 2 */}
+                                <div className="flex gap-4 items-start group">
+                                    <div className="bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300">2</div>
+                                    <div>
+                                        <h3 className="font-black text-white text-sm uppercase mb-1 tracking-wide">CHECK YOUR CART</h3>
+                                        <p className="text-gray-400 text-xs font-medium leading-relaxed">Click the Shopping Bag icon to review your selected items.</p>
+                                    </div>
+                                </div>
+
+                                {/* Step 3 */}
+                                <div className="flex gap-4 items-start group">
+                                    <div className="bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300">3</div>
+                                    <div>
+                                        <h3 className="font-black text-white text-sm uppercase mb-1 tracking-wide">CAPTURE RECEIPT</h3>
+                                        <p className="text-gray-400 text-xs font-medium leading-relaxed">Screenshot your order summary from your device to send to Admin via LINE OA.</p>
+                                    </div>
+                                </div>
+
+                                {/* Step 4 */}
+                                <div className="flex gap-4 items-start group">
+                                    <div className="bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300">4</div>
+                                    <div>
+                                        <h3 className="font-black text-white text-sm uppercase mb-1 tracking-wide">SEND TO ADMIN</h3>
+                                        <p className="text-gray-400 text-xs font-medium leading-relaxed">Send the captured image to our Admin to verify and confirm your delivery.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Button */}
+                            <button 
+                                onClick={onClose}
+                                className="w-full bg-[#a0d4b2] hover:bg-white hover:text-black text-black font-black py-4 rounded-xl uppercase tracking-[0.15em] text-xs md:text-sm transition-all duration-300 shadow-[0_4px_20px_rgba(160,212,178,0.2)] hover:shadow-[0_4px_25px_rgba(255,255,255,0.2)] flex items-center justify-center gap-3 transform active:scale-95"
+                            >
+                                START SHOPPING <span>→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
         // --- NEW: Product Detail Modal with Quantity Stepper ---
         const ProductModal = ({ product, onClose, onAddToCart }) => {
             const [qty1g, setQty1g] = useState(0);
@@ -359,6 +431,18 @@
             const [isCartOpen, setIsCartOpen] = useState(false);
             const [notification, setNotification] = useState(null);
             const [cartBump, setCartBump] = useState(false);
+            const [showWelcome, setShowWelcome] = useState(false);
+
+            // LOGIC: Show Welcome Modal only once per session
+            useEffect(() => {
+                const hasSeenGuide = sessionStorage.getItem('hasSeenGuide_v1');
+                if (!hasSeenGuide) {
+                    // Small delay to make it smooth
+                    const timer = setTimeout(() => setShowWelcome(true), 500);
+                    sessionStorage.setItem('hasSeenGuide_v1', 'true');
+                    return () => clearTimeout(timer);
+                }
+            }, []);
 
             // Updated Logic: Handle Batch Add from Modal
             const handleBatchAddToCart = (product, qty1, qty35) => {
@@ -604,27 +688,53 @@
                         />
                     )}
 
+                    {/* WELCOME MODAL */}
+                    {showWelcome && <WelcomeModal onClose={() => setShowWelcome(false)} />}
+
                     {/* CART SUMMARY MODAL */}
                     {isCartOpen && (
                         <div className="fixed inset-0 bg-black/90 z-[60] overflow-y-auto backdrop-blur-sm animate-fadeIn" onClick={() => setIsCartOpen(false)}>
                             <div className="min-h-full flex items-center justify-center p-4">
                                 <div className="bg-[#1d1e1e] border-2 border-[#a0d4b2] w-full max-w-md relative shadow-2xl flex flex-col my-8" onClick={(e) => e.stopPropagation()}>
-                                    <div className="bg-[#a0d4b2] p-4 flex justify-between items-center text-black shrink-0 relative">
-                                        <div>
-                                            <h2 className="font-black text-2xl uppercase tracking-tight leading-none">YOUR ORDER</h2>
-                                            <p className="font-bold text-xs uppercase opacity-75 tracking-widest">Screenshot for Checkout</p>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            {cart.length > 0 && (
-                                                <button onClick={clearCart} className="bg-red-500/20 hover:bg-red-500 hover:text-white p-2 rounded-full transition-colors mr-1" title="Clear Order">
-                                                    <Trash2 size={20} className="text-black hover:text-white" />
+                                    
+                                    {/* MODIFIED HEADER: Integrated HOW TO CHECKOUT into the header block */}
+                                    <div className="bg-[#a0d4b2] p-4 pb-5 flex flex-col gap-3 text-black shrink-0 relative">
+                                        <div className="flex justify-between items-start">
+                                            <div>
+                                                <h2 className="font-black text-2xl uppercase tracking-tight leading-none">ORDER SUMMARY</h2>
+                                                <p className="font-bold text-[10px] uppercase opacity-60 tracking-widest">Verify your items below</p>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                {cart.length > 0 && (
+                                                    <button onClick={clearCart} className="bg-red-500/20 hover:bg-red-500 hover:text-white p-2 rounded-full transition-colors mr-1" title="Clear Order">
+                                                        <Trash2 size={20} className="text-black hover:text-white" />
+                                                    </button>
+                                                )}
+                                                <button onClick={() => setIsCartOpen(false)} className="bg-black/10 hover:bg-black/20 p-2 rounded-full transition-colors">
+                                                    <X size={20} className="text-black" />
                                                 </button>
-                                            )}
-                                            <button onClick={() => setIsCartOpen(false)} className="bg-black/10 hover:bg-black/20 p-2 rounded-full transition-colors">
-                                                <X size={20} className="text-black" />
-                                            </button>
+                                            </div>
+                                        </div>
+
+                                        {/* INSTRUCTION BAR: Improved Alignment & Compactness */}
+                                        <div className="bg-[#1d1e1e] rounded-lg py-2 px-4 flex items-center justify-center gap-4 border border-black/20 shadow-md">
+                                            <div className="flex items-center gap-2 border-r border-[#a0d4b2]/20 pr-4">
+                                                <Camera size={14} className="text-[#a0d4b2]" />
+                                                <span className="font-black text-[10px] uppercase tracking-widest text-[#a0d4b2]">CHECKOUT:</span>
+                                            </div>
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex items-center gap-1.5">
+                                                    <span className="bg-[#a0d4b2] text-black w-4 h-4 rounded-full flex items-center justify-center font-black text-[9px] shadow-sm leading-none pt-[1px]">1</span>
+                                                    <span className="font-bold text-[9px] uppercase tracking-wide text-[#a0d4b2]">Screenshot</span>
+                                                </div>
+                                                <div className="flex items-center gap-1.5">
+                                                    <span className="bg-[#a0d4b2] text-black w-4 h-4 rounded-full flex items-center justify-center font-black text-[9px] shadow-sm leading-none pt-[1px]">2</span>
+                                                    <span className="font-bold text-[9px] uppercase tracking-wide text-[#a0d4b2]">Send Admin</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div className="p-4 space-y-4 bg-[#1d1e1e]">
                                         {cart.length === 0 ? (
                                             <div className="text-center py-10 text-gray-500 font-bold uppercase tracking-wide">Your cart is empty</div>
@@ -660,25 +770,26 @@
                                             ))
                                         )}
                                     </div>
+
+                                    {/* FOOTER: Updated Total Colors to Green */}
                                     <div className="p-4 border-t border-gray-700 bg-black/20 shrink-0">
-                                        <div className="flex flex-col gap-2 mb-4">
+                                        <div className="flex flex-col gap-2">
                                             {totalGrams > 0 && (
                                                 <div className="flex justify-between items-end border-b border-gray-700/50 pb-2">
-                                                    <span className="font-bold text-gray-400 text-sm uppercase">Total Flower</span>
-                                                    <span className="font-black text-[#a0d4b2] text-3xl">{totalGrams} <span className="text-sm align-top text-gray-500">G</span></span>
+                                                    <span className="font-bold text-[#a0d4b2] text-sm uppercase">Total Flower</span>
+                                                    <span className="font-black text-[#a0d4b2] text-3xl">{totalGrams} <span className="text-sm align-top text-[#a0d4b2]/70">G</span></span>
                                                 </div>
                                             )}
                                             {totalJoints > 0 && (
                                                 <div className="flex justify-between items-end">
-                                                    <span className="font-bold text-gray-400 text-sm uppercase">Total Pre-rolls</span>
-                                                    <span className="font-black text-[#a0d4b2] text-3xl">{totalJoints} <span className="text-sm align-top text-gray-500">JOINTS</span></span>
+                                                    <span className="font-bold text-[#a0d4b2] text-sm uppercase">Total Pre-rolls</span>
+                                                    <span className="font-black text-[#a0d4b2] text-3xl">{totalJoints} <span className="text-sm align-top text-[#a0d4b2]/70">JOINTS</span></span>
                                                 </div>
                                             )}
                                             {totalGrams === 0 && totalJoints === 0 && <div className="text-center text-gray-500 text-xs italic py-2">No items selected</div>}
                                         </div>
-                                        <button className="w-full bg-[#a0d4b2] text-black font-black py-4 uppercase rounded text-sm tracking-widest hover:bg-white transition-colors">CAPTURE & SEND TO ADMIN</button>
-                                        <p className="text-center text-[10px] text-gray-500 font-bold mt-2 uppercase leading-tight">Please screenshot this summary <br/> and send to admin to verify your order</p>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
