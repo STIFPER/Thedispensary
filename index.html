@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE DISPENSARY - Flower Menu</title><link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>THE DISPENSARY - Flower Menu</title>
+    <!-- Favicons -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     
+    <!-- React & Tailwind -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
@@ -57,11 +61,17 @@
 
     <style>
         body { background-color: #1d1e1e; color: white; }
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1d1e1e; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        
+        /* Utility classes */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .cart-item-enter { animation: slideIn 0.3s ease-out; }
     </style>
 </head>
 <body class="antialiased selection:bg-[#a0d4b2] selection:text-black font-inter">
@@ -144,6 +154,7 @@
             };
             const config = styles[size];
             const boxStyle = { width: config.size, height: config.size, minWidth: config.size, minHeight: config.size };
+            // Star/Burst shape clip-path
             const clipStyle = { clipPath: 'polygon(50% 0%, 61% 10%, 75% 6%, 79% 20%, 93% 25%, 90% 39%, 100% 50%, 90% 61%, 93% 75%, 79% 80%, 75% 94%, 61% 90%, 50% 100%, 39% 90%, 25% 94%, 21% 80%, 7% 75%, 10% 61%, 0% 50%, 10% 39%, 7% 25%, 21% 20%, 25% 6%, 39% 10%)' };
 
             let content = null;
@@ -640,7 +651,7 @@
                                                                         </div>
                                                                     )}
                                                                 </div>
-                                                                <button onClick={() => removeFromCart(item.id)} className="text-gray-600 hover:text-red-500 p-1 opacity-50 hover:opacity-100 transition-opacity"><Trash2 size={14} /></button>
+                                                                <button onClick={() => removeFromCart(item.id)} className="text-gray-300 hover:text-red-500 p-2 transition-colors"><Trash2 size={16} /></button>
                                                             </div>
                                                         ))}
                                                     </div>
