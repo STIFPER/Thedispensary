@@ -1,24 +1,27 @@
 <nav class="sticky top-0 z-40 bg-[#1d1e1e]/95 backdrop-blur-md border-b border-gray-700 py-3 shadow-lg">
-  <div class="max-w-[1400px] mx-auto px-4 flex justify-between items-center">
+  <div class="max-w-[1200px] mx-auto px-4 flex justify-between items-center">
     <div class="overflow-x-auto no-scrollbar flex-1 mr-4">
-      <div class="flex space-x-8 whitespace-nowrap font-bold text-sm text-gray-400 uppercase tracking-wide">
+      <div class="flex space-x-6 whitespace-nowrap font-bold text-xs md:text-sm text-gray-400 uppercase tracking-wide">
         <a id="navMenu" href="index.html" class="hover:text-white transition-colors">MENU FLOWER</a>
         <a id="navHow" href="howtoorder.html" class="hover:text-white transition-colors">HOW TO ORDER</a>
         <a id="navContact" href="contactus.html" class="hover:text-white transition-colors">CONTACT US</a>
       </div>
     </div>
 
-    <button id="navCartBtn" class="relative p-2 text-white hover:text-[#a0d4b2] transition-colors" aria-label="Cart">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
-        <path d="M3 6h18"/>
-        <path d="M16 10a4 4 0 0 1-8 0"/>
+    <!-- CART (กดได้ทุกหน้า) -->
+    <a id="navCartBtn" href="index.html" class="relative p-2 text-white hover:text-[#a0d4b2] transition-colors" aria-label="Open cart">
+      <!-- icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+        <path d="M3 6h18"></path>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
       </svg>
 
-      <span id="cartCountBadge"
-        class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 items-center justify-center rounded-full border-2 border-[#1d1e1e]">
+      <!-- badge -->
+      <span id="navCartCount"
+        class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#1d1e1e]">
       </span>
-    </button>
+    </a>
   </div>
 </nav>
