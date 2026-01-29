@@ -59,6 +59,9 @@
 
 <body class="antialiased selection:bg-[#a0d4b2] selection:text-black font-inter">
   <div id="navbar"></div>
+<div id="root"></div>
+
+<script src="navbar-loader.js"></script>
   <div id="root"></div>
   <script src="navbar-loader.js"></script>
 
@@ -375,12 +378,46 @@
     };
 
     const App = () => {
-      const [selectedProduct, setSelectedProduct] = useState(null);
-      const [cart, setCart] = useState([]);
-      const [isCartOpen, setIsCartOpen] = useState(false);
-      const [notification, setNotification] = useState(null);
-      const [cartBump, setCartBump] = useState(false);
-      const [showWelcome, setShowWelcome] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [notification, setNotification] = useState(null);
+  const [cartBump, setCartBump] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  // ✅ วางเพิ่มตรงนี้เลย (1) โหลดตะกร้าจาก sessionStorage
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
+      if (Array.isArray(saved)) setCart(saved);
+    } catch {}
+  }, []);
+
+  // ✅ วางเพิ่มตรงนี้เลย (2) เซฟตะกร้าลง sessionStorage ทุกครั้งที่เปลี่ยน
+  useEffect(() => {
+    try {
+      sessionStorage.setItem("cart_v1", JSON.stringify(cart));
+    } catch {}
+    window.dispatchEvent(new Event("cart:updated"));
+  }, [cart]);
+
+  // ✅ วางเพิ่มตรงนี้เลย (3) กดตะกร้าบน navbar ให้เปิดตะกร้าใน index
+  useEffect(() => {
+    const open = () => setIsCartOpen(true);
+    window.addEventListener("cart:open", open);
+    return () => window.removeEventListener("cart:open", open);
+  }, []);
+
+  // ✅ วางเพิ่มตรงนี้เลย (4) ถ้ามาจากหน้าอื่นให้เปิดตะกร้าอัตโนมัติ
+  useEffect(() => {
+    const key = "openCartOnLoad_v1";
+    if (sessionStorage.getItem(key) === "1") {
+      sessionStorage.removeItem(key);
+      setIsCartOpen(true);
+    }
+  }, []);
+
+  // ... โค้ดเดิมของคุณต่อจากนี้ (handleBatchAddToCart, addSingleToCart, etc.)
 
       useEffect(() => {
         try {
