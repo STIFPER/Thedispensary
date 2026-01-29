@@ -58,11 +58,13 @@
 </head>
 
 <body class="antialiased selection:bg-[#a0d4b2] selection:text-black font-inter">
+  <!-- ✅ Navbar mount -->
   <div id="navbar"></div>
-<div id="root"></div>
 
-<script src="navbar-loader.js"></script>
+  <!-- ✅ React root (มีอันเดียวพอ) -->
   <div id="root"></div>
+
+  <!-- ✅ Load navbar -->
   <script src="navbar-loader.js"></script>
 
   <script type="text/babel">
@@ -160,7 +162,7 @@
       } else if (type === 'BEST SELLER') {
         bgClass = 'bg-[#FFC107]';
         content = <><span style={{fontSize: config.fontBest, lineHeight: config.lh}}>BEST</span><span style={{fontSize: config.fontBest, lineHeight: config.lh}}>SELLER</span></>;
-      } else if (type === 'BUY 1' || type.includes('BUY 1')) {
+      } else if (type === 'BUY 1' || (type && type.includes('BUY 1'))) {
         bgClass = 'bg-[#E61633]';
         content = <><span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>BUY 1</span><span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>GET 1</span><span style={{fontSize: config.fontBuy, lineHeight: config.lh}}>FREE</span></>;
       } else if (type === 'BUY 2') {
@@ -235,7 +237,6 @@
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
         <div className="bg-[#1d1e1e]/95 border border-[#a0d4b2]/40 w-full max-w-sm rounded-2xl shadow-[0_0_40px_rgba(160,212,178,0.15)] overflow-hidden relative flex flex-col">
           <div className="absolute top-0 right-0 w-40 h-40 bg-[#a0d4b2]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-
           <div className="p-6 relative z-10">
             <div className="text-center mb-8 border-b border-white/10 pb-4">
               <h2 className="font-black text-3xl text-[#a0d4b2] uppercase tracking-tighter mb-1 leading-none">HOW TO ORDER</h2>
@@ -378,87 +379,49 @@
     };
 
     const App = () => {
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cart, setCart] = useState([]);
-  const cartReady = useRef(false);
+      const [selectedProduct, setSelectedProduct] = useState(null);
+      const [cart, setCart] = useState([]);
+      const [isCartOpen, setIsCartOpen] = useState(false);
+      const [notification, setNotification] = useState(null);
+      const [cartBump, setCartBump] = useState(false);
+      const [showWelcome, setShowWelcome] = useState(false);
+      const cartReady = useRef(false);
 
-useEffect(() => {
-  try {
-    const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
-    if (Array.isArray(saved)) setCart(saved);
-  } catch {}
-  cartReady.current = true;
-}, []);
-
-useEffect(() => {
-  if (!cartReady.current) return;
-  try {
-    sessionStorage.setItem("cart_v1", JSON.stringify(cart));
-  } catch {}
-  window.dispatchEvent(new Event("cart:updated"));
-}, [cart]);
-
-useEffect(() => {
-  const open = () => setIsCartOpen(true);
-  window.addEventListener("cart:open", open);
-  return () => window.removeEventListener("cart:open", open);
-}, []);
-
-useEffect(() => {
-  const key = "openCartOnLoad_v1";
-  if (sessionStorage.getItem(key) === "1") {
-    sessionStorage.removeItem(key);
-    setIsCartOpen(true);
-  }
-}, []);
-  // ✅ วางเพิ่มตรงนี้เลย (1) โหลดตะกร้าจาก sessionStorage
-  useEffect(() => {
-    try {
-      const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
-      if (Array.isArray(saved)) setCart(saved);
-    } catch {}
-  }, []);
-
-  // ✅ วางเพิ่มตรงนี้เลย (2) เซฟตะกร้าลง sessionStorage ทุกครั้งที่เปลี่ยน
-  useEffect(() => {
-    try {
-      sessionStorage.setItem("cart_v1", JSON.stringify(cart));
-    } catch {}
-    window.dispatchEvent(new Event("cart:updated"));
-  }, [cart]);
-
-  // ✅ วางเพิ่มตรงนี้เลย (3) กดตะกร้าบน navbar ให้เปิดตะกร้าใน index
-  useEffect(() => {
-    const open = () => setIsCartOpen(true);
-    window.addEventListener("cart:open", open);
-    return () => window.removeEventListener("cart:open", open);
-  }, []);
-
-  // ✅ วางเพิ่มตรงนี้เลย (4) ถ้ามาจากหน้าอื่นให้เปิดตะกร้าอัตโนมัติ
-  useEffect(() => {
-    const key = "openCartOnLoad_v1";
-    if (sessionStorage.getItem(key) === "1") {
-      sessionStorage.removeItem(key);
-      setIsCartOpen(true);
-    }
-  }, []);
-
-  // ... โค้ดเดิมของคุณต่อจากนี้ (handleBatchAddToCart, addSingleToCart, etc.)
-
+      // ✅ โหลดตะกร้า (ครั้งเดียว)
       useEffect(() => {
         try {
-          const saved = sessionStorage.getItem("cart_v1");
-          if (saved) setCart(JSON.parse(saved));
+          const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
+          if (Array.isArray(saved)) setCart(saved);
         } catch {}
+        cartReady.current = true;
       }, []);
 
+      // ✅ เซฟตะกร้าทุกครั้งที่เปลี่ยน + แจ้ง navbar อัปเดต badge
       useEffect(() => {
+        if (!cartReady.current) return;
         try {
           sessionStorage.setItem("cart_v1", JSON.stringify(cart));
-          window.dispatchEvent(new Event("cart:updated"));
         } catch {}
+        window.dispatchEvent(new Event("cart:updated"));
       }, [cart]);
 
+      // ✅ ให้ navbar เปิดตะกร้าได้
+      useEffect(() => {
+        const open = () => setIsCartOpen(true);
+        window.addEventListener("cart:open", open);
+        return () => window.removeEventListener("cart:open", open);
+      }, []);
+
+      // ✅ ถ้ามาจากหน้าอื่นให้เปิดตะกร้าอัตโนมัติ
+      useEffect(() => {
+        const key = "openCartOnLoad_v1";
+        if (sessionStorage.getItem(key) === "1") {
+          sessionStorage.removeItem(key);
+          setIsCartOpen(true);
+        }
+      }, []);
+
+      // welcome guide (ของเดิมคุณ)
       useEffect(() => {
         const hasSeenGuide = sessionStorage.getItem('hasSeenGuide_v1');
         if (!hasSeenGuide) {
@@ -644,7 +607,6 @@ useEffect(() => {
 
           {showWelcome && <WelcomeModal onClose={() => setShowWelcome(false)} />}
 
-          {/* CART SUMMARY MODAL */}
           {isCartOpen && (
             <div className="fixed inset-0 bg-black/90 z-[60] overflow-y-auto backdrop-blur-sm animate-fadeIn" onClick={() => setIsCartOpen(false)}>
               <div className="min-h-full flex items-center justify-center p-4">
@@ -743,7 +705,6 @@ useEffect(() => {
             </div>
           )}
 
-          {/* เปิดตะกร้าจากปุ่มลอย (ถ้าคุณต้องการ) */}
           <button
             onClick={() => setIsCartOpen(true)}
             className={`fixed bottom-6 right-6 z-[70] bg-[#1d1e1e] border border-[#a0d4b2]/40 shadow-2xl p-3 rounded-full text-white hover:text-[#a0d4b2] transition-all ${cartBump ? 'scale-125 text-[#a0d4b2]' : ''}`}
@@ -756,7 +717,6 @@ useEffect(() => {
               </span>
             )}
           </button>
-
         </div>
       );
     };
