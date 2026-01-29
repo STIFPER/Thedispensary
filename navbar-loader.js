@@ -1,17 +1,23 @@
-(async function () {
+(function () {
   const mount = document.getElementById("navbar");
   if (!mount) return;
 
-  const res = await fetch("navbar.html", { cache: "no-store" });
-  const html = await res.text();
-  mount.innerHTML = html;
+  function setActiveNav() {
+    const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+    const map = { "index.html": "navMenu", "howtoorder.html": "navHow", "contactus.html": "navContact" };
+    const activeId = map[file];
+    if (!activeId) return;
 
-  // ไฮไลต์หน้าปัจจุบันอัตโนมัติ
-  const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
-  mount.querySelectorAll("a[data-nav]").forEach(link => {
-    if (link.getAttribute("data-nav") === current) {
-      link.classList.add("text-[#a0d4b2]", "border-b-2", "border-[#a0d4b2]", "pb-1");
-      link.classList.remove("text-gray-400");
-    }
-  });
+    const el = document.getElementById(activeId);
+    if (!el) return;
+
+    el.classList.add("text-[#a0d4b2]", "border-b-2", "border-[#a0d4b2]", "pb-1");
+  }
+
+  fetch("navbar.html")
+    .then(r => r.text())
+    .then(html => {
+      mount.innerHTML = html;
+      setActiveNav();
+    });
 })();
