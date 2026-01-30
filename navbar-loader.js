@@ -2,12 +2,27 @@
   const mount = document.getElementById("navbar");
   if (!mount) return;
 
-  function currentFile() {
-    return (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  function currentKey() {
+    // รองรับทั้ง /howtoorder, /howtoorder/, /howtoorder.html
+    let p = (location.pathname || "/").toLowerCase();
+    p = p.replace(/\/+$/, ""); // ตัด / ท้าย
+    let last = p.split("/").pop() || "index.html";
+
+    // ถ้าไม่มี .html ให้เติมให้ (เช่น howtoorder -> howtoorder.html)
+    if (!last.includes(".")) last = last + ".html";
+    return last;
+  }
+
+  function clearActive(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove("active");
+    // ล้างเส้นใต้แบบบังคับ
+    el.style.boxShadow = "none";
   }
 
   function setActiveNav() {
-    const file = currentFile();
+    const file = currentKey();
     const map = {
       "index.html": "navMenu",
       "howtoorder.html": "navHow",
@@ -15,25 +30,17 @@
     };
 
     // รีเซ็ตทุกเมนู
-    ["navMenu", "navHow", "navContact"].forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.classList.remove("active");
-      // บังคับล้างเส้นใต้เผื่อโดน CSS อื่นทับ
-      el.style.borderBottom = "3px solid transparent";
-      el.style.paddingBottom = "10px";
-      el.style.display = "inline-block";
-    });
+    ["navMenu", "navHow", "navContact"].forEach(clearActive);
 
     const activeId = map[file];
     const el = document.getElementById(activeId);
     if (!el) return;
 
-    // ใส่ active + บังคับเส้นใต้แบบ inline (ยังไงก็ขึ้น)
+    // ใส่ active + เส้นใต้แบบ inset (เห็นแน่นอน)
     el.classList.add("active");
-    el.style.borderBottom = "3px solid #a0d4b2";
-    el.style.paddingBottom = "10px";
     el.style.display = "inline-block";
+    el.style.paddingBottom = "10px";
+    el.style.boxShadow = "inset 0 -3px 0 #a0d4b2";
   }
 
   function getCartCount() {
@@ -63,7 +70,7 @@
     if (!btn) return;
 
     btn.addEventListener("click", function (e) {
-      const file = currentFile();
+      const file = currentKey();
 
       if (file === "index.html") {
         e.preventDefault();
@@ -77,12 +84,12 @@
     });
   }
 
-  fetch("navbar.html")
+  // สำคัญ: ใช้ absolute path กันปัญหาอยู่ path ย่อยแล้ว fetch ไม่เจอ
+  fetch("/navbar.html")
     .then((r) => r.text())
     .then((html) => {
       mount.innerHTML = html;
 
-      // ต้องเรียกหลัง inject เสร็จ
       setActiveNav();
       wireCartButton();
       renderCartBadge();
