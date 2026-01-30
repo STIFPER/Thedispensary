@@ -4,55 +4,56 @@
   },
   "products": [
     {
-  "cat": "SATIVA",
-  "name": "LEMON UPZ",
-  "tags": ["NEW"],
-  "thc": "24-28%",
-  "cbd": "0%",
-  "p1": 700,
-  "p35": 2200,
-  "terpenes": ["LIMONENE (LEMON)", "CARYOPHYLLENE (PEPPER)"]
-},
-{
-  "cat": "SATIVA",
-  "name": "PINEAPPLE XPRESS 2.0",
-  "tags": ["BEST SELLER"],
-  "thc": "32-35%",
-  "cbd": "1-2%",
-  "p1": 700,
-  "p35": 2200,
-  "terpenes": ["MYRCENE (MUSK)", "PINENE (PINE)"]
-},
-{
-  "cat": "SATIVA",
-  "name": "SANTA'S COOKIES",
-  "tags": ["BUY 1 GET 1"],
-  "thc": "22-26%",
-  "cbd": "<1%",
-  "p1": 700,
-  "p35": 2200,
-  "terpenes": ["LINALOOL (FLORAL)", "CARYOPHYLLENE (EARTHY)"]
-},
-{
-  "cat": "SATIVA",
-  "name": "TROP CHERRY GAS #14",
-  "tags": ["BUY 1 GET 1"],
-  "thc": "20-22%",
-  "cbd": "0%",
-  "p1": 700,
-  "p35": 2200,
-  "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"]
-},
-{
-  "cat": "SATIVA",
-  "name": "MANGO SUNSET HAZE",
-  "tags": ["BUY 1 GET 1"],
-  "thc": "20-24%",
-  "cbd": "0%",
-  "p1": 700,
-  "p35": 2200,
-  "terpenes": ["MYRCENE (MANGO)", "LIMONENE (LEMON)"]
-}
+      "cat": "SATIVA",
+      "name": "LEMON UPZ",
+      "tags": ["NEW"],
+      "thc": "24-28%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["LIMONENE (LEMON)", "CARYOPHYLLENE (PEPPER)"]
+    },
+    {
+      "cat": "SATIVA",
+      "name": "PINEAPPLE XPRESS 2.0",
+      "tags": ["BEST SELLER"],
+      "thc": "32-35%",
+      "cbd": "1-2%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["MYRCENE (MUSK)", "PINENE (PINE)"]
+    },
+    {
+      "cat": "SATIVA",
+      "name": "SANTA'S COOKIES",
+      "tags": [],
+      "thc": "22-26%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["LINALOOL (FLORAL)", "CARYOPHYLLENE (EARTHY)"]
+    },
+    {
+      "cat": "SATIVA",
+      "name": "TROP CHERRY GAS #14",
+      "tags": [],
+      "thc": "20-22%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"]
+    },
+    {
+      "cat": "SATIVA",
+      "name": "MANGO SUNSET HAZE",
+      "tags": ["BUY 1 GET 1"],
+      "thc": "20-24%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["MYRCENE (MANGO)", "LIMONENE (LEMON)"]
+    },
+
     {
       "cat": "INDICA",
       "name": "SWEET OCTANE",
@@ -157,7 +158,6 @@
       "terpenes": ["LIMONENE (LEMON)", "MYRCENE (MANGO)"]
     }
   ],
-
   "preRolls": [
     "CUBAN DOOBIE",
     "VANILLA FRUITTEN PIE",
