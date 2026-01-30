@@ -387,16 +387,27 @@ const preRolls = menu.preRolls || [];
   const [cartBump, setCartBump] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const cartReady = useRef(false);
+  const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
+const [menuError, setMenuError] = useState("");
 
   // ✅ MENU LOAD HERE
   const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
 
   useEffect(() => {
-    fetch('menu.json?v=' + Date.now())
-      .then(r => r.json())
-      .then(setMenu)
-      .catch(() => setMenu({ meta: {}, products: [], preRolls: [] }));
-  }, []);
+  fetch('./menu.json?v=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error("menu.json not found: " + r.status);
+      return r.json();
+    })
+    .then(data => {
+      setMenu(data);
+      setMenuError("");
+    })
+    .catch(err => {
+      setMenuError(String(err));
+      setMenu({ meta: {}, products: [], preRolls: [] });
+    });
+}, []);
 
   const products = menu.products || [];
   const preRolls = menu.preRolls || [];
@@ -501,8 +512,15 @@ const preRolls = menu.preRolls || [];
       const compound = products.filter(p => p.cat === 'COMPOUND');
 
       return (
-        <div className="min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white selection:bg-[#a0d4b2] selection:text-black font-inter relative">
-          {notification && (
+  <div className="min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white">
+
+    {menuError && (
+      <div className="max-w-[1400px] mx-auto w-full px-4 py-3 mb-4 bg-red-500/20 border border-red-500 text-red-200 text-sm">
+        MENU ERROR: {menuError}
+      </div>
+    )}
+
+    {notification && (
             <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#a0d4b2] text-black px-4 py-3 rounded shadow-2xl z-[100] flex items-center gap-3 animate-toastIn border border-white/20">
               <div className="bg-black/10 p-1.5 rounded-full shrink-0"><Check size={16} /></div>
               <div>
@@ -515,7 +533,9 @@ const preRolls = menu.preRolls || [];
           <header className="max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 text-center flex flex-col items-center">
             <h2 className="font-black text-2xl text-white uppercase tracking-wider opacity-80 mb-2">THE DISPENSARY</h2>
             <h1 className="font-black text-[40px] md:text-5xl text-[#a0d4b2] uppercase leading-none tracking-tight mb-2">FLOWER MENU</h1>
-            <p className="font-black text-lg text-white uppercase tracking-[0.2em] mb-8">FEBRUARY 2026</p>
+            <<p className="font-black text-lg text-white uppercase tracking-[0.2em] mb-8">
+  {menu.meta?.monthLabel || "MENU"}
+</p>
             <div className="border-t border-b border-gray-600 py-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-xs font-inter uppercase tracking-wide text-gray-400 w-full max-w-4xl">
               <div><strong className="block text-white mb-1 text-sm font-black">TRUSTED QUALITY</strong>HAND-TRIMMED, LAB-TESTED</div>
               <div className="md:border-x border-gray-600"><strong className="block text-white mb-1 text-sm font-black">GACP CERTIFIED</strong>MEDICAL STANDARDS COMPLIANT</div>
