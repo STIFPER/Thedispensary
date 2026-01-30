@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "monthLabel": "FEBRUARY 2026"
+  },
+
+  "products": [
+    {
+      "cat": "SATIVA",
+      "name": "LEMON UPZ",
+      "tags": ["NEW"],
+      "thc": "24-28%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": [
+        "LIMONENE (LEMON)",
+        "CARYOPHYLLENE (PEPPER)"
+      ]
+    },
+
+    {
+      "cat": "INDICA",
+      "name": "SWEET OCTANE",
+      "tags": [],
+      "thc": "24-28%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": [
+        "MYRCENE (FRUIT)",
+        "LIMONENE (GAS)"
+      ]
+    }
+  ],
+
+  "preRolls": [
+    "PINEAPPLE XPRESS 2.0",
+    "BERRY BOOMSTICK",
+    "MATCHA LOLLIPOP"
+  ]
+}
