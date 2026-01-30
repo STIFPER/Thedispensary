@@ -42,6 +42,72 @@
     }
   </style>
 </head>
+<script>
+(function () {
+  const form = document.getElementById("fakeContactForm");
+  const btn = document.getElementById("sendBtn");
+  const status = document.getElementById("formStatus");
+
+  if (!form || !btn || !status) return;
+
+  const originalText = btn.textContent;
+
+  function setStatus(text, mode) {
+    status.textContent = text;
+    status.classList.remove("hidden");
+
+    // โทนพรีเมียม: success / loading / error
+    status.className = "mt-3 text-xs font-bold uppercase tracking-wider";
+    if (mode === "loading") status.classList.add("text-gray-400");
+    if (mode === "success") status.classList.add("text-[#a0d4b2]");
+    if (mode === "error") status.classList.add("text-red-400");
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // กันกดรัว
+    if (btn.disabled) return;
+
+    // ตรวจว่ามีอะไรกรอกบ้างนิดนึง (optional)
+    const inputs = form.querySelectorAll("input, textarea");
+    let hasText = false;
+    inputs.forEach(el => {
+      if ((el.value || "").trim().length > 0) hasText = true;
+    });
+
+    if (!hasText) {
+      setStatus("Please enter a message.", "error");
+      return;
+    }
+
+    // Loading state
+    btn.disabled = true;
+    btn.classList.add("opacity-60", "cursor-not-allowed");
+    btn.textContent = "SENDING...";
+    setStatus("Sending…", "loading");
+
+    // Fake delay (เหมือนส่งจริง)
+    setTimeout(() => {
+      btn.textContent = "SENT ✓";
+      setStatus("Message sent successfully.", "success");
+
+      // เคลียร์ฟอร์ม
+      form.reset();
+
+      // กลับสู่ปกติ
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.classList.remove("opacity-60", "cursor-not-allowed");
+        btn.textContent = originalText;
+        // จะซ่อน status หรือค้างไว้ก็ได้:
+        // status.classList.add("hidden");
+      }, 1400);
+
+    }, 900);
+  });
+})();
+</script>
 
 <body class="antialiased selection:bg-[#a0d4b2] selection:text-black font-inter flex flex-col min-h-screen">
   <!-- ✅ navbar ชุดเดียว -->
