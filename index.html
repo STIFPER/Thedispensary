@@ -113,25 +113,20 @@
       'linalool': '#9094d8', 'bisabolol': '#e6c122',
     };
 
-    const products = [
-      { cat: 'SATIVA', name: 'LEMON UPZ', tags: ['NEW'], thc: '24-28%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['LIMONENE (LEMON)', 'CARYOPHYLLENE (PEPPER)'] },
-      { cat: 'SATIVA', name: 'PINEAPPLE XPRESS 2.0', tags: ['BEST SELLER'], thc: '32-35%', cbd: '1-2%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MUSK)', 'PINENE (PINE)'] },
-      { cat: 'SATIVA', name: 'MANGO SUNSET HAZE', tags: [], thc: '20-24%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MANGO)', 'LIMONENE (LEMON)'] },
-      { cat: 'SATIVA', name: "SANTA'S COOKIES", tags: ['BUY 1 GET 1'], thc: '22-26%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['LINALOOL (FLORAL)', 'CARYOPHYLLENE (EARTHY)'] },
-      { cat: 'SATIVA', name: 'TROP CHERRY GAS #14', tags: ['BUY 1 GET 1'], thc: '20-22%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (MUSK)', 'LIMONENE (CITRUS)'] },
-      { cat: 'INDICA', name: 'SWEET OCTANE', tags: ['NEW'], thc: '24-28%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'LIMONENE (GAS)'] },
-      { cat: 'INDICA', name: 'CASHEW SUNDAE', tags: [], thc: '19-21%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['BISABOLOL (NUTTY)', 'CARYOPHYLLENE (EARTHY)'] },
-      { cat: 'INDICA', name: 'CRESCENDO', tags: ['BUY 1 GET 1'], thc: '17-19%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['TERPINOLENE (FRUITY)', 'LINALOOL (FLORAL)'] },
-      { cat: 'HYBRID', name: 'WINTER MINTS', tags: [], thc: '24-28%', cbd: '<1%', p1: 700, p35: 2200, terpenes: ['LIMONENE (CITRUS)', 'LINALOOL (FLORAL)'] },
-      { cat: 'HYBRID', name: 'OREOZ', tags: [], thc: '20-24%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'CARYOPHYLLENE (EARTHY)'] },
-      { cat: 'HYBRID', name: 'PURE MICHIGAN', tags: [], thc: '20-22%', cbd: '0%', p1: 700, p35: 2200, terpenes: ['MYRCENE (FRUIT)', 'CARYOPHYLLENE (PEPPER)'] },
-      { cat: 'CBD', name: "CHARLOTTE'S ANGEL", tags: [], thc: 'N/A', cbd: '16%', p1: 400, p35: 1250, terpenes: ['MYRCENE (FRUIT)', 'LIMONENE (LEMON)'] },
-      { cat: 'COMPOUND', name: 'DA FUNK', tags: ['SATIVA'], thc: '21-23%', cbd: '<1%', p1: 700, p35: 2500, terpenes: ['OCIMENE (FRUIT)', 'MYRCENE (MUSK)'] },
-      { cat: 'COMPOUND', name: 'APPLES & BANANAS', tags: ['HYBRID'], thc: '24-26%', cbd: '0.1%', p1: 700, p35: 2500, terpenes: ['LIMONENE (LEMON)', 'CARYOPHYLLENE (SPICES)'] },
-      { cat: 'COMPOUND', name: 'GOOFIEZ', tags: ['INDICA'], thc: '23-25%', cbd: '0%', p1: 700, p35: 2500, terpenes: ['LIMONENE (LEMON)', 'MYRCENE (MANGO)'] },
-    ];
+    // ✅ Load menu data from menu.json (no design changes needed when updating)
+const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
 
-    const preRolls = ['PINEAPPLE XPRESS 2.0', 'BERRY BOOMSTICK', 'MATCHA LOLLIPOP', 'CUBAN DOOBIE', 'VANILLA FRUITTEN PIE', 'MANGO SUNSET HAZE', 'CASHEW SUNDAE'];
+useEffect(() => {
+  fetch('menu.json?v=' + Date.now())
+    .then(r => r.json())
+    .then(setMenu)
+    .catch(() => setMenu({ meta: {}, products: [], preRolls: [] }));
+}, []);
+
+// ✅ Replace old hardcoded arrays
+const products = menu.products || [];
+const preRolls = menu.preRolls || [];
+
 
     const TerpeneBadge = ({ name }) => {
       const key = name.split(' ')[0].toLowerCase().trim();
@@ -385,23 +380,28 @@
     };
 
     const App = () => {
-      const [selectedProduct, setSelectedProduct] = useState(null);
-      const [cart, setCart] = useState([]);
-      const [isCartOpen, setIsCartOpen] = useState(false);
-      const [notification, setNotification] = useState(null);
-      const [cartBump, setCartBump] = useState(false);
-      const [showWelcome, setShowWelcome] = useState(false);
-      const cartReady = useRef(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [notification, setNotification] = useState(null);
+  const [cartBump, setCartBump] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
+  const cartReady = useRef(false);
 
-      useEffect(() => {
-        try {
-          const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
-          if (Array.isArray(saved)) setCart(saved);
-        } catch {}
-        cartReady.current = true;
-      }, []);
+  // ✅ MENU LOAD HERE
+  const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
 
-      useEffect(() => {
+  useEffect(() => {
+    fetch('menu.json?v=' + Date.now())
+      .then(r => r.json())
+      .then(setMenu)
+      .catch(() => setMenu({ meta: {}, products: [], preRolls: [] }));
+  }, []);
+
+  const products = menu.products || [];
+  const preRolls = menu.preRolls || [];
+
+  useEffect(() => {
         if (!cartReady.current) return;
         try {
           sessionStorage.setItem("cart_v1", JSON.stringify(cart));
