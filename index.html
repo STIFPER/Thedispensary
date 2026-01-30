@@ -113,17 +113,25 @@
       'linalool': '#9094d8', 'bisabolol': '#e6c122',
     };
 
-    // ✅ Load menu data from menu.json (no design changes needed when updating)
 const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
+const [menuError, setMenuError] = useState("");
 
 useEffect(() => {
-  fetch('menu.json?v=' + Date.now())
-    .then(r => r.json())
-    .then(setMenu)
-    .catch(() => setMenu({ meta: {}, products: [], preRolls: [] }));
+  fetch('./menu.json?v=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error("menu.json not found: " + r.status);
+      return r.json();
+    })
+    .then(data => {
+      setMenu(data);
+      setMenuError("");
+    })
+    .catch(err => {
+      setMenuError(String(err));
+      setMenu({ meta: {}, products: [], preRolls: [] });
+    });
 }, []);
 
-// ✅ Replace old hardcoded arrays
 const products = menu.products || [];
 const preRolls = menu.preRolls || [];
 
@@ -378,8 +386,7 @@ const preRolls = menu.preRolls || [];
         </div>
       );
     };
-
-    const App = () => {
+const App = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -387,30 +394,69 @@ const preRolls = menu.preRolls || [];
   const [cartBump, setCartBump] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const cartReady = useRef(false);
-  const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
-const [menuError, setMenuError] = useState("");
 
-  // ✅ MENU LOAD HERE
+  // ✅ MENU LOAD (ONE SOURCE ONLY)
   const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
+  const [menuError, setMenuError] = useState("");
 
   useEffect(() => {
-  fetch('./menu.json?v=' + Date.now())
-    .then(r => {
-      if (!r.ok) throw new Error("menu.json not found: " + r.status);
-      return r.json();
-    })
-    .then(data => {
-      setMenu(data);
-      setMenuError("");
-    })
-    .catch(err => {
-      setMenuError(String(err));
-      setMenu({ meta: {}, products: [], preRolls: [] });
-    });
-}, []);
+    fetch('./menu.json?v=' + Date.now())
+      .then(r => {
+        if (!r.ok) throw new Error("menu.json not found: " + r.status);
+        return r.json();
+      })
+      .then(data => {
+        setMenu(data);
+        setMenuError("");
+      })
+      .catch(err => {
+        setMenuError(String(err));
+        setMenu({ meta: {}, products: [], preRolls: [] });
+      });
+  }, []);
 
   const products = menu.products || [];
   const preRolls = menu.preRolls || [];
+
+  // ✅ Load cart from session
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
+      if (Array.isArray(saved)) setCart(saved);
+    } catch {}
+    cartReady.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!cartReady.current) return;
+    try {
+      sessionStorage.setItem("cart_v1", JSON.stringify(cart));
+    } catch {}
+    window.dispatchEvent(new Event("cart:updated"));
+  }, [cart]);
+
+  useEffect(() => {
+    const open = () => setIsCartOpen(true);
+    window.addEventListener("cart:open", open);
+    return () => window.removeEventListener("cart:open", open);
+  }, []);
+
+  useEffect(() => {
+    const key = "openCartOnLoad_v1";
+    if (sessionStorage.getItem(key) === "1") {
+      sessionStorage.removeItem(key);
+      setIsCartOpen(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const hasSeenGuide = sessionStorage.getItem('hasSeenGuide_v1');
+    if (!hasSeenGuide) {
+      const timer = setTimeout(() => setShowWelcome(true), 500);
+      sessionStorage.setItem('hasSeenGuide_v1', 'true');
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   useEffect(() => {
         if (!cartReady.current) return;
@@ -533,9 +579,10 @@ const [menuError, setMenuError] = useState("");
           <header className="max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 text-center flex flex-col items-center">
             <h2 className="font-black text-2xl text-white uppercase tracking-wider opacity-80 mb-2">THE DISPENSARY</h2>
             <h1 className="font-black text-[40px] md:text-5xl text-[#a0d4b2] uppercase leading-none tracking-tight mb-2">FLOWER MENU</h1>
-            <<p className="font-black text-lg text-white uppercase tracking-[0.2em] mb-8">
+            <p className="font-black text-lg text-white uppercase tracking-[0.2em] mb-8">
   {menu.meta?.monthLabel || "MENU"}
 </p>
+
             <div className="border-t border-b border-gray-600 py-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-xs font-inter uppercase tracking-wide text-gray-400 w-full max-w-4xl">
               <div><strong className="block text-white mb-1 text-sm font-black">TRUSTED QUALITY</strong>HAND-TRIMMED, LAB-TESTED</div>
               <div className="md:border-x border-gray-600"><strong className="block text-white mb-1 text-sm font-black">GACP CERTIFIED</strong>MEDICAL STANDARDS COMPLIANT</div>
