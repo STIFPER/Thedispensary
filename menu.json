@@ -26,7 +26,7 @@
     {
       "cat": "SATIVA",
       "name": "MANGO SUNSET HAZE",
-      "tags": [],
+      "tags": ["BUY 1 GET 1"],
       "thc": "20-24%",
       "cbd": "0%",
       "p1": 700,
@@ -36,7 +36,7 @@
     {
       "cat": "SATIVA",
       "name": "SANTA'S COOKIES",
-      "tags": ["BUY 1 GET 1"],
+      "tags": [],
       "thc": "22-26%",
       "cbd": "<1%",
       "p1": 700,
@@ -46,13 +46,14 @@
     {
       "cat": "SATIVA",
       "name": "TROP CHERRY GAS #14",
-      "tags": ["BUY 1 GET 1"],
+      "tags": [],
       "thc": "20-22%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
       "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"]
     },
+
     {
       "cat": "INDICA",
       "name": "SWEET OCTANE",
@@ -65,24 +66,25 @@
     },
     {
       "cat": "INDICA",
-      "name": "CASHEW SUNDAE",
-      "tags": [],
-      "thc": "19-21%",
-      "cbd": "0%",
-      "p1": 700,
-      "p35": 2200,
-      "terpenes": ["BISABOLOL (NUTTY)", "CARYOPHYLLENE (EARTHY)"]
-    },
-    {
-      "cat": "INDICA",
       "name": "CRESCENDO",
-      "tags": ["BUY 1 GET 1"],
+      "tags": [],
       "thc": "17-19%",
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
       "terpenes": ["TERPINOLENE (FRUITY)", "LINALOOL (FLORAL)"]
     },
+    {
+      "cat": "INDICA",
+      "name": "CASHEW SUNDAE",
+      "tags": ["BUY 1 GET 1"],
+      "thc": "19-21%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["BISABOLOL (NUTTY)", "CARYOPHYLLENE (EARTHY)"]
+    },
+
     {
       "cat": "HYBRID",
       "name": "WINTER MINTS",
@@ -113,6 +115,7 @@
       "p35": 2200,
       "terpenes": ["MYRCENE (FRUIT)", "CARYOPHYLLENE (PEPPER)"]
     },
+
     {
       "cat": "CBD",
       "name": "CHARLOTTE'S ANGEL",
@@ -123,6 +126,7 @@
       "p35": 1250,
       "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (LEMON)"]
     },
+
     {
       "cat": "COMPOUND",
       "name": "DA FUNK",
@@ -154,13 +158,14 @@
       "terpenes": ["LIMONENE (LEMON)", "MYRCENE (MANGO)"]
     }
   ],
+
   "preRolls": [
-    "PINEAPPLE XPRESS 2.0",
-    "BERRY BOOMSTICK",
-    "MATCHA LOLLIPOP",
     "CUBAN DOOBIE",
     "VANILLA FRUITTEN PIE",
-    "MANGO SUNSET HAZE",
-    "CASHEW SUNDAE"
+    "CASHEW SUNDAE",
+    "PEACH PIE RUNTZ",
+    "PINEAPPLE XPRESS 2.0",
+    "BERRY BOOMSTICK",
+    "TROP CHERRY GAS #14"
   ]
 }
