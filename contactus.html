@@ -5,10 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>THE DISPENSARY - Contact Us</title>
 
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <!-- ✅ Icons / PWA (ใช้ / นำหน้า ชัวร์ทุกหน้า) -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#1d1e1e" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
 
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -20,9 +26,13 @@
       theme: {
         extend: {
           fontFamily: { inter: ['Inter', 'sans-serif'], mont: ['Montserrat', 'sans-serif'] },
-          animation: { fadeIn: 'fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)' },
+          animation: {
+            fadeIn: 'fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            toastIn: 'toastIn 0.28s ease-out',
+          },
           keyframes: {
-            fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+            fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            toastIn: { '0%': { opacity: '0', transform: 'translateY(10px) translateX(-50%)' }, '100%': { opacity: '1', transform: 'translateY(0) translateX(-50%)' } },
           }
         }
       }
@@ -42,81 +52,17 @@
     }
   </style>
 </head>
-<script>
-(function () {
-  const form = document.getElementById("fakeContactForm");
-  const btn = document.getElementById("sendBtn");
-  const status = document.getElementById("formStatus");
-
-  if (!form || !btn || !status) return;
-
-  const originalText = btn.textContent;
-
-  function setStatus(text, mode) {
-    status.textContent = text;
-    status.classList.remove("hidden");
-
-    // โทนพรีเมียม: success / loading / error
-    status.className = "mt-3 text-xs font-bold uppercase tracking-wider";
-    if (mode === "loading") status.classList.add("text-gray-400");
-    if (mode === "success") status.classList.add("text-[#a0d4b2]");
-    if (mode === "error") status.classList.add("text-red-400");
-  }
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // กันกดรัว
-    if (btn.disabled) return;
-
-    // ตรวจว่ามีอะไรกรอกบ้างนิดนึง (optional)
-    const inputs = form.querySelectorAll("input, textarea");
-    let hasText = false;
-    inputs.forEach(el => {
-      if ((el.value || "").trim().length > 0) hasText = true;
-    });
-
-    if (!hasText) {
-      setStatus("Please enter a message.", "error");
-      return;
-    }
-
-    // Loading state
-    btn.disabled = true;
-    btn.classList.add("opacity-60", "cursor-not-allowed");
-    btn.textContent = "SENDING...";
-    setStatus("Sending…", "loading");
-
-    // Fake delay (เหมือนส่งจริง)
-    setTimeout(() => {
-      btn.textContent = "SENT ✓";
-      setStatus("Message sent successfully.", "success");
-
-      // เคลียร์ฟอร์ม
-      form.reset();
-
-      // กลับสู่ปกติ
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.classList.remove("opacity-60", "cursor-not-allowed");
-        btn.textContent = originalText;
-        // จะซ่อน status หรือค้างไว้ก็ได้:
-        // status.classList.add("hidden");
-      }, 1400);
-
-    }, 900);
-  });
-})();
-</script>
 
 <body class="antialiased selection:bg-[#a0d4b2] selection:text-black font-inter flex flex-col min-h-screen">
-  <!-- ✅ navbar ชุดเดียว -->
+  <!-- ✅ navbar -->
   <div id="navbar"></div>
   <script src="navbar-loader.js"></script>
 
   <div id="root" class="flex-1 flex flex-col"></div>
 
   <script type="text/babel">
+    const { useEffect, useRef, useState } = React;
+
     const LineIcon = ({ size = 24, className }) => (
       <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
         <path d="M12 2C6.48 2 2 5.92 2 10.75c0 4.35 3.63 7.98 8.7 8.61.34.04.8.13.92.3.11.16.07.41.04.57-.09.34-.37 1.34-.57 1.83-.17.41-.69 1.52 1.5 0.81 2.19-0.7 5.97-3.51 8.13-6.02C22.25 14.82 24 12.89 24 10.75 24 5.92 19.52 2 12 2z"/>
@@ -155,133 +101,243 @@
       </svg>
     );
 
-    const ContactPage = () => (
-      <div className="max-w-[1200px] mx-auto w-full px-6 pt-8 pb-10 animate-fadeIn flex-1 flex flex-col items-center">
-        <div className="text-center mb-10 md:mb-12">
-          <a href="index.html" className="inline-block transition-transform active:scale-95">
-            <h1 className="font-black text-[6vw] md:text-[3.2rem] text-[#a0d4b2] leading-[0.9] tracking-tighter uppercase mb-4">
-              THE DISPENSARY
-            </h1>
-          </a>
-          <p className="text-gray-400 text-sm md:text-base max-w-lg mx-auto">We are here for you! How can we help?</p>
+    // ✅ Toast พรีเมียม (เหมือนส่งจริง)
+    const Toast = ({ text, onDone }) => {
+      useEffect(() => {
+        const t = setTimeout(() => onDone?.(), 2200);
+        return () => clearTimeout(t);
+      }, []);
+      return (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[100] bg-[#a0d4b2] text-black px-4 py-3 rounded-xl shadow-2xl border border-white/20 animate-toastIn">
+          <div className="font-black text-[10px] uppercase tracking-[0.2em] opacity-70">MESSAGE</div>
+          <div className="font-bold text-xs uppercase">{text}</div>
         </div>
+      );
+    };
 
-        <div className="w-full bg-[#252626] border border-white/5 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
-          
-          {/* LEFT */}
-          <div className="md:w-2/5 bg-[#2a2b2b] p-8 md:p-12 flex flex-col justify-between relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#a0d4b2]/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+    const ContactPage = () => {
+      const [name, setName] = useState("");
+      const [email, setEmail] = useState("");
+      const [message, setMessage] = useState("");
 
-           <div className="space-y-12 relative z-10">
-  <div>
-    <h3 className="text-xl font-bold text-white uppercase tracking-wider mb-8">
-      Contact Info
-    </h3>
+      const [mode, setMode] = useState("idle"); // idle | sending | sent
+      const [status, setStatus] = useState("");
+      const [toast, setToast] = useState(null);
 
-    <div className="space-y-8">
-      {/* LOCATION */}
-      <div className="grid grid-cols-[44px_1fr] gap-x-4 gap-y-2 items-start">
-        <div className="p-2.5 bg-[#a0d4b2]/10 rounded-full flex items-center justify-center text-[#a0d4b2]">
-          <MapPinIcon size={18} />
-        </div>
+      const timerRef = useRef(null);
 
-        <div className="min-w-0">
-          <span className="block text-[#a0d4b2] text-xs font-bold uppercase tracking-widest">
-            Location
-          </span>
-          <p className="text-gray-300 leading-relaxed text-sm mt-2">
-            571 Sukhumvit Rd,<br />
-            Khlong Tan Nuea, Watthana,<br />
-            Bangkok 10110
-          </p>
-        </div>
-      </div>
+      const resetTimers = () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = null;
+      };
 
-      {/* OFFICE HOURS */}
-      <div className="grid grid-cols-[44px_1fr] gap-x-4 gap-y-2 items-start">
-        <div className="p-2.5 bg-[#a0d4b2]/10 rounded-full flex items-center justify-center text-[#a0d4b2]">
-          <ClockIcon size={18} />
-        </div>
+      useEffect(() => () => resetTimers(), []);
 
-        <div className="min-w-0">
-          <span className="block text-[#a0d4b2] text-xs font-bold uppercase tracking-widest">
-            Office Hours
-          </span>
+      const onSubmit = (e) => {
+        e.preventDefault();
+        if (mode === "sending") return;
 
-          <p className="text-gray-300 leading-relaxed text-sm mt-2">
-            Monday - Sunday<br />
-            <span className="text-white font-medium">10:00 - 22:00</span>
-          </p>
+        const hasText =
+          name.trim().length > 0 ||
+          email.trim().length > 0 ||
+          message.trim().length > 0;
 
-          <p className="text-[#a0d4b2] font-bold text-sm mt-2">
-            063-229-2979
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-            {/* SOCIALS */}
-            <div className="mt-8 pt-6 relative z-10">
-              <p className="text-[#a0d4b2] text-sm md:text-base uppercase tracking-wider mb-2 font-black">
-  Follow Us
-</p>
+        if (!hasText) {
+          setStatus("Please enter a message.");
+          setToast("Please enter a message.");
+          return;
+        }
 
-              <div className="flex gap-2">
-                <a href="https://lin.ee/dZJIYCN/" target="_blank" rel="noopener noreferrer"
-                  className="flex-1 py-3 bg-[#1d1e1e] rounded-xl text-gray-400 hover:text-[#a0d4b2] hover:bg-[#a0d4b2]/10 transition-all border border-white/5 hover:border-[#a0d4b2]/30 flex justify-center items-center group">
-                  <LineIcon size={20} className="group-hover:scale-110 transition-transform" />
-                </a>
+        setMode("sending");
+        setStatus("Sending…");
+        setToast("Sending…");
 
-                <a href="https://www.instagram.com/thedis.th/" target="_blank" rel="noopener noreferrer"
-                  className="flex-1 py-3 bg-[#1d1e1e] rounded-xl text-gray-400 hover:text-[#a0d4b2] hover:bg-[#a0d4b2]/10 transition-all border border-white/5 hover:border-[#a0d4b2]/30 flex justify-center items-center group">
-                  <InstagramIcon size={20} className="group-hover:scale-110 transition-transform" />
-                </a>
+        resetTimers();
+        timerRef.current = setTimeout(() => {
+          setMode("sent");
+          setStatus("Message sent successfully.");
+          setToast("Message sent ✓");
 
-                <a href="https://www.facebook.com/thedispensary.th" target="_blank" rel="noopener noreferrer"
-                  className="flex-1 py-3 bg-[#1d1e1e] rounded-xl text-gray-400 hover:text-[#a0d4b2] hover:bg-[#a0d4b2]/10 transition-all border border-white/5 hover:border-[#a0d4b2]/30 flex justify-center items-center group">
-                  <FacebookIcon size={20} className="group-hover:scale-110 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </div> {/* ✅ ปิด LEFT ให้ครบตรงนี้ */}
+          // reset form
+          setName("");
+          setEmail("");
+          setMessage("");
 
-          {/* RIGHT */}
-          <div className="md:w-3/5 p-8 md:p-12">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-wide text-gray-400">Your Name</label>
-                  <input type="text" placeholder="John Doe"
-                    className="w-full bg-[#1d1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#a0d4b2] focus:ring-1 focus:ring-[#a0d4b2] transition-all" />
-                </div>
+          // back to normal
+          resetTimers();
+          timerRef.current = setTimeout(() => {
+            setMode("idle");
+            setStatus("");
+          }, 1400);
+        }, 900);
+      };
 
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-wide text-gray-400">Email Address</label>
-                  <input type="email" placeholder="john@example.com"
-                    className="w-full bg-[#1d1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#a0d4b2] focus:ring-1 focus:ring-[#a0d4b2] transition-all" />
-                </div>
-              </div>
+      return (
+        <div className="max-w-[1200px] mx-auto w-full px-6 pt-8 pb-10 animate-fadeIn flex-1 flex flex-col items-center">
+          {toast && <Toast text={toast} onDone={() => setToast(null)} />}
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-wide text-gray-400">Message</label>
-                <textarea rows="5" placeholder="Write something..."
-                  className="w-full bg-[#1d1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#a0d4b2] focus:ring-1 focus:ring-[#a0d4b2] transition-all resize-none"></textarea>
-              </div>
-
-              <button className="w-full md:w-auto px-8 py-3 bg-[#a0d4b2] hover:bg-[#8bcfa3] text-black font-bold uppercase tracking-wider text-sm rounded-lg transition-all">
-                Send Message
-              </button>
-            </form>
+          <div className="text-center mb-10 md:mb-12">
+            <a href="index.html" className="inline-block transition-transform active:scale-95">
+              <h1 className="font-black text-[6vw] md:text-[3.2rem] text-[#a0d4b2] leading-[0.9] tracking-tighter uppercase mb-4">
+                THE DISPENSARY
+              </h1>
+            </a>
+            <p className="text-gray-400 text-sm md:text-base max-w-lg mx-auto">
+              We are here for you! How can we help?
+            </p>
           </div>
 
-        </div>
+          <div className="w-full bg-[#252626] border border-white/5 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
 
-        <div className="mt-8">
-          <p className="text-gray-500 text-[10px]">© 2026 THE DISPENSARY. All rights reserved.</p>
+            {/* LEFT */}
+            <div className="md:w-2/5 bg-[#2a2b2b] p-8 md:p-12 flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#a0d4b2]/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+
+              <div className="space-y-12 relative z-10">
+                <div>
+                  <h3 className="text-xl font-bold text-white uppercase tracking-wider mb-8">
+                    Contact Info
+                  </h3>
+
+                  <div className="space-y-8">
+                    {/* LOCATION */}
+                    <div className="grid grid-cols-[44px_1fr] gap-x-4 gap-y-2 items-start">
+                      <div className="p-2.5 bg-[#a0d4b2]/10 rounded-full flex items-center justify-center text-[#a0d4b2]">
+                        <MapPinIcon size={18} />
+                      </div>
+
+                      <div className="min-w-0">
+                        <span className="block text-[#a0d4b2] text-xs font-bold uppercase tracking-widest">
+                          Location
+                        </span>
+                        <p className="text-gray-300 leading-relaxed text-sm mt-2">
+                          571 Sukhumvit Rd,<br />
+                          Khlong Tan Nuea, Watthana,<br />
+                          Bangkok 10110
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* OFFICE HOURS */}
+                    <div className="grid grid-cols-[44px_1fr] gap-x-4 gap-y-2 items-start">
+                      <div className="p-2.5 bg-[#a0d4b2]/10 rounded-full flex items-center justify-center text-[#a0d4b2]">
+                        <ClockIcon size={18} />
+                      </div>
+
+                      <div className="min-w-0">
+                        <span className="block text-[#a0d4b2] text-xs font-bold uppercase tracking-widest">
+                          Office Hours
+                        </span>
+
+                        <p className="text-gray-300 leading-relaxed text-sm mt-2">
+                          Monday - Sunday<br />
+                          <span className="text-white font-medium">10:00 - 22:00</span>
+                        </p>
+
+                        <p className="text-[#a0d4b2] font-bold text-sm mt-2">
+                          063-229-2979
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SOCIALS */}
+              <div className="mt-8 pt-6 relative z-10">
+                <p className="text-[#a0d4b2] text-sm md:text-base uppercase tracking-wider mb-2 font-black">
+                  Follow Us
+                </p>
+
+                <div className="flex gap-2">
+                  <a href="https://lin.ee/dZJIYCN/" target="_blank" rel="noopener noreferrer"
+                    className="flex-1 py-3 bg-[#1d1e1e] rounded-xl text-gray-400 hover:text-[#a0d4b2] hover:bg-[#a0d4b2]/10 transition-all border border-white/5 hover:border-[#a0d4b2]/30 flex justify-center items-center group">
+                    <LineIcon size={20} className="group-hover:scale-110 transition-transform" />
+                  </a>
+
+                  <a href="https://www.instagram.com/thedis.th/" target="_blank" rel="noopener noreferrer"
+                    className="flex-1 py-3 bg-[#1d1e1e] rounded-xl text-gray-400 hover:text-[#a0d4b2] hover:bg-[#a0d4b2]/10 transition-all border border-white/5 hover:border-[#a0d4b2]/30 flex justify-center items-center group">
+                    <InstagramIcon size={20} className="group-hover:scale-110 transition-transform" />
+                  </a>
+
+                  <a href="https://www.facebook.com/thedispensary.th" target="_blank" rel="noopener noreferrer"
+                    className="flex-1 py-3 bg-[#1d1e1e] rounded-xl text-gray-400 hover:text-[#a0d4b2] hover:bg-[#a0d4b2]/10 transition-all border border-white/5 hover:border-[#a0d4b2]/30 flex justify-center items-center group">
+                    <FacebookIcon size={20} className="group-hover:scale-110 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT */}
+            <div className="md:w-3/5 p-8 md:p-12">
+              <form className="space-y-6" onSubmit={onSubmit}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-wide text-gray-400">Your Name</label>
+                    <input
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      type="text"
+                      placeholder="John Doe"
+                      className="w-full bg-[#1d1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#a0d4b2] focus:ring-1 focus:ring-[#a0d4b2] transition-all"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-wide text-gray-400">Email Address</label>
+                    <input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      type="email"
+                      placeholder="john@example.com"
+                      className="w-full bg-[#1d1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#a0d4b2] focus:ring-1 focus:ring-[#a0d4b2] transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase tracking-wide text-gray-400">Message</label>
+                  <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    rows="5"
+                    placeholder="Write something..."
+                    className="w-full bg-[#1d1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#a0d4b2] focus:ring-1 focus:ring-[#a0d4b2] transition-all resize-none"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={mode === "sending"}
+                  className={`w-full md:w-auto px-8 py-3 font-bold uppercase tracking-wider text-sm rounded-lg transition-all
+                    ${mode === "sending"
+                      ? "bg-[#a0d4b2]/60 text-black opacity-80 cursor-not-allowed"
+                      : mode === "sent"
+                        ? "bg-white text-black"
+                        : "bg-[#a0d4b2] hover:bg-[#8bcfa3] text-black"
+                    }`}
+                >
+                  {mode === "sending" ? "SENDING..." : mode === "sent" ? "SENT ✓" : "SEND MESSAGE"}
+                </button>
+
+                {status && (
+                  <div className={`pt-2 text-xs font-bold uppercase tracking-wider ${
+                    status.includes("success") || status.includes("sent") ? "text-[#a0d4b2]" : "text-gray-400"
+                  }`}>
+                    {status}
+                  </div>
+                )}
+              </form>
+            </div>
+
+          </div>
+
+          <div className="mt-8">
+            <p className="text-gray-500 text-[10px]">© 2026 THE DISPENSARY. All rights reserved.</p>
+          </div>
         </div>
-      </div>
-    );
+      );
+    };
 
     const App = () => (
       <div className="min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white selection:bg-[#a0d4b2] selection:text-black font-inter">
