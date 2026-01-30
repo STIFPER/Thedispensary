@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>THE DISPENSARY - Flower Menu</title>
 
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#1d1e1e">
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#1d1e1e" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
 
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -58,13 +58,10 @@
 </head>
 
 <body class="antialiased selection:bg-[#a0d4b2] selection:text-black font-inter">
-  <!-- ✅ Navbar mount -->
   <div id="navbar"></div>
-
-  <!-- ✅ React root (มีอันเดียวพอ) -->
   <div id="root"></div>
 
-  <!-- ✅ Load navbar -->
+  <!-- navbar loader -->
   <script src="navbar-loader.js"></script>
 
   <script type="text/babel">
@@ -112,29 +109,6 @@
       'pinene': '#08a152', 'terpinolene': '#4b5e3d', 'terpineol': '#ee5a29',
       'linalool': '#9094d8', 'bisabolol': '#e6c122',
     };
-
-const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
-const [menuError, setMenuError] = useState("");
-
-useEffect(() => {
-  fetch('./menu.json?v=' + Date.now())
-    .then(r => {
-      if (!r.ok) throw new Error("menu.json not found: " + r.status);
-      return r.json();
-    })
-    .then(data => {
-      setMenu(data);
-      setMenuError("");
-    })
-    .catch(err => {
-      setMenuError(String(err));
-      setMenu({ meta: {}, products: [], preRolls: [] });
-    });
-}, []);
-
-const products = menu.products || [];
-const preRolls = menu.preRolls || [];
-
 
     const TerpeneBadge = ({ name }) => {
       const key = name.split(' ')[0].toLowerCase().trim();
@@ -220,7 +194,7 @@ const preRolls = menu.preRolls || [];
               <span className="font-inter font-black text-white text-xs opacity-90">CBD {product.cbd}</span>
             </div>
             <div className="flex flex-wrap gap-1">
-              {product.terpenes.map((t, i) => <TerpeneBadge key={i} name={t} />)}
+              {(product.terpenes || []).map((t, i) => <TerpeneBadge key={i} name={t} />)}
             </div>
           </div>
         </div>
@@ -370,7 +344,7 @@ const preRolls = menu.preRolls || [];
                   <span className="w-1.5 h-1.5 rounded-full bg-[#a0d4b2] mr-2"></span>Terpene Profile
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {product.terpenes.map((t, i) => (
+                  {(product.terpenes || []).map((t, i) => (
                     <span key={i} className="bg-gray-800 border border-gray-700 text-gray-300 font-mont font-bold text-[10px] md:text-xs px-3 py-1.5 rounded-md uppercase shadow-sm flex items-center">{t}</span>
                   ))}
                 </div>
@@ -386,100 +360,63 @@ const preRolls = menu.preRolls || [];
         </div>
       );
     };
-const App = () => {
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [notification, setNotification] = useState(null);
-  const [cartBump, setCartBump] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(false);
-  const cartReady = useRef(false);
 
-  // ✅ MENU LOAD (ONE SOURCE ONLY)
-  const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
-  const [menuError, setMenuError] = useState("");
+    const App = () => {
+      const [selectedProduct, setSelectedProduct] = useState(null);
+      const [cart, setCart] = useState([]);
+      const [isCartOpen, setIsCartOpen] = useState(false);
+      const [notification, setNotification] = useState(null);
+      const [cartBump, setCartBump] = useState(false);
+      const [showWelcome, setShowWelcome] = useState(false);
+      const cartReady = useRef(false);
 
-  useEffect(() => {
-    fetch('./menu.json?v=' + Date.now())
-      .then(r => {
-        if (!r.ok) throw new Error("menu.json not found: " + r.status);
-        return r.json();
-      })
-      .then(data => {
-        setMenu(data);
-        setMenuError("");
-      })
-      .catch(err => {
-        setMenuError(String(err));
-        setMenu({ meta: {}, products: [], preRolls: [] });
-      });
-  }, []);
+      // ✅ MENU LOAD (อยู่ใน App เท่านั้น)
+      const [menu, setMenu] = useState({ meta: {}, products: [], preRolls: [] });
+      const [menuError, setMenuError] = useState("");
 
-  const products = menu.products || [];
-  const preRolls = menu.preRolls || [];
+      useEffect(() => {
+        fetch('./menu.json?v=' + Date.now())
+          .then(r => {
+            if (!r.ok) throw new Error("menu.json not found: " + r.status);
+            return r.json();
+          })
+          .then(data => {
+            setMenu(data);
+            setMenuError("");
+          })
+          .catch(err => {
+            setMenuError(String(err));
+            setMenu({ meta: {}, products: [], preRolls: [] });
+          });
+      }, []);
 
-  // ✅ Load cart from session
-  useEffect(() => {
-    try {
-      const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
-      if (Array.isArray(saved)) setCart(saved);
-    } catch {}
-    cartReady.current = true;
-  }, []);
+      const products = menu.products || [];
+      const preRolls = menu.preRolls || [];
 
-  useEffect(() => {
-    if (!cartReady.current) return;
-    try {
-      sessionStorage.setItem("cart_v1", JSON.stringify(cart));
-    } catch {}
-    window.dispatchEvent(new Event("cart:updated"));
-  }, [cart]);
-
-  useEffect(() => {
-    const open = () => setIsCartOpen(true);
-    window.addEventListener("cart:open", open);
-    return () => window.removeEventListener("cart:open", open);
-  }, []);
-
-  useEffect(() => {
-    const key = "openCartOnLoad_v1";
-    if (sessionStorage.getItem(key) === "1") {
-      sessionStorage.removeItem(key);
-      setIsCartOpen(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    const hasSeenGuide = sessionStorage.getItem('hasSeenGuide_v1');
-    if (!hasSeenGuide) {
-      const timer = setTimeout(() => setShowWelcome(true), 500);
-      sessionStorage.setItem('hasSeenGuide_v1', 'true');
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
-  useEffect(() => {
-        if (!cartReady.current) return;
+      // ✅ Load cart from session once
+      useEffect(() => {
         try {
-          sessionStorage.setItem("cart_v1", JSON.stringify(cart));
+          const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
+          if (Array.isArray(saved)) setCart(saved);
         } catch {}
+        cartReady.current = true;
+      }, []);
+
+      // ✅ Save cart whenever changed
+      useEffect(() => {
+        if (!cartReady.current) return;
+        try { sessionStorage.setItem("cart_v1", JSON.stringify(cart)); } catch {}
         window.dispatchEvent(new Event("cart:updated"));
       }, [cart]);
 
+      // ✅ open cart event
       useEffect(() => {
-        const open = () => { setIsCartOpen(true); };
+        const open = () => setIsCartOpen(true);
         window.addEventListener("cart:open", open);
         return () => window.removeEventListener("cart:open", open);
       }, []);
 
-      useEffect(() => {
-        const key = "openCartOnLoad_v1";
-        if (sessionStorage.getItem(key) === "1") {
-          sessionStorage.removeItem(key);
-          setIsCartOpen(true);
-        }
-      }, []);
-
+      // ✅ show welcome once per session
       useEffect(() => {
         const hasSeenGuide = sessionStorage.getItem('hasSeenGuide_v1');
         if (!hasSeenGuide) {
@@ -518,7 +455,6 @@ const App = () => {
 
       const addSingleToCart = (product, size, price, e) => {
         if (e) e.stopPropagation();
-
         let promoText = '';
         if (size === 'JOINT') promoText = 'BUY 2 GET 1 FREE';
 
@@ -558,15 +494,15 @@ const App = () => {
       const compound = products.filter(p => p.cat === 'COMPOUND');
 
       return (
-  <div className="min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white">
+        <div className="min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white">
 
-    {menuError && (
-      <div className="max-w-[1400px] mx-auto w-full px-4 py-3 mb-4 bg-red-500/20 border border-red-500 text-red-200 text-sm">
-        MENU ERROR: {menuError}
-      </div>
-    )}
+          {menuError && (
+            <div className="max-w-[1400px] mx-auto w-full px-4 py-3 mb-4 bg-red-500/20 border border-red-500 text-red-200 text-sm">
+              MENU ERROR: {menuError}
+            </div>
+          )}
 
-    {notification && (
+          {notification && (
             <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#a0d4b2] text-black px-4 py-3 rounded shadow-2xl z-[100] flex items-center gap-3 animate-toastIn border border-white/20">
               <div className="bg-black/10 p-1.5 rounded-full shrink-0"><Check size={16} /></div>
               <div>
@@ -579,9 +515,10 @@ const App = () => {
           <header className="max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 text-center flex flex-col items-center">
             <h2 className="font-black text-2xl text-white uppercase tracking-wider opacity-80 mb-2">THE DISPENSARY</h2>
             <h1 className="font-black text-[40px] md:text-5xl text-[#a0d4b2] uppercase leading-none tracking-tight mb-2">FLOWER MENU</h1>
+
             <p className="font-black text-lg text-white uppercase tracking-[0.2em] mb-8">
-  {menu.meta?.monthLabel || "MENU"}
-</p>
+              {menu.meta?.monthLabel || "MENU"}
+            </p>
 
             <div className="border-t border-b border-gray-600 py-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-xs font-inter uppercase tracking-wide text-gray-400 w-full max-w-4xl">
               <div><strong className="block text-white mb-1 text-sm font-black">TRUSTED QUALITY</strong>HAND-TRIMMED, LAB-TESTED</div>
@@ -611,8 +548,10 @@ const App = () => {
                   <h2 className="font-black text-2xl md:text-3xl text-[#a0d4b2] uppercase">PRE-ROLLS</h2>
                   <div className="font-black text-xl md:text-2xl text-white">550/JOINT</div>
                 </div>
+
                 <div className="p-4 flex flex-col flex-1">
                   <div className="flex justify-end mb-2"><BadgeElement type="BUY 2" size="md" /></div>
+
                   <div className="grid grid-cols-2 gap-2 content-center flex-1">
                     {preRolls.map((name, i) => (
                       <button
@@ -631,6 +570,7 @@ const App = () => {
                     ))}
                   </div>
                 </div>
+
                 <div className="px-4 pb-2 text-center text-[10px] text-gray-500 font-bold uppercase">(CLICK STRAIN TO ADD • ROLLING SERVICE AVAILABLE)</div>
               </div>
             </div>
@@ -784,6 +724,7 @@ const App = () => {
               </span>
             )}
           </button>
+
         </div>
       );
     };
