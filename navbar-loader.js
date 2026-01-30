@@ -84,8 +84,12 @@
     });
   }
 
-  fetch("/navbar.html")
-    .then((r) => r.text())
+  // ✅ IMPORTANT: Use relative path for GitHub Pages project sites
+  fetch("./navbar.html?v=" + Date.now())
+    .then((r) => {
+      if (!r.ok) throw new Error("navbar.html not found: " + r.status);
+      return r.text();
+    })
     .then((html) => {
       mount.innerHTML = html;
 
@@ -95,5 +99,7 @@
 
       window.addEventListener("cart:updated", renderCartBadge);
     })
-    .catch(() => {});
+    .catch((err) => {
+      console.error(err);
+    });
 })();
