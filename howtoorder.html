@@ -9,11 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
-  <!-- ✅ PRODUCTION = เร็วกว่า -->
+  <!-- ✅ Production React (เร็วกว่า) -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
+  <!-- ✅ Babel (สำหรับ type="text/babel") -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
@@ -21,7 +23,6 @@
       theme: {
         extend: {
           fontFamily: { inter: ['Inter', 'sans-serif'], mont: ['Montserrat', 'sans-serif'] },
-          /* ✅ ลดความหนักของ animation (สั้นลง + ใช้ transform น้อยลง) */
           animation: { fadeIn: 'fadeIn 0.18s ease-out', slideUp: 'slideUp 0.22s ease-out forwards' },
           keyframes: {
             fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
@@ -39,8 +40,6 @@
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* ✅ ทำให้ GPU ช่วยเรนเดอร์ animation (ลื่นขึ้นบนมือถือ) */
     .gpu { will-change: transform, opacity; transform: translateZ(0); }
   </style>
 </head>
@@ -58,6 +57,7 @@
         <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
       </svg>
     );
+
     const Truck = ({ size = 20, className }) => (
       <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none"
         stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -65,6 +65,7 @@
         <path d="M14 17h1" /><circle cx="7.5" cy="17.5" r="2.5" /><circle cx="17.5" cy="17.5" r="2.5" />
       </svg>
     );
+
     const CreditCard = ({ size = 20, className }) => (
       <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none"
         stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -114,7 +115,6 @@
 
         <main className="max-w-3xl mx-auto w-full px-4 flex flex-col gap-6 md:gap-10">
           <section className="space-y-3">
-            <!-- ✅ ลด delay ให้สั้นลง (ยังเป็นลำดับ แต่ไม่หน่วง) -->
             <StepCard number="1" title="SELECTION" delay={40}>Browse our curated menu and select your preferred strains and quantities. Add your selections to the cart.</StepCard>
             <StepCard number="2" title="REVIEW" delay={80}>Verify your order details, ensuring all strains and quantities are correct.</StepCard>
             <StepCard number="3" title="ORDER SUMMARY" delay={120}>Capture a clear screenshot of your Order Summary page.</StepCard>
