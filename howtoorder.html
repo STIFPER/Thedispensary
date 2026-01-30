@@ -9,8 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- ✅ PRODUCTION = เร็วกว่า -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -19,10 +21,11 @@
       theme: {
         extend: {
           fontFamily: { inter: ['Inter', 'sans-serif'], mont: ['Montserrat', 'sans-serif'] },
-          animation: { fadeIn: 'fadeIn 0.3s ease-out', slideUp: 'slideUp 0.4s ease-out forwards' },
+          /* ✅ ลดความหนักของ animation (สั้นลง + ใช้ transform น้อยลง) */
+          animation: { fadeIn: 'fadeIn 0.18s ease-out', slideUp: 'slideUp 0.22s ease-out forwards' },
           keyframes: {
             fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-            slideUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+            slideUp: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
           }
         }
       }
@@ -36,11 +39,13 @@
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ✅ ทำให้ GPU ช่วยเรนเดอร์ animation (ลื่นขึ้นบนมือถือ) */
+    .gpu { will-change: transform, opacity; transform: translateZ(0); }
   </style>
 </head>
 
 <body class="antialiased selection:bg-[#a0d4b2] selection:text-black font-inter">
-  <!-- ✅ ใช้ navbar ชุดเดียว -->
   <div id="navbar"></div>
   <script src="navbar-loader.js"></script>
 
@@ -68,8 +73,10 @@
     );
 
     const StepCard = ({ number, title, children, delay }) => (
-      <div className="flex gap-4 items-start p-4 md:p-5 bg-white/5 border border-white/10 rounded-xl hover:border-[#a0d4b2]/50 transition-colors duration-300 opacity-0 animate-slideUp"
-        style={{ animationDelay: `${delay}ms` }}>
+      <div
+        className="gpu flex gap-4 items-start p-4 md:p-5 bg-white/5 border border-white/10 rounded-xl hover:border-[#a0d4b2]/50 transition-colors duration-300 opacity-0 animate-slideUp"
+        style={{ animationDelay: `${delay}ms` }}
+      >
         <div className="shrink-0">
           <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#a0d4b2]/10 border border-[#a0d4b2]/30 text-[#a0d4b2] font-black flex items-center justify-center text-sm md:text-lg mt-0.5">
             {number}
@@ -83,7 +90,7 @@
     );
 
     const InfoCard = ({ title, icon: Icon, children, className }) => (
-      <div className={`rounded-xl border border-white/10 bg-white/5 flex flex-col overflow-hidden hover:border-[#a0d4b2]/30 transition-all duration-300 ${className}`}>
+      <div className={`gpu rounded-xl border border-white/10 bg-white/5 flex flex-col overflow-hidden hover:border-[#a0d4b2]/30 transition-all duration-300 ${className}`}>
         <div className="flex items-center gap-3 md:gap-4 p-4 md:p-5 border-b border-white/5">
           <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#a0d4b2]/10 border border-[#a0d4b2]/30 text-[#a0d4b2] flex items-center justify-center shrink-0">
             <Icon size={16} className="md:w-[20px] md:h-[20px]" />
@@ -107,14 +114,15 @@
 
         <main className="max-w-3xl mx-auto w-full px-4 flex flex-col gap-6 md:gap-10">
           <section className="space-y-3">
-            <StepCard number="1" title="SELECTION" delay={100}>Browse our curated menu and select your preferred strains and quantities. Add your selections to the cart.</StepCard>
-            <StepCard number="2" title="REVIEW" delay={200}>Verify your order details, ensuring all strains and quantities are correct.</StepCard>
-            <StepCard number="3" title="ORDER SUMMARY" delay={300}>Capture a clear screenshot of your Order Summary page.</StepCard>
-            <StepCard number="4" title="VERIFICATION" delay={400}>Submit the screenshot to our LINE Official Account. Our team will verify stock availability.</StepCard>
-            <StepCard number="5" title="PAYMENT & DISPATCH" delay={500}>Upon payment confirmation, the order is dispatched via instant courier services.</StepCard>
+            <!-- ✅ ลด delay ให้สั้นลง (ยังเป็นลำดับ แต่ไม่หน่วง) -->
+            <StepCard number="1" title="SELECTION" delay={40}>Browse our curated menu and select your preferred strains and quantities. Add your selections to the cart.</StepCard>
+            <StepCard number="2" title="REVIEW" delay={80}>Verify your order details, ensuring all strains and quantities are correct.</StepCard>
+            <StepCard number="3" title="ORDER SUMMARY" delay={120}>Capture a clear screenshot of your Order Summary page.</StepCard>
+            <StepCard number="4" title="VERIFICATION" delay={160}>Submit the screenshot to our LINE Official Account. Our team will verify stock availability.</StepCard>
+            <StepCard number="5" title="PAYMENT & DISPATCH" delay={200}>Upon payment confirmation, the order is dispatched via instant courier services.</StepCard>
           </section>
 
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-slideUp" style={{ animationDelay: '600ms' }}>
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-4 opacity-0 animate-slideUp gpu" style={{ animationDelay: '240ms' }}>
             <InfoCard title="DELIVERY POLICY" icon={Truck} className="h-full">
               <ul className="space-y-3 list-disc pl-4 marker:text-[#a0d4b2]">
                 <li><strong className="text-white block text-[10px] md:text-xs uppercase tracking-wider mb-0.5">INSTANT DELIVERY</strong>We utilize instant courier services (Grab Express, LINE MAN) for local areas.</li>
@@ -130,7 +138,7 @@
             </InfoCard>
           </section>
 
-          <div className="text-center pb-8 animate-slideUp" style={{ animationDelay: '700ms' }}>
+          <div className="text-center pb-8 opacity-0 animate-slideUp gpu" style={{ animationDelay: '280ms' }}>
             <a href="index.html" className="inline-flex items-center gap-3 bg-[#a0d4b2] hover:bg-white text-black font-black py-3 px-6 md:py-4 md:px-8 rounded-full text-sm md:text-base uppercase tracking-widest transition-all duration-300 w-full md:w-auto justify-center">
               Start Shopping <ArrowRight size={18} />
             </a>
