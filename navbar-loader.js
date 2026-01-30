@@ -2,6 +2,12 @@
   const mount = document.getElementById("navbar");
   if (!mount) return;
 
+  // ✅ base path ของหน้า ณ ตอนนั้น เช่น "/Thedispensary/" หรือ "/Thedispensary/sub/"
+  function basePath() {
+    const p = location.pathname || "/";
+    return p.endsWith("/") ? p : p.replace(/[^/]*$/, "");
+  }
+
   function currentKey() {
     let p = (location.pathname || "/").toLowerCase();
     p = p.replace(/\/+$/, "");
@@ -34,7 +40,6 @@
     const el = document.getElementById(activeId);
     if (!el) return;
 
-    // 🎯 Premium underline style
     el.classList.add("active");
     el.style.display = "inline-block";
     el.style.paddingBottom = "6px";
@@ -84,10 +89,12 @@
     });
   }
 
-  // ✅ IMPORTANT: Use relative path for GitHub Pages project sites
-  fetch("./navbar.html?v=" + Date.now())
+  // ✅ ลองโหลดแบบชัวร์สุด: basePath + navbar.html
+  const url = basePath() + "navbar.html?v=" + Date.now();
+
+  fetch(url, { cache: "no-store" })
     .then((r) => {
-      if (!r.ok) throw new Error("navbar.html not found: " + r.status);
+      if (!r.ok) throw new Error("navbar.html not found: " + r.status + " @ " + url);
       return r.text();
     })
     .then((html) => {
@@ -101,5 +108,7 @@
     })
     .catch((err) => {
       console.error(err);
+      // กันหน้าเว็บพัง: ไม่โชว์ 404 แปะบนเว็บอีกต่อไป
+      mount.innerHTML = "";
     });
 })();
