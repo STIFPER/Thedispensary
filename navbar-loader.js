@@ -3,12 +3,9 @@
   if (!mount) return;
 
   function currentKey() {
-    // รองรับทั้ง /howtoorder, /howtoorder/, /howtoorder.html
     let p = (location.pathname || "/").toLowerCase();
-    p = p.replace(/\/+$/, ""); // ตัด / ท้าย
+    p = p.replace(/\/+$/, "");
     let last = p.split("/").pop() || "index.html";
-
-    // ถ้าไม่มี .html ให้เติมให้ (เช่น howtoorder -> howtoorder.html)
     if (!last.includes(".")) last = last + ".html";
     return last;
   }
@@ -17,8 +14,10 @@
     const el = document.getElementById(id);
     if (!el) return;
     el.classList.remove("active");
-    // ล้างเส้นใต้แบบบังคับ
     el.style.boxShadow = "none";
+    el.style.paddingBottom = "0";
+    el.style.paddingLeft = "0";
+    el.style.paddingRight = "0";
   }
 
   function setActiveNav() {
@@ -29,18 +28,19 @@
       "contactus.html": "navContact",
     };
 
-    // รีเซ็ตทุกเมนู
     ["navMenu", "navHow", "navContact"].forEach(clearActive);
 
     const activeId = map[file];
     const el = document.getElementById(activeId);
     if (!el) return;
 
-    // ใส่ active + เส้นใต้แบบ inset (เห็นแน่นอน)
+    // 🎯 Premium underline style
     el.classList.add("active");
     el.style.display = "inline-block";
-    el.style.paddingBottom = "10px";
-    el.style.boxShadow = "inset 0 -3px 0 #a0d4b2";
+    el.style.paddingBottom = "6px";
+    el.style.paddingLeft = "2px";
+    el.style.paddingRight = "2px";
+    el.style.boxShadow = "inset 0 -1px 0 rgba(160, 212, 178, 0.85)";
   }
 
   function getCartCount() {
@@ -84,7 +84,6 @@
     });
   }
 
-  // สำคัญ: ใช้ absolute path กันปัญหาอยู่ path ย่อยแล้ว fetch ไม่เจอ
   fetch("/navbar.html")
     .then((r) => r.text())
     .then((html) => {
