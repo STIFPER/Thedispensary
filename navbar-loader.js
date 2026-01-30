@@ -6,20 +6,43 @@
     return (location.pathname.split("/").pop() || "index.html").toLowerCase();
   }
 
+  function resetNavItem(el) {
+    if (!el) return;
+    // คืนสไตล์ปกติ
+    el.classList.remove(
+      "text-[#a0d4b2]",
+      "border-b-2",
+      "border-[#a0d4b2]",
+      "pb-1"
+    );
+    el.classList.add("text-gray-400", "hover:text-white", "transition-colors");
+
+    // กันเคสที่บางหน้ามี CSS อื่นมาทับ
+    el.style.borderBottom = "2px solid transparent";
+    el.style.paddingBottom = "";
+  }
+
   function setActiveNav() {
     const file = currentFile();
     const map = {
       "index.html": "navMenu",
       "howtoorder.html": "navHow",
-      "contactus.html": "navContact"
+      "contactus.html": "navContact",
     };
-    const activeId = map[file];
-    if (!activeId) return;
 
+    // รีเซ็ตทุกเมนูก่อน
+    const ids = ["navMenu", "navHow", "navContact"];
+    ids.forEach((id) => resetNavItem(document.getElementById(id)));
+
+    // ใส่ active ให้หน้าปัจจุบัน
+    const activeId = map[file];
     const el = document.getElementById(activeId);
     if (!el) return;
 
-    el.classList.add("text-[#a0d4b2]", "border-b-2", "border-[#a0d4b2]", "pb-1");
+    el.classList.remove("text-gray-400");
+    el.classList.add("text-white");
+    el.style.borderBottom = "2px solid #a0d4b2";
+    el.style.paddingBottom = "4px";
   }
 
   function getCartCount() {
@@ -70,15 +93,15 @@
     .then((r) => r.text())
     .then((html) => {
       mount.innerHTML = html;
+
+      // สำคัญ: ต้องรันหลัง mount.innerHTML เสร็จ
       setActiveNav();
       wireCartButton();
       renderCartBadge();
 
-      // อัปเดต badge ทุกครั้งที่ตะกร้าเปลี่ยน
       window.addEventListener("cart:updated", renderCartBadge);
     })
     .catch(() => {
       // ถ้า fetch ไม่ได้ (เช่นเปิดแบบ file://) จะไม่ขึ้น navbar
-      // แนะนำให้เปิดผ่าน Live Server / local server
     });
 })();
