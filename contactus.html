@@ -106,41 +106,55 @@
           <div className="md:w-2/5 bg-[#2a2b2b] p-8 md:p-12 flex flex-col justify-between relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#a0d4b2]/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
 
-            <div className="space-y-12 relative z-10">
-              <div>
-                <h3 className="text-xl font-bold text-white uppercase tracking-wider mb-8">Contact Info</h3>
+           <div className="space-y-12 relative z-10">
+  <div>
+    <h3 className="text-xl font-bold text-white uppercase tracking-wider mb-8">
+      Contact Info
+    </h3>
 
-                <div className="space-y-8">
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-3 text-[#a0d4b2]">
-                      <div className="p-2.5 bg-[#a0d4b2]/10 rounded-full flex items-center justify-center">
-                        <MapPinIcon size={18} />
-                      </div>
-                      <span className="text-xs font-bold uppercase tracking-widest">Location</span>
-                    </div>
-                    <p className="text-gray-300 leading-relaxed text-sm pl-10">
-                      571 Sukhumvit Rd,<br/>Khlong Tan Nuea, Watthana,<br/>Bangkok 10110
-                    </p>
-                  </div>
+    <div className="space-y-8">
+      {/* LOCATION */}
+      <div className="grid grid-cols-[44px_1fr] gap-x-4 gap-y-2 items-start">
+        <div className="p-2.5 bg-[#a0d4b2]/10 rounded-full flex items-center justify-center text-[#a0d4b2]">
+          <MapPinIcon size={18} />
+        </div>
 
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-3 text-[#a0d4b2]">
-                      <div className="p-2.5 bg-[#a0d4b2]/10 rounded-full flex items-center justify-center">
-                        <ClockIcon size={18} />
-                      </div>
-                      <span className="text-xs font-bold uppercase tracking-widest">Office Hours</span>
-                    </div>
-                    <div className="pl-12">
-                      <p className="text-gray-300 leading-relaxed text-sm">
-                        Monday - Sunday<br/><span className="text-white font-medium">10:00 - 22:00</span>
-                      </p>
-                      <p className="text-[#a0d4b2] font-bold text-sm mt-2">063-229-2979</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="min-w-0">
+          <span className="block text-[#a0d4b2] text-xs font-bold uppercase tracking-widest">
+            Location
+          </span>
+          <p className="text-gray-300 leading-relaxed text-sm mt-2">
+            571 Sukhumvit Rd,<br />
+            Khlong Tan Nuea, Watthana,<br />
+            Bangkok 10110
+          </p>
+        </div>
+      </div>
 
+      {/* OFFICE HOURS */}
+      <div className="grid grid-cols-[44px_1fr] gap-x-4 gap-y-2 items-start">
+        <div className="p-2.5 bg-[#a0d4b2]/10 rounded-full flex items-center justify-center text-[#a0d4b2]">
+          <ClockIcon size={18} />
+        </div>
+
+        <div className="min-w-0">
+          <span className="block text-[#a0d4b2] text-xs font-bold uppercase tracking-widest">
+            Office Hours
+          </span>
+
+          <p className="text-gray-300 leading-relaxed text-sm mt-2">
+            Monday - Sunday<br />
+            <span className="text-white font-medium">10:00 - 22:00</span>
+          </p>
+
+          <p className="text-[#a0d4b2] font-bold text-sm mt-2">
+            063-229-2979
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
             {/* SOCIALS */}
             <div className="mt-8 pt-6 relative z-10">
               <p className="text-[#a0d4b2] text-sm md:text-base uppercase tracking-wider mb-2 font-black">
