@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>THE DISPENSARY - How to Order</title>
 
+  <!-- ✅ Icons / PWA -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#1d1e1e" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
-  <!-- ✅ Production React (เร็วกว่า) -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-
-  <!-- ✅ Babel (สำหรับ type="text/babel") -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
@@ -32,6 +35,17 @@
       }
     }
   </script>
+
+  <style>
+    body { background-color: #1d1e1e; color: white; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #1d1e1e; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .gpu { will-change: transform, opacity; transform: translateZ(0); }
+  </style>
+</head>
 
   <style>
     body { background-color: #1d1e1e; color: white; }
