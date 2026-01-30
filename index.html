@@ -520,7 +520,7 @@
     FLOWER MENU
   </h1>
             <p className="font-black text-lg text-white uppercase tracking-[0.2em] mb-8 w-full text-center">
-    {menu.meta?.monthLabel || "MENU"}
+    {menu.meta?.monthLabel ? menu.meta.monthLabel : ""}
   </p>
 
             <div className="border-t border-b border-gray-600 py-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-xs font-inter uppercase tracking-wide text-gray-400 w-full max-w-4xl">
