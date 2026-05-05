@@ -719,6 +719,9 @@
       };
 
       const App = () => {
+        // 🔒 CONTROL PANEL
+        const ENABLE_WELCOME = false;
+        const ENABLE_CART = false;
         const [selectedProduct, setSelectedProduct] = useState(null);
         const [cart, setCart] = useState([]);
         const [isCartOpen, setIsCartOpen] = useState(false);
@@ -774,19 +777,11 @@
 
         // ✅ open cart event
         useEffect(() => {
+          if (!ENABLE_CART) return;
+
           const open = () => setIsCartOpen(true);
           window.addEventListener("cart:open", open);
           return () => window.removeEventListener("cart:open", open);
-        }, []);
-
-        // ✅ show welcome once per session
-        useEffect(() => {
-          const hasSeenGuide = sessionStorage.getItem("hasSeenGuide_v1");
-          if (!hasSeenGuide) {
-            const timer = setTimeout(() => setShowWelcome(true), 500);
-            sessionStorage.setItem("hasSeenGuide_v1", "true");
-            return () => clearTimeout(timer);
-          }
         }, []);
 
         const handleBatchAddToCart = (product, qty1, qty35) => {
@@ -1095,7 +1090,7 @@
               <WelcomeModal onClose={() => setShowWelcome(false)} />
             )}
 
-            {isCartOpen && (
+            {ENABLE_CART && isCartOpen && (
               <div
                 className="fixed inset-0 bg-black/90 z-[60] overflow-y-auto backdrop-blur-sm animate-fadeIn"
                 onClick={() => {
@@ -1274,20 +1269,22 @@
               </div>
             )}
 
-            <button
-              onClick={() => {
-                setIsCartOpen(true);
-              }}
-              className={`fixed bottom-6 right-6 z-[70] bg-[#1d1e1e] border border-[#a0d4b2]/40 shadow-2xl p-3 rounded-full text-white hover:text-[#a0d4b2] transition-all ${cartBump ? "scale-125 text-[#a0d4b2]" : ""}`}
-              aria-label="Open cart"
-            >
-              <ShoppingBag size={22} />
-              {cart.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-[#1d1e1e]">
-                  {cart.length}
-                </span>
-              )}
-            </button>
+            {ENABLE_CART && (
+              <button
+                onClick={() => {
+                  setIsCartOpen(true);
+                }}
+                className={`fixed bottom-6 right-6 z-[70] bg-[#1d1e1e] border border-[#a0d4b2]/40 shadow-2xl p-3 rounded-full text-white hover:text-[#a0d4b2] transition-all ${cartBump ? "scale-125 text-[#a0d4b2]" : ""}`}
+                aria-label="Open cart"
+              >
+                <ShoppingBag size={22} />
+                {cart.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-[#1d1e1e]">
+                    {cart.length}
+                  </span>
+                )}
+              </button>
+            )}
           </div>
         );
       };
