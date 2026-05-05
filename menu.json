@@ -58,6 +58,16 @@
     },
     {
       "cat": "HYBRID",
+      "name": "Cap Junky",
+      "tags": ["NEW"],
+      "thc": "23-28%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["Limonene (Fruits)", "Caryophyllene (Pepper)"]
+    },
+    {
+      "cat": "HYBRID",
       "name": "RANCID RUNTZ",
       "tags": ["NEW"],
       "thc": "28-30%",
