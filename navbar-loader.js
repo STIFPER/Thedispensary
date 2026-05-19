@@ -30,11 +30,12 @@
     const file = currentKey();
     const map = {
       "index.html": "navMenu",
+      "promo.html": "navPromo",
       "howtoorder.html": "navHow",
       "contactus.html": "navContact",
     };
 
-    ["navMenu", "navHow", "navContact"].forEach(clearActive);
+    ["navMenu", "navPromo", "navHow", "navContact"].forEach(clearActive);
 
     const activeId = map[file];
     const el = document.getElementById(activeId);
@@ -94,7 +95,8 @@
 
   fetch(url, { cache: "no-store" })
     .then((r) => {
-      if (!r.ok) throw new Error("navbar.html not found: " + r.status + " @ " + url);
+      if (!r.ok)
+        throw new Error("navbar.html not found: " + r.status + " @ " + url);
       return r.text();
     })
     .then((html) => {
