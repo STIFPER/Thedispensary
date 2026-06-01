@@ -30,8 +30,6 @@
       rel="stylesheet"
     />
 
-    <link rel="preload" href="./menu.json" as="fetch" crossorigin="anonymous" />
-
     <link
       rel="preload"
       href="https://unpkg.com/react@18/umd/react.production.min.js"
@@ -150,13 +148,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        transition:
-          opacity 0.5s ease,
-          visibility 0.5s ease;
+        transition: opacity 0.3s ease;
       }
       #loading-screen.hidden {
         opacity: 0;
-        visibility: hidden;
         pointer-events: none;
       }
       .loading-dot {
@@ -217,35 +212,22 @@
     <script src="navbar-loader.js" defer></script>
 
     <script>
-      // Dismiss loading screen once React mounts and Data is fetched
+      // Dismiss loading screen once React mounts
       window.__dismissLoading = function () {
         var el = document.getElementById("loading-screen");
         if (el) {
           el.classList.add("hidden");
           setTimeout(function () {
             el.remove();
-          }, 600);
+          }, 350);
         }
       };
     </script>
 
     <script type="text/babel">
-      const { useState, useEffect, useRef, memo, useMemo, useCallback } = React;
+      const { useState, useEffect, useRef } = React;
 
-      // 🟩 LINE Icon SVG
-      const LineIcon = memo(({ size = 24, className }) => (
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          width={size} 
-          height={size} 
-          viewBox="0 0 24 24" 
-          className={className}
-        >
-          <path fill="currentColor" d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.122.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992zm-18.988 2.595h-2.123c-.35 0-.633-.284-.633-.633V7.502c0-.35.283-.633.633-.633.35 0 .633.283.633.633v4.131h1.49c.35 0 .633.284.633.633 0 .35-.283.633-.633.633zm3.766 0h-1.266c-.35 0-.633-.284-.633-.633V7.502c0-.35.283-.633.633-.633.35 0 .633.283.633.633v4.764c0 .35-.283.633-.633.633zm5.731 0h-1.205l-2.302-3.324v3.324c0 .35-.283.633-.633.633-.35 0-.633-.284-.633-.633V7.502c0-.35.283-.633.633-.633h1.205l2.302 3.324V7.502c0-.35.283-.633.633-.633.35 0 .633.283.633.633v4.764c0 .35-.283.633-.633.633zm4.512-2.124h-1.55v.858h1.55c.35 0 .633.284.633.633 0 .35-.283.633-.633.633h-2.183c-.35 0-.633-.284-.633-.633V7.502c0-.35.283-.633.633-.633h2.183c.35 0 .633.283.633.633 0 .35-.283.633-.633.633h-1.55v.857h1.55c.35 0 .633.283.633.633 0 .35-.283.633-.633.633z"/>
-        </svg>
-      ));
-
-      const X = memo(({ size = 24, className }) => (
+      const X = ({ size = 24, className }) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
@@ -261,8 +243,8 @@
           <path d="M18 6 6 18" />
           <path d="m6 6 12 12" />
         </svg>
-      ));
-      const ShoppingBag = memo(({ size = 24, className }) => (
+      );
+      const ShoppingBag = ({ size = 24, className }) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
@@ -279,8 +261,8 @@
           <path d="M3 6h18" />
           <path d="M16 10a4 4 0 0 1-8 0" />
         </svg>
-      ));
-      const Trash2 = memo(({ size = 24, className }) => (
+      );
+      const Trash2 = ({ size = 24, className }) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
@@ -299,8 +281,8 @@
           <line x1="10" x2="10" y1="11" y2="17" />
           <line x1="14" x2="14" y1="11" y2="17" />
         </svg>
-      ));
-      const Plus = memo(({ size = 24, className }) => (
+      );
+      const Plus = ({ size = 24, className }) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
@@ -316,8 +298,8 @@
           <path d="M5 12h14" />
           <path d="M12 5v14" />
         </svg>
-      ));
-      const Minus = memo(({ size = 24, className }) => (
+      );
+      const Minus = ({ size = 24, className }) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
@@ -332,8 +314,8 @@
         >
           <path d="M5 12h14" />
         </svg>
-      ));
-      const Check = memo(({ size = 24, className }) => (
+      );
+      const Check = ({ size = 24, className }) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
@@ -348,8 +330,8 @@
         >
           <polyline points="20 6 9 17 4 12" />
         </svg>
-      ));
-      const Camera = memo(({ size = 24, className }) => (
+      );
+      const Camera = ({ size = 24, className }) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
@@ -365,7 +347,7 @@
           <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
           <circle cx="12" cy="13" r="3" />
         </svg>
-      ));
+      );
 
       const terpeneColors = {
         myrcene: "#2b398c",
@@ -381,7 +363,7 @@
         bisabolol: "#e6c122",
       };
 
-      const TerpeneBadge = memo(({ name }) => {
+      const TerpeneBadge = ({ name }) => {
         const key = name.split(" ")[0].toLowerCase().trim();
         const color = terpeneColors[key] || "#4b5563";
         return (
@@ -392,9 +374,9 @@
             {name}
           </span>
         );
-      });
+      };
 
-      const BadgeElement = memo(({ type, size = "sm" }) => {
+      const BadgeElement = ({ type, size = "sm" }) => {
         const styles = {
           full: {
             size: "102px",
@@ -493,9 +475,9 @@
             {content}
           </div>
         );
-      });
+      };
 
-      const StatusBadge = memo(({ tags, size = "sm" }) => {
+      const StatusBadge = ({ tags, size = "sm" }) => {
         const placeholderSize =
           size === "sm" ? "52px" : size === "md" ? "68px" : "102px";
         const containerStyle = {
@@ -523,11 +505,13 @@
           );
         }
         return <div style={containerStyle} className="mr-2 shrink-0"></div>;
-      });
+      };
 
-      const ProductCard = memo(({ product, onClick }) => (
+      const ProductCard = ({ product, onClick }) => (
         <div
-          onClick={() => onClick(product)}
+          onClick={() => {
+            onClick(product);
+          }}
           className="group cursor-pointer py-3 px-2 hover:bg-white/5 transition-all duration-200 flex items-center justify-between border-b border-gray-700/50 last:border-0"
         >
           <div className="flex items-center flex-1 pr-2">
@@ -561,9 +545,9 @@
             </div>
           </div>
         </div>
-      ));
+      );
 
-      const BoxHeader = memo(({ title, bgColor }) => (
+      const BoxHeader = ({ title, bgColor }) => (
         <div
           className="flex justify-between items-center px-4 py-2 border-b border-white/10"
           style={{ backgroundColor: bgColor }}
@@ -575,12 +559,14 @@
             1G | 3.5G
           </span>
         </div>
-      ));
+      );
 
       const WelcomeModal = ({ onClose }) => (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn"
-          onClick={onClose}
+          onClick={() => {
+            onClose();
+          }}
         >
           <div
             className="bg-[#1d1e1e]/95 border border-[#a0d4b2]/40 w-full max-w-sm rounded-2xl shadow-[0_0_40px_rgba(160,212,178,0.15)] overflow-hidden relative flex flex-col"
@@ -596,41 +582,72 @@
                   Quick Guide
                 </p>
               </div>
+
               <div className="space-y-6 mb-8">
-                {[
-                  {
-                    step: 1,
-                    title: "SELECT YOUR STRAINS",
-                    desc: "Choose your preferred flowers or pre-rolls and add them to your cart.",
-                  },
-                  {
-                    step: 2,
-                    title: "CHECK YOUR CART",
-                    desc: "Click the Shopping Bag icon to review your selected items.",
-                  },
-                  {
-                    step: 3,
-                    title: "SEND ORDER VIA LINE",
-                    desc: "Click the checkout button in your cart to automatically send your order details to Admin via LINE OA.",
-                  },
-                ].map((s, i) => (
-                  <div key={i} className="flex gap-4 items-start group">
-                    <div className="bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300">
-                      {s.step}
-                    </div>
-                    <div>
-                      <h3 className="font-black text-white text-sm uppercase mb-1 tracking-wide">
-                        {s.title}
-                      </h3>
-                      <p className="text-gray-400 text-xs font-medium leading-relaxed">
-                        {s.desc}
-                      </p>
-                    </div>
+                <div className="flex gap-4 items-start group">
+                  <div className="bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300">
+                    1
                   </div>
-                ))}
+                  <div>
+                    <h3 className="font-black text-white text-sm uppercase mb-1 tracking-wide">
+                      SELECT YOUR STRAINS
+                    </h3>
+                    <p className="text-gray-400 text-xs font-medium leading-relaxed">
+                      Choose your preferred flowers or pre-rolls and add them to
+                      your cart.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-start group">
+                  <div className="bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300">
+                    2
+                  </div>
+                  <div>
+                    <h3 className="font-black text-white text-sm uppercase mb-1 tracking-wide">
+                      CHECK YOUR CART
+                    </h3>
+                    <p className="text-gray-400 text-xs font-medium leading-relaxed">
+                      Click the Shopping Bag icon to review your selected items.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-start group">
+                  <div className="bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300">
+                    3
+                  </div>
+                  <div>
+                    <h3 className="font-black text-white text-sm uppercase mb-1 tracking-wide">
+                      CAPTURE RECEIPT
+                    </h3>
+                    <p className="text-gray-400 text-xs font-medium leading-relaxed">
+                      Screenshot your order summary from your device to send to
+                      Admin via LINE OA.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-start group">
+                  <div className="bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300">
+                    4
+                  </div>
+                  <div>
+                    <h3 className="font-black text-white text-sm uppercase mb-1 tracking-wide">
+                      SEND TO ADMIN
+                    </h3>
+                    <p className="text-gray-400 text-xs font-medium leading-relaxed">
+                      Send the captured image to our Admin to verify and confirm
+                      your delivery.
+                    </p>
+                  </div>
+                </div>
               </div>
+
               <button
-                onClick={onClose}
+                onClick={() => {
+                  onClose();
+                }}
                 className="w-full bg-[#a0d4b2] hover:bg-white hover:text-black text-black font-black py-4 rounded-xl uppercase tracking-[0.15em] text-xs md:text-sm transition-all duration-300 shadow-[0_4px_20px_rgba(160,212,178,0.2)] hover:shadow-[0_4px_25px_rgba(255,255,255,0.2)] flex items-center justify-center gap-3 transform active:scale-95"
               >
                 START SHOPPING <span>→</span>
@@ -650,12 +667,15 @@
             onClose();
           }
         };
+
         const totalItems = qty1g + qty35g;
 
         return (
           <div
             className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fadeIn"
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+            }}
           >
             <div
               className="bg-[#1d1e1e] border border-gray-700 w-full max-w-lg rounded-xl relative shadow-2xl overflow-hidden flex flex-col"
@@ -663,7 +683,9 @@
             >
               <div className="relative bg-gradient-to-r from-gray-900 to-[#1d1e1e] p-6 border-b border-gray-800">
                 <button
-                  onClick={onClose}
+                  onClick={() => {
+                    onClose();
+                  }}
                   className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10 p-1 bg-black/20 rounded-full"
                 >
                   <X size={20} />
@@ -710,7 +732,9 @@
                     </div>
                     <div className="flex items-center gap-4 bg-black/30 rounded-full p-1">
                       <button
-                        onClick={() => setQty1g(Math.max(0, qty1g - 1))}
+                        onClick={() => {
+                          setQty1g(Math.max(0, qty1g - 1));
+                        }}
                         className={`p-2 rounded-full transition-colors ${qty1g > 0 ? "text-white hover:bg-white/10" : "text-gray-600"}`}
                       >
                         <Minus size={16} />
@@ -721,7 +745,9 @@
                         {qty1g}
                       </span>
                       <button
-                        onClick={() => setQty1g(qty1g + 1)}
+                        onClick={() => {
+                          setQty1g(qty1g + 1);
+                        }}
                         className="p-2 rounded-full text-white hover:bg-white/10 transition-colors"
                       >
                         <Plus size={16} />
@@ -742,7 +768,9 @@
                     </div>
                     <div className="flex items-center gap-4 bg-black/30 rounded-full p-1">
                       <button
-                        onClick={() => setQty35g(Math.max(0, qty35g - 1))}
+                        onClick={() => {
+                          setQty35g(Math.max(0, qty35g - 1));
+                        }}
                         className={`p-2 rounded-full transition-colors ${qty35g > 0 ? "text-white hover:bg-white/10" : "text-gray-600"}`}
                       >
                         <Minus size={16} />
@@ -753,7 +781,9 @@
                         {qty35g}
                       </span>
                       <button
-                        onClick={() => setQty35g(qty35g + 1)}
+                        onClick={() => {
+                          setQty35g(qty35g + 1);
+                        }}
                         className="p-2 rounded-full text-white hover:bg-white/10 transition-colors"
                       >
                         <Plus size={16} />
@@ -798,11 +828,7 @@
       const App = () => {
         // 🔒 CONTROL PANEL
         const ENABLE_WELCOME = false;
-        const ENABLE_CART = true;
-        
-        // 🟩 LINE OA ID (เปลี่ยนเป็นไอดีของร้านคุณ)
-        const LINE_OA_ID = "@thedispensary"; // ตัวอย่าง: @123abcde ต้องมี @ ด้วย
-
+        const ENABLE_CART = false;
         const [selectedProduct, setSelectedProduct] = useState(null);
         const [cart, setCart] = useState([]);
         const [isCartOpen, setIsCartOpen] = useState(false);
@@ -820,7 +846,7 @@
         const [menuError, setMenuError] = useState("");
 
         useEffect(() => {
-          fetch("./menu.json")
+          fetch("./menu.json?v=" + Date.now())
             .then((r) => {
               if (!r.ok) throw new Error("menu.json not found: " + r.status);
               return r.json();
@@ -828,18 +854,10 @@
             .then((data) => {
               setMenu(data);
               setMenuError("");
-
-              setTimeout(() => {
-                if (window.__dismissLoading) window.__dismissLoading();
-              }, 300);
             })
             .catch((err) => {
               setMenuError(String(err));
               setMenu({ meta: {}, products: [], preRolls: [] });
-
-              setTimeout(() => {
-                if (window.__dismissLoading) window.__dismissLoading();
-              }, 300);
             });
         }, []);
 
@@ -867,12 +885,13 @@
         // ✅ open cart event
         useEffect(() => {
           if (!ENABLE_CART) return;
+
           const open = () => setIsCartOpen(true);
           window.addEventListener("cart:open", open);
           return () => window.removeEventListener("cart:open", open);
-        }, [ENABLE_CART]);
+        }, []);
 
-        const handleBatchAddToCart = useCallback((product, qty1, qty35) => {
+        const handleBatchAddToCart = (product, qty1, qty35) => {
           let newItems = [];
           let promoText = "";
           let tags = product.tags || [];
@@ -904,6 +923,7 @@
             });
 
           setCart((prev) => [...prev, ...newItems]);
+
           const totalAdded = qty1 + qty35;
           setNotification(`ADDED: ${product.name} (${totalAdded} ITEMS)`);
           setCartBump(true);
@@ -912,9 +932,9 @@
           if (window.bumpTimer) clearTimeout(window.bumpTimer);
           window.notifyTimer = setTimeout(() => setNotification(null), 2500);
           window.bumpTimer = setTimeout(() => setCartBump(false), 300);
-        }, []);
+        };
 
-        const addSingleToCart = useCallback((product, size, price, e) => {
+        const addSingleToCart = (product, size, price, e) => {
           if (e) e.stopPropagation();
           let promoText = "";
           if (size === "JOINT") promoText = "BUY 2 GET 1 FREE";
@@ -936,115 +956,41 @@
           if (window.bumpTimer) clearTimeout(window.bumpTimer);
           window.notifyTimer = setTimeout(() => setNotification(null), 2500);
           window.bumpTimer = setTimeout(() => setCartBump(false), 300);
-        }, []);
-
-        const removeFromCart = useCallback((id) =>
-          setCart((prev) => prev.filter((item) => item.id !== id)), []);
-
-        const clearCart = useCallback(() => setCart([]), []);
-
-        // ✅ MEMOIZED CALCULATIONS WITH USEMEMO
-        const totalGrams = useMemo(() => 
-          cart.reduce(
-            (sum, item) =>
-              item.size === "1G"
-                ? sum + 1
-                : item.size === "3.5G"
-                  ? sum + 3.5
-                  : sum,
-            0,
-          ), 
-          [cart]
-        );
-
-        const totalJoints = useMemo(() => 
-          cart.reduce(
-            (sum, item) => (item.size === "JOINT" ? sum + 1 : sum),
-            0,
-          ),
-          [cart]
-        );
-
-        const groupedCart = useMemo(() => 
-          cart.reduce((acc, item) => {
-            if (!acc[item.name])
-              acc[item.name] = { name: item.name, tags: item.tags, items: [] };
-            acc[item.name].items.push(item);
-            return acc;
-          }, {}),
-          [cart]
-        );
-
-        // 🟩 ฟังก์ชันสำหรับส่งออเดอร์ไปที่ LINE
-        const handleLineCheckout = () => {
-          if (cart.length === 0) return;
-
-          // 1. สร้างข้อความสรุปออเดอร์เป็นแบบฟอร์มบิลใบเสร็จที่สวยงามอ่านง่าย (UX text design)
-          let orderText = "🧾 *ORDER SUMMARY* 🧾\n";
-          orderText += "━━━━━━━━━━━━━━━━\n";
-          
-          Object.values(groupedCart).forEach((group, index) => {
-            orderText += `${index + 1}. ${group.name}\n`;
-            
-            // สรุปจำนวนแยกตามขนาด
-            const sizes = group.items.reduce((acc, item) => {
-              acc[item.size] = (acc[item.size] || 0) + 1;
-              return acc;
-            }, {});
-
-            Object.entries(sizes).forEach(([size, qty]) => {
-              orderText += `   🔸 ${size} × ${qty}\n`;
-            });
-            orderText += "\n";
-          });
-
-          orderText += "━━━━━━━━━━━━━━━━\n";
-          if (totalGrams > 0) orderText += `🌿 Total Flower: ${totalGrams} G\n`;
-          if (totalJoints > 0) orderText += `🚬 Total Pre-rolls: ${totalJoints} Joints\n`;
-          orderText += "\n(ตรวจสอบออเดอร์เรียบร้อยแล้ว รบกวนแอดมินสรุปยอดได้เลยครับ/ค่ะ 🙏)";
-
-          // 2. 💡 UX Fallback: คัดลอกบิลลง Clipboard ของลูกค้าอัตโนมัติ 
-          // เพื่อป้องกันกรณี LINE ในบางอุปกรณ์ไม่ยอมกรอกข้อความให้ (ลูกค้ากด Paste ลงไปได้เลย)
-          const textArea = document.createElement("textarea");
-          textArea.value = orderText;
-          document.body.appendChild(textArea);
-          textArea.select();
-          try {
-            document.execCommand('copy');
-          } catch (err) {
-            console.error('Copy failed', err);
-          }
-          document.body.removeChild(textArea);
-
-          // แจ้งเตือนผู้ใช้ว่าทำการคัดลอกบิลแล้ว
-          setNotification("คัดลอกบิลแล้ว! กดวาง (Paste) ในแชท LINE ได้เลย");
-          setCartBump(true);
-          
-          // ปิดแจ้งเตือนหลังจาก 4 วินาที
-          if (window.notifyTimer) clearTimeout(window.notifyTimer);
-          window.notifyTimer = setTimeout(() => setNotification(null), 4000);
-
-          // URL Encode ข้อความเพื่อใช้ส่งค่าผ่าน Link ไปยัง LINE OA
-          const encodedText = encodeURIComponent(orderText);
-          
-          // สร้าง Deep Link สำหรับ LINE OA (เปลี่ยนลิงก์ตามไอดีร้าน)
-          const lineUrl = `https://line.me/R/oaMessage/${LINE_OA_ID}/?${encodedText}`;
-          
-          // เด้งเปิดหน้าต่าง LINE (หน่วงเวลา 0.8 วิ ให้ลูกค้าอ่านแจ้งเตือนทัน)
-          setTimeout(() => {
-            window.open(lineUrl, '_blank');
-          }, 800);
         };
 
-        // ✅ MEMOIZED CATEGORY FILTERING (ป้องกันการประมวลผลซ้ำ)
-        const sativa = useMemo(() => products.filter((p) => p.cat === "SATIVA"), [products]);
-        const indica = useMemo(() => products.filter((p) => p.cat === "INDICA"), [products]);
-        const hybrid = useMemo(() => products.filter((p) => p.cat === "HYBRID"), [products]);
-        const cbd = useMemo(() => products.filter((p) => p.cat === "CBD"), [products]);
-        const compound = useMemo(() => products.filter((p) => p.cat === "COMPOUND"), [products]);
+        const removeFromCart = (id) => {
+          setCart(cart.filter((item) => item.id !== id));
+        };
+        const clearCart = () => {
+          setCart([]);
+        };
+
+        const totalGrams = cart.reduce((sum, item) => {
+          if (item.size === "1G") return sum + 1;
+          if (item.size === "3.5G") return sum + 3.5;
+          return sum;
+        }, 0);
+
+        const totalJoints = cart.reduce(
+          (sum, item) => (item.size === "JOINT" ? sum + 1 : sum),
+          0,
+        );
+
+        const groupedCart = cart.reduce((acc, item) => {
+          if (!acc[item.name])
+            acc[item.name] = { name: item.name, tags: item.tags, items: [] };
+          acc[item.name].items.push(item);
+          return acc;
+        }, {});
+
+        const sativa = products.filter((p) => p.cat === "SATIVA");
+        const indica = products.filter((p) => p.cat === "INDICA");
+        const hybrid = products.filter((p) => p.cat === "HYBRID");
+        const cbd = products.filter((p) => p.cat === "CBD");
+        const compound = products.filter((p) => p.cat === "COMPOUND");
 
         return (
-          <div className="min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white pointer-events-auto select-none">
+          <div className="min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white pointer-events-none select-none">
             {menuError && (
               <div className="max-w-[1400px] mx-auto w-full px-4 py-3 mb-4 bg-red-500/20 border border-red-500 text-red-200 text-sm">
                 MENU ERROR: {menuError}
@@ -1058,9 +1004,9 @@
                 </div>
                 <div>
                   <span className="block font-black text-[10px] uppercase tracking-wider opacity-60">
-                    {notification.includes("LINE") ? "SYSTEM NOTIFICATION" : "ADDED TO CART"}
+                    ADDED TO CART
                   </span>
-                  <span className="block font-bold text-xs uppercase leading-none whitespace-nowrap">
+                  <span className="block font-bold text-xs uppercase leading-none">
                     {notification}
                   </span>
                 </div>
@@ -1108,9 +1054,9 @@
                 <div className="order-1 border border-white/20 rounded-sm overflow-hidden flex flex-col bg-white/[0.01]">
                   <BoxHeader title="SATIVA" bgColor="#9e9e5e" />
                   <div className="p-2 space-y-1">
-                    {sativa.map((p) => (
+                    {sativa.map((p, idx) => (
                       <ProductCard
-                        key={p.name}
+                        key={idx}
                         product={p}
                         onClick={setSelectedProduct}
                       />
@@ -1122,9 +1068,9 @@
                   <div className="order-4 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
                     <BoxHeader title="CBD" bgColor="#9e5e97" />
                     <div className="p-2">
-                      {cbd.map((p) => (
+                      {cbd.map((p, idx) => (
                         <ProductCard
-                          key={p.name}
+                          key={idx}
                           product={p}
                           onClick={setSelectedProduct}
                         />
@@ -1142,14 +1088,16 @@
                       550/JOINT
                     </div>
                   </div>
+
                   <div className="p-4 flex flex-col flex-1">
                     <div className="flex justify-end mb-2">
                       <BadgeElement type="BUY 2" size="full" />
                     </div>
+
                     <div className="grid grid-cols-2 gap-2 content-center flex-1">
                       {preRolls.map((name, i) => (
                         <button
-                          key={name}
+                          key={i}
                           onClick={(e) =>
                             addSingleToCart({ name: name }, "JOINT", 550, e)
                           }
@@ -1170,6 +1118,7 @@
                       ))}
                     </div>
                   </div>
+
                   <div className="px-4 pb-2 text-center text-[10px] text-gray-500 font-bold uppercase">
                     (CLICK STRAIN TO ADD • ROLLING SERVICE AVAILABLE)
                   </div>
@@ -1180,9 +1129,9 @@
                 <div className="order-2 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
                   <BoxHeader title="INDICA" bgColor="#158cab" />
                   <div className="p-2 space-y-1">
-                    {indica.map((p) => (
+                    {indica.map((p, idx) => (
                       <ProductCard
-                        key={p.name}
+                        key={idx}
                         product={p}
                         onClick={setSelectedProduct}
                       />
@@ -1193,9 +1142,9 @@
                 <div className="order-3 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]">
                   <BoxHeader title="HYBRID" bgColor="#797a72" />
                   <div className="p-2 space-y-1">
-                    {hybrid.map((p) => (
+                    {hybrid.map((p, idx) => (
                       <ProductCard
-                        key={p.name}
+                        key={idx}
                         product={p}
                         onClick={setSelectedProduct}
                       />
@@ -1203,6 +1152,7 @@
                   </div>
                 </div>
 
+                {/* ชุดนี้คือต่อสายไฟเข้ากับไฟล์ menu.json แล้วครับ */}
                 {menu?.meta?.showCompound && (
                   <div className="order-5 border border-blue-900/60 rounded-sm overflow-hidden bg-[#0a101f] relative flex flex-col">
                     <div
@@ -1222,9 +1172,9 @@
                       </span>
                     </div>
                     <div className="p-2 space-y-1 relative z-10 flex-1">
-                      {compound.map((p) => (
+                      {compound.map((p, idx) => (
                         <ProductCard
-                          key={p.name}
+                          key={idx}
                           product={p}
                           onClick={setSelectedProduct}
                         />
@@ -1242,6 +1192,7 @@
                 onAddToCart={handleBatchAddToCart}
               />
             )}
+
             {showWelcome && (
               <WelcomeModal onClose={() => setShowWelcome(false)} />
             )}
@@ -1249,7 +1200,9 @@
             {ENABLE_CART && isCartOpen && (
               <div
                 className="fixed inset-0 bg-black/90 z-[60] overflow-y-auto backdrop-blur-sm animate-fadeIn"
-                onClick={() => setIsCartOpen(false)}
+                onClick={() => {
+                  setIsCartOpen(false);
+                }}
               >
                 <div className="min-h-full flex items-center justify-center p-4">
                   <div
@@ -1269,7 +1222,9 @@
                         <div className="flex items-center gap-2">
                           {cart.length > 0 && (
                             <button
-                              onClick={clearCart}
+                              onClick={() => {
+                                clearCart();
+                              }}
                               className="bg-red-500/20 hover:bg-red-500 hover:text-white p-2 rounded-full transition-colors mr-1"
                               title="Clear Order"
                             >
@@ -1280,7 +1235,9 @@
                             </button>
                           )}
                           <button
-                            onClick={() => setIsCartOpen(false)}
+                            onClick={() => {
+                              setIsCartOpen(false);
+                            }}
                             className="bg-black/10 hover:bg-black/20 p-2 rounded-full transition-colors"
                           >
                             <X size={20} className="text-black" />
@@ -1288,19 +1245,32 @@
                         </div>
                       </div>
 
-                      {/* 🟩 ปรับแก้ UI ตรงนี้จากเดิมบอกให้แคปจอ เป็นปุ่มส่งออเดอร์เข้า LINE ทันที */}
-                      <button
-                        onClick={handleLineCheckout}
-                        disabled={cart.length === 0}
-                        className={`w-full py-3 px-4 rounded-lg flex items-center justify-center gap-3 font-black uppercase tracking-widest text-xs transition-all border shadow-md
-                          ${cart.length > 0 
-                            ? "bg-[#1d1e1e] hover:bg-black text-[#a0d4b2] border-black/20 active:scale-95 cursor-pointer" 
-                            : "bg-black/10 text-black/40 border-transparent cursor-not-allowed"}`}
-                      >
-                        <LineIcon size={18} />
-                        SEND ORDER TO LINE OA
-                      </button>
-
+                      <div className="bg-[#1d1e1e] rounded-lg py-2 px-4 flex items-center justify-center gap-4 border border-black/20 shadow-md">
+                        <div className="flex items-center gap-2 border-r border-[#a0d4b2]/20 pr-4">
+                          <Camera size={14} className="text-[#a0d4b2]" />
+                          <span className="font-black text-[10px] uppercase tracking-widest text-[#a0d4b2]">
+                            CHECKOUT:
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-1.5">
+                            <span className="bg-[#a0d4b2] text-black w-4 h-4 rounded-full flex items-center justify-center font-black text-[9px] shadow-sm leading-none pt-[1px]">
+                              1
+                            </span>
+                            <span className="font-bold text-[9px] uppercase tracking-wide text-[#a0d4b2]">
+                              Screenshot
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="bg-[#a0d4b2] text-black w-4 h-4 rounded-full flex items-center justify-center font-black text-[9px] shadow-sm leading-none pt-[1px]">
+                              2
+                            </span>
+                            <span className="font-bold text-[9px] uppercase tracking-wide text-[#a0d4b2]">
+                              Send Admin
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="p-4 space-y-4 bg-[#1d1e1e]">
@@ -1311,7 +1281,7 @@
                       ) : (
                         Object.values(groupedCart).map((group, idx) => (
                           <div
-                            key={group.name}
+                            key={idx}
                             className="bg-white/5 border border-white/10 p-3 cart-item-enter relative group flex flex-col gap-2"
                           >
                             <div className="flex justify-between items-center border-b border-white/10 pb-2">
@@ -1408,7 +1378,9 @@
 
             {ENABLE_CART && (
               <button
-                onClick={() => setIsCartOpen(true)}
+                onClick={() => {
+                  setIsCartOpen(true);
+                }}
                 className={`fixed bottom-6 right-6 z-[70] bg-[#1d1e1e] border border-[#a0d4b2]/40 shadow-2xl p-3 rounded-full text-white hover:text-[#a0d4b2] transition-all ${cartBump ? "scale-125 text-[#a0d4b2]" : ""}`}
                 aria-label="Open cart"
               >
@@ -1426,6 +1398,7 @@
 
       const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<App />);
+      if (window.__dismissLoading) window.__dismissLoading();
     </script>
   </body>
 </html>
