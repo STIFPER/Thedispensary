@@ -28,13 +28,13 @@
     },
     {
       "cat": "SATIVA",
-      "name": "MANGO SUNSET HAZE",
+      "name": "TROP CHERRY GAS #14",
       "tags": [],
-      "thc": "20-24%",
+      "thc": "20-22%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (MANGO)", "LIMONENE (LEMON)"]
+      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"]
     },
     {
       "cat": "SATIVA",
@@ -48,13 +48,13 @@
     },
     {
       "cat": "SATIVA",
-      "name": "TROP CHERRY GAS #14",
+      "name": "MANGO SUNSET HAZE",
       "tags": ["BUY 1 GET 1 FREE"],
-      "thc": "20-22%",
+      "thc": "20-24%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"]
+      "terpenes": ["MYRCENE (MANGO)", "LIMONENE (LEMON)"]
     },
     {
       "cat": "HYBRID",
@@ -119,6 +119,16 @@
 
     {
       "cat": "INDICA",
+      "name": "CHERRY MARKER",
+      "tags": [],
+      "thc": "24-28%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["MYRCENE (FRUITY)", "CARYOPHYLLENE (GAS)"]
+    },
+    {
+      "cat": "INDICA",
       "name": "SWEET OCTANE",
       "tags": [],
       "thc": "24-28%",
@@ -130,22 +140,12 @@
     {
       "cat": "INDICA",
       "name": "CASHEW SUNDAE",
-      "tags": [],
+      "tags": ["BUY 1 GET 1 FREE"],
       "thc": "19-21%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
       "terpenes": ["BISABOLOL (NUTTY)", "CARYOPHYLLENE (EARTHY)"]
-    },
-    {
-      "cat": "INDICA",
-      "name": "CHERRY MARKER",
-      "tags": ["BUY 1 GET 1 FREE"],
-      "thc": "24-28%",
-      "cbd": "<1%",
-      "p1": 700,
-      "p35": 2200,
-      "terpenes": ["MYRCENE (FRUITY)", "CARYOPHYLLENE (GAS)"]
     }
   ],
 
