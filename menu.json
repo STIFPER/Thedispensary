@@ -17,6 +17,16 @@
     },
     {
       "cat": "SATIVA",
+      "name": "DOPAMINE",
+      "tags": ["NEW"],
+      "thc": "16-20%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["Limonene (Citrus)", "Caryophyllene (Pepper)"]
+    },
+    {
+      "cat": "SATIVA",
       "name": "LEMON CHERRY RUNTZ",
       "tags": [],
       "thc": "22-26%",
@@ -37,16 +47,6 @@
     },
     {
       "cat": "SATIVA",
-      "name": "LEMON UPZ",
-      "tags": [],
-      "thc": "24-28%",
-      "cbd": "0%",
-      "p1": 700,
-      "p35": 2200,
-      "terpenes": ["LIMONENE (LEMON)", "CARYOPHYLLENE (PEPPER)"]
-    },
-    {
-      "cat": "SATIVA",
       "name": "TROP CHERRY GAS #14",
       "tags": ["BUY 1 GET 1 FREE"],
       "thc": "20-22%",
@@ -57,8 +57,18 @@
     },
     {
       "cat": "HYBRID",
-      "name": "Cap Junky",
+      "name": "Permanent Marker",
       "tags": ["NEW"],
+      "thc": "24-28%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["Myrcene (Herbal)", "Caryophyllene (Pepper)"]
+    },
+    {
+      "cat": "HYBRID",
+      "name": "Cap Junky",
+      "tags": [],
       "thc": "23-28%",
       "cbd": "<1%",
       "p1": 700,
@@ -68,7 +78,7 @@
     {
       "cat": "HYBRID",
       "name": "RANCID RUNTZ",
-      "tags": ["NEW"],
+      "tags": [],
       "thc": "28-30%",
       "cbd": "<1%",
       "p1": 700,
