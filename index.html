@@ -534,10 +534,10 @@ const ProductCard = ({
   product,
   onClick
 }) => /*#__PURE__*/React.createElement("div", {
-  onClick: () => {
+  onClick: onClick ? () => {
     onClick(product);
-  },
-  className: "group cursor-pointer py-3 px-2 hover:bg-white/5 transition-all duration-200 flex items-center justify-between border-b border-gray-700/50 last:border-0"
+  } : undefined,
+  className: `group py-3 px-2 transition-all duration-200 flex items-center justify-between border-b border-gray-700/50 last:border-0 ${onClick ? "cursor-pointer hover:bg-white/5" : "cursor-default"}`
 }, /*#__PURE__*/React.createElement("div", {
   className: "flex items-center flex-1 pr-2"
 }, /*#__PURE__*/React.createElement(StatusBadge, {
@@ -777,6 +777,7 @@ const App = () => {
   // 🔒 CONTROL PANEL
   const ENABLE_WELCOME = false;
   const ENABLE_CART = false;
+  const ENABLE_PRODUCT_MODAL = false; // ปิดไว้ก่อน = การ์ดเป็นการแสดงผลอย่างเดียว กดไม่ขึ้นป๊อบอัพ
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -975,7 +976,7 @@ const App = () => {
   }, sativa.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
     key: idx,
     product: p,
-    onClick: setSelectedProduct
+    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
   })))), menu?.meta?.showCBD && /*#__PURE__*/React.createElement("div", {
     className: "order-4 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]"
   }, /*#__PURE__*/React.createElement(BoxHeader, {
@@ -986,7 +987,7 @@ const App = () => {
   }, cbd.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
     key: idx,
     product: p,
-    onClick: setSelectedProduct
+    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
   })))), /*#__PURE__*/React.createElement("div", {
     className: "order-6 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col flex-1"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1035,7 +1036,7 @@ const App = () => {
   }, indica.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
     key: idx,
     product: p,
-    onClick: setSelectedProduct
+    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
   })))), /*#__PURE__*/React.createElement("div", {
     className: "order-3 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]"
   }, /*#__PURE__*/React.createElement(BoxHeader, {
@@ -1046,7 +1047,7 @@ const App = () => {
   }, hybrid.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
     key: idx,
     product: p,
-    onClick: setSelectedProduct
+    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
   })))), menu?.meta?.showCompound && /*#__PURE__*/React.createElement("div", {
     className: "order-5 border border-blue-900/60 rounded-sm overflow-hidden bg-[#0a101f] relative flex flex-col"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1066,7 +1067,7 @@ const App = () => {
   }, compound.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
     key: idx,
     product: p,
-    onClick: setSelectedProduct
+    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
   })))))), selectedProduct && /*#__PURE__*/React.createElement(ProductModal, {
     product: selectedProduct,
     onClose: () => setSelectedProduct(null),
