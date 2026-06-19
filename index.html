@@ -654,23 +654,34 @@ const ProductModal = ({
   };
   const totalItems = qty1g + qty35g;
   return /*#__PURE__*/React.createElement("div", {
-    className: "fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fadeIn",
+    className: "fixed inset-0 bg-black/80 z-50 overflow-y-auto backdrop-blur-sm animate-fadeIn",
     onClick: () => {
       onClose();
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-[#1d1e1e] border border-gray-700 w-full max-w-lg rounded-xl relative shadow-2xl overflow-hidden flex flex-col",
-    onClick: e => e.stopPropagation()
+    className: "min-h-full flex items-center justify-center p-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "relative bg-gradient-to-r from-gray-900 to-[#1d1e1e] p-6 border-b border-gray-800"
+    className: "bg-[#1d1e1e] border border-gray-700 w-full max-w-lg rounded-xl relative shadow-2xl overflow-hidden flex flex-col my-8",
+    onClick: e => e.stopPropagation()
   }, /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
+    onClick: e => {
+      e.stopPropagation();
       onClose();
     },
-    className: "absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10 p-1 bg-black/20 rounded-full"
+    className: "absolute top-3 right-3 z-[60] text-white hover:text-black hover:bg-[#a0d4b2] transition-colors p-2.5 bg-black/50 rounded-full shadow-lg border border-white/20 active:scale-90",
+    style: {
+      minWidth: "44px",
+      minHeight: "44px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    },
+    "aria-label": "Close"
   }, /*#__PURE__*/React.createElement(X, {
-    size: 20
+    size: 22
   })), /*#__PURE__*/React.createElement("div", {
+    className: "relative bg-gradient-to-r from-gray-900 to-[#1d1e1e] p-6 pr-16 border-b border-gray-800"
+  }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-between items-start gap-4"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex-1"
@@ -755,7 +766,12 @@ const ProductModal = ({
     disabled: totalItems === 0,
     className: `w-full font-black py-4 uppercase rounded-lg transition-all duration-300 tracking-wide text-sm shadow-lg flex items-center justify-center gap-2
                   ${totalItems > 0 ? "bg-white hover:bg-[#a0d4b2] text-black hover:text-black hover:shadow-[#a0d4b2]/20" : "bg-gray-800 text-gray-500 cursor-not-allowed border border-gray-700"}`
-  }, totalItems > 0 ? `Add to Cart (${totalItems})` : "Select Quantity"))));
+  }, totalItems > 0 ? `Add to Cart (${totalItems})` : "Select Quantity"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      onClose();
+    },
+    className: "w-full font-black py-3 uppercase rounded-lg transition-all duration-300 tracking-wide text-xs text-gray-400 hover:text-white border border-white/10 hover:border-white/30 hover:bg-white/5"
+  }, "Close")))));
 };
 const App = () => {
   // 🔒 CONTROL PANEL
@@ -820,6 +836,16 @@ const App = () => {
     window.addEventListener("cart:open", open);
     return () => window.removeEventListener("cart:open", open);
   }, []);
+
+  // ✅ Close modal with Escape key (desktop convenience)
+  useEffect(() => {
+    if (!selectedProduct) return;
+    const handleKey = e => {
+      if (e.key === "Escape") setSelectedProduct(null);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedProduct]);
   const handleBatchAddToCart = (product, qty1, qty35) => {
     let newItems = [];
     let promoText = "";
