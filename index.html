@@ -641,7 +641,8 @@ const WelcomeModal = ({
 const ProductModal = ({
   product,
   onClose,
-  onAddToCart
+  onAddToCart,
+  enableCart
 }) => {
   const [qty1g, setQty1g] = useState(0);
   const [qty35g, setQty35g] = useState(0);
@@ -690,7 +691,7 @@ const ProductModal = ({
     size: "md"
   })))), /*#__PURE__*/React.createElement("div", {
     className: "p-6 space-y-6 bg-[#1d1e1e]"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, enableCart && /*#__PURE__*/React.createElement("div", {
     className: "space-y-3"
   }, /*#__PURE__*/React.createElement("div", {
     className: `flex items-center justify-between p-3 rounded-lg border ${qty1g > 0 ? "border-[#a0d4b2] bg-[#a0d4b2]/5" : "border-white/10 bg-white/5"} transition-colors`
@@ -749,7 +750,7 @@ const ProductModal = ({
   }, (product.terpenes || []).map((t, i) => /*#__PURE__*/React.createElement("span", {
     key: i,
     className: "bg-gray-800 border border-gray-700 text-gray-300 font-mont font-bold text-[10px] md:text-xs px-3 py-1.5 rounded-md uppercase shadow-sm flex items-center"
-  }, t)))), /*#__PURE__*/React.createElement("button", {
+  }, t)))), enableCart && /*#__PURE__*/React.createElement("button", {
     onClick: handleAdd,
     disabled: totalItems === 0,
     className: `w-full font-black py-4 uppercase rounded-lg transition-all duration-300 tracking-wide text-sm shadow-lg flex items-center justify-center gap-2
@@ -979,23 +980,24 @@ const App = () => {
     className: "grid grid-cols-2 gap-2 content-center flex-1"
   }, preRolls.map((name, i) => /*#__PURE__*/React.createElement("button", {
     key: i,
-    onClick: e => addSingleToCart({
+    onClick: ENABLE_CART ? e => addSingleToCart({
       name: name
-    }, "JOINT", 550, e),
-    className: "group relative bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#a0d4b2] p-2 rounded flex items-center justify-between transition-all active:scale-95 active:bg-[#a0d4b2]/20 text-left h-full"
+    }, "JOINT", 550, e) : undefined,
+    disabled: !ENABLE_CART,
+    className: `group relative bg-white/5 border border-white/10 p-2 rounded flex items-center justify-between transition-all text-left h-full ${ENABLE_CART ? "hover:bg-white/10 hover:border-[#a0d4b2] active:scale-95 active:bg-[#a0d4b2]/20 cursor-pointer" : "cursor-default"}`
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center min-w-0 flex-1 pr-2"
   }, /*#__PURE__*/React.createElement("span", {
     className: "text-[#a0d4b2] mr-2 text-xs shrink-0"
   }, "●"), /*#__PURE__*/React.createElement("span", {
     className: "font-black text-[10px] md:text-xs text-white uppercase tracking-wide leading-tight"
-  }, name)), /*#__PURE__*/React.createElement("div", {
+  }, name)), ENABLE_CART && /*#__PURE__*/React.createElement("div", {
     className: "bg-[#1d1e1e] p-1 rounded text-[#a0d4b2] group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors shrink-0 border border-[#a0d4b2]/20 group-hover:border-transparent"
   }, /*#__PURE__*/React.createElement(Plus, {
     size: 14
   })))))), /*#__PURE__*/React.createElement("div", {
     className: "px-4 pb-2 text-center text-[10px] text-gray-500 font-bold uppercase"
-  }, "(CLICK STRAIN TO ADD • ROLLING SERVICE AVAILABLE)"))), /*#__PURE__*/React.createElement("div", {
+  }, ENABLE_CART ? "(CLICK STRAIN TO ADD • ROLLING SERVICE AVAILABLE)" : "(ROLLING SERVICE AVAILABLE)"))), /*#__PURE__*/React.createElement("div", {
     className: "contents md:flex md:flex-col md:w-1/2 md:gap-6"
   }, /*#__PURE__*/React.createElement("div", {
     className: "order-2 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]"
@@ -1042,7 +1044,8 @@ const App = () => {
   })))))), selectedProduct && /*#__PURE__*/React.createElement(ProductModal, {
     product: selectedProduct,
     onClose: () => setSelectedProduct(null),
-    onAddToCart: handleBatchAddToCart
+    onAddToCart: handleBatchAddToCart,
+    enableCart: ENABLE_CART
   }), showWelcome && /*#__PURE__*/React.createElement(WelcomeModal, {
     onClose: () => setShowWelcome(false)
   }), ENABLE_CART && isCartOpen && /*#__PURE__*/React.createElement("div", {
