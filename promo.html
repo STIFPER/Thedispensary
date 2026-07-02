@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THE DISPENSARY | Premium Promotions</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS for Layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <style>
+      :root {
+        --color-brand-green: #87ccad;
+        --color-brand-light: #ecece8;
+        --color-brand-dark: #1b1c1c;
+      }
+
+      body {
+        background-color: var(--color-brand-dark);
+        color: var(--color-brand-light);
+        font-family: "Inter", sans-serif; 
+        overflow-x: hidden;
+      }
+
+      /* Typography */
+      h1,
+      h2,
+      h3,
+      .font-black-caps {
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .text-brand-green {
+        color: var(--color-brand-green);
+      }
+
+      .bg-brand-green {
+        background-color: var(--color-brand-green);
+      }
+
+      /* Navigation Minimal */
+      .navbar {
+        border-bottom: 1px solid rgba(236, 236, 232, 0.1);
+      }
+
+      /* Swiper Container Settings */
+      .promo-section {
+        position: relative;
+        padding: 80px 0 120px 0;
+        background: radial-gradient(circle at center, #2a2c2c 0%, #1b1c1c 70%);
+      }
+
+      .swiper {
+        width: 100%;
+        padding-top: 50px;
+        padding-bottom: 70px;
+      }
+
+      /* Card Design (Golden Ratio approach roughly 1:1.4) */
+      .swiper-slide {
+        width: 320px;
+        height: 480px;
+        transition: all 0.3s ease;
+      }
+
+      @media (min-width: 768px) {
+        .swiper-slide {
+          width: 380px;
+          height: 540px;
+        }
+      }
+
+      .promo-card {
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+        background-color: #222;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      /* Image with Gradient Overlay for Text Readability */
+      .promo-card .bg-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+        transition: transform 0.5s ease;
+      }
+
+      .swiper-slide-active .promo-card .bg-image {
+        transform: scale(1.05);
+      }
+
+      .promo-card .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70%;
+        background: linear-gradient(
+          to top,
+          rgba(27, 28, 28, 0.95) 0%,
+          rgba(27, 28, 28, 0.7) 40%,
+          rgba(27, 28, 28, 0) 100%
+        );
+        z-index: 2;
+      }
+
+      /* Content inside Card */
+      .promo-content {
+        position: relative;
+        z-index: 3;
+        padding: 32px 24px;
+        transform: translateY(20px);
+        opacity: 0.8;
+        transition: all 0.4s ease;
+      }
+
+      .swiper-slide-active .promo-content {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .promo-badge {
+        display: inline-block;
+        background-color: var(--color-brand-light);
+        color: var(--color-brand-dark);
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        margin-bottom: 16px;
+        letter-spacing: 0.1em;
+      }
+
+      /* Custom Pagination */
+      .swiper-pagination-bullet {
+        background: var(--color-brand-light);
+        opacity: 0.3;
+        width: 10px;
+        height: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .swiper-pagination-bullet-active {
+        background: var(--color-brand-green);
+        opacity: 1;
+        transform: scale(1.3);
+      }
+
+      /* Hover effect on buttons */
+      .btn-hover-effect {
+        transition: all 0.3s ease;
+      }
+      .btn-hover-effect:hover {
+        background-color: var(--color-brand-light);
+        color: var(--color-brand-dark);
+        transform: translateY(-2px);
+      }
+
+      /* --- New Modal (Lightbox) Styles --- */
+      .promo-modal-overlay {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px); /* สำหรับ Safari */
+      }
+      .promo-modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .promo-modal-content {
+        transform: scale(0.95) translateY(20px);
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .promo-modal-overlay.active .promo-modal-content {
+        transform: scale(1) translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+   </style>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <!-- Swiper Coverflow Section -->
+    <section class="promo-section overflow-hidden">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+
+           <!-- Slide 1: Buy 1 Get 1 Free -->
+          <div class="swiper-slide">
+            <div class="promo-card">
+              <img
+                src="assets/images/B1g1free.jpg"
+                alt="Monthly Specials"
+                class="bg-image"
+            
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Monthly Specials -->
+          <div class="swiper-slide">
+            <div class="promo-card">
+              <img
+                src="assets/images/MONTHLY SPECIALS.jpg"
+                alt="Monthly Specials"
+                class="bg-image"
+            
+              </div>
+            </div>
+          </div>
+
+        
+
+          <!-- Slide 3: Buy 2 Get 3rd 50% Off -->
+          <div class="swiper-slide">
+            <div class="promo-card">
+              <img
+                src="assets/images/BUY 2 GET 3RD 50 OFF.jpg"
+                alt="Buy 2 Get 3rd 50% Off"
+                class="bg-image"
+        
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4: Pre-Roll Party -->
+          <div class="swiper-slide">
+            <div class="promo-card">
+              <img
+                src="assets/images/PRE-ROLL PARTY.jpg"
+                alt="Pre-Roll Party"
+                class="bg-image"
+              
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Slide 5: Pre-Rolls Buy 1 Get 1 Free -->
+          <div class="swiper-slide">
+            <div class="promo-card">
+              <img
+                src="assets/images/BUY1GET1FREE.jpg"
+                alt="Pre-Rolls Buy 1 Get 1 Free"
+                class="bg-image"
+              
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 6: The Dispensary Club -->
+          <div class="swiper-slide">
+            <div class="promo-card">
+              <img
+                src="assets/images/THE DISPENSARY CLUB.jpg"
+                alt="The Dispensary Club"
+                class="bg-image"
+              />
+              
+                >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pagination (Dots) -->
+        <div class="swiper-pagination mt-10 relative bottom-0"></div>
+      </div>
+    </section>
+
+    <!-- Footer Minimal -->
+    <footer
+      class="py-12 text-center text-[#a0a0a0] text-sm border-t border-gray-800 mt-10"
+    >
+      <h2 class="text-brand-green font-black-caps text-xl mb-4">
+        THE DISPENSARY
+      </h2>
+      <p>PREMIUM MEDICAL CANNABIS</p>
+      <p class="mt-8 opacity-50">
+        &copy; 2026 THE DISPENSARY. ALL RIGHTS RESERVED.
+      </p>
+    </footer>
+
+    <!-- Swiper JS Initialization -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="navbar-loader.js"></script>
+
+<script>
+  window.addEventListener("load", () => {
+    document.getElementById("navPromo")?.classList.add("active");
+  });
+</script>
+    
+
+    <script>
+      window.addEventListener("load", () => {
+        document.getElementById("navPromo")?.classList.add("active");
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var swiper = new Swiper(".mySwiper", {
+          effect: "coverflow",
+          grabCursor: true,
+          centeredSlides: true,
+          slidesPerView: "auto",
+          initialSlide: 0,
+          loop: true,
+          coverflowEffect: {
+            rotate: 20,
+            stretch: 0,
+            depth: 250,
+            modifier: 1,
+            slideShadows: true,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+          },
+        });
+
+        // --- New Feature: Lightbox Modal Logic ---
+        setupPromoModal();
+      });
+
+      function setupPromoModal() {
+        // 1. สร้าง HTML ของ Modal อัตโนมัติ (แทรกไว้ล่างสุดของ body)
+        const modalHTML = `
+          <div id="promoLightbox" class="promo-modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/85 px-4">
+            <button id="closeLightbox" class="absolute top-6 right-6 text-[#ECECE8] hover:text-[#87CCAD] transition duration-300">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="promo-modal-content relative max-w-4xl w-full flex flex-col items-center">
+              <!-- รูปภาพขนาดใหญ่ -->
+              <img id="lightboxImg" src="" alt="Promotion Detail" class="w-auto max-h-[65vh] md:max-h-[75vh] object-contain rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-800">
+              <!-- รายละเอียดสั้นๆ ใต้รูป -->
+              <div class="mt-8 text-center max-w-2xl px-4">
+                <h3 id="lightboxTitle" class="text-2xl md:text-3xl text-[#87CCAD] font-black-caps tracking-widest mb-3"></h3>
+                <p id="lightboxDesc" class="text-[#ECECE8] font-light leading-relaxed text-sm md:text-base opacity-80"></p>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+        const modal = document.getElementById("promoLightbox");
+        const closeBtn = document.getElementById("closeLightbox");
+        const lightboxImg = document.getElementById("lightboxImg");
+        const lightboxTitle = document.getElementById("lightboxTitle");
+        const lightboxDesc = document.getElementById("lightboxDesc");
+
+        // 2. ทำให้รูปภาพในการ์ดคลิกได้และดึงข้อมูลมาแสดง
+        document.querySelectorAll(".promo-card").forEach((card) => {
+          // เปลี่ยนเมาส์เป็นรูปนิ้วชี้ เพื่อบอก UX ว่าตรงนี้กดได้
+          const bgImage = card.querySelector(".bg-image");
+          const overlay = card.querySelector(".overlay");
+          bgImage.style.cursor = "pointer";
+          overlay.style.cursor = "pointer";
+
+          card.addEventListener("click", (e) => {
+            // ถ้าผู้ใช้คลิกโดนปุ่ม REDEEM OFFER ให้ข้ามไป ไม่ต้องเปิดรูป (ปล่อยให้ปุ่มทำหน้าที่ของมัน)
+            if (e.target.closest("a.btn-hover-effect")) return;
+
+            // ดึงข้อมูลจากการ์ด
+            const imgSrc = card.querySelector(".bg-image").src;
+            const title = card.querySelector("h3").innerText;
+            const desc = card.querySelector("p").innerText;
+
+            // นำข้อมูลไปใส่ใน Modal
+            lightboxImg.src = imgSrc;
+            lightboxTitle.innerText = title;
+            lightboxDesc.innerText = desc;
+
+            // แสดง Modal พร้อมล็อกไม่ให้หน้าเว็บด้านหลัง Scroll ได้
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+          });
+        });
+
+        // 3. ฟังก์ชันสำหรับปิด Modal
+        const closeModal = () => {
+          modal.classList.remove("active");
+          document.body.style.overflow = "";
+          // เคลียร์รูปภาพออกหลังจากจังหวะเฟดเอ้าท์ เพื่อไม่ให้เห็นรูปเก่ากระพริบในครั้งต่อไป
+          setTimeout(() => (lightboxImg.src = ""), 400);
+        };
+
+        // ปิดเมื่อกดปุ่ม X
+        closeBtn.addEventListener("click", closeModal);
+
+        // ปิดเมื่อคลิกพื้นที่ว่างนอกกรอบรูป (UX ที่ดี ผู้ใช้มักจะชินกับการคลิกข้างนอกเพื่อปิด)
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeModal();
+        });
+
+        // ปิดเมื่อกดปุ่ม ESC บนคีย์บอร์ด (Accessibility)
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal.classList.contains("active"))
+            closeModal();
+        });
+      }
+    </script>
+  </body>
+</html>
