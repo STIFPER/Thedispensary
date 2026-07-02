@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@600;700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%25%7C.%2F"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@600;700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%25%7C.%2F%2C%E0%B8%BF"
       rel="stylesheet"
     />
 
@@ -218,1000 +218,2169 @@
     </script>
 
     <script>
-const {
-  useState,
-  useEffect,
-  useRef
-} = React;
-const X = ({
-  size = 24,
-  className
-}) => /*#__PURE__*/React.createElement("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: size,
-  height: size,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: "2",
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-  className: className
-}, /*#__PURE__*/React.createElement("path", {
-  d: "M18 6 6 18"
-}), /*#__PURE__*/React.createElement("path", {
-  d: "m6 6 12 12"
-}));
-const ShoppingBag = ({
-  size = 24,
-  className
-}) => /*#__PURE__*/React.createElement("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: size,
-  height: size,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: "2",
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-  className: className
-}, /*#__PURE__*/React.createElement("path", {
-  d: "M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"
-}), /*#__PURE__*/React.createElement("path", {
-  d: "M3 6h18"
-}), /*#__PURE__*/React.createElement("path", {
-  d: "M16 10a4 4 0 0 1-8 0"
-}));
-const Trash2 = ({
-  size = 24,
-  className
-}) => /*#__PURE__*/React.createElement("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: size,
-  height: size,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: "2",
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-  className: className
-}, /*#__PURE__*/React.createElement("path", {
-  d: "M3 6h18"
-}), /*#__PURE__*/React.createElement("path", {
-  d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"
-}), /*#__PURE__*/React.createElement("path", {
-  d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"
-}), /*#__PURE__*/React.createElement("line", {
-  x1: "10",
-  x2: "10",
-  y1: "11",
-  y2: "17"
-}), /*#__PURE__*/React.createElement("line", {
-  x1: "14",
-  x2: "14",
-  y1: "11",
-  y2: "17"
-}));
-const Plus = ({
-  size = 24,
-  className
-}) => /*#__PURE__*/React.createElement("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: size,
-  height: size,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: "2",
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-  className: className
-}, /*#__PURE__*/React.createElement("path", {
-  d: "M5 12h14"
-}), /*#__PURE__*/React.createElement("path", {
-  d: "M12 5v14"
-}));
-const Minus = ({
-  size = 24,
-  className
-}) => /*#__PURE__*/React.createElement("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: size,
-  height: size,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: "2",
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-  className: className
-}, /*#__PURE__*/React.createElement("path", {
-  d: "M5 12h14"
-}));
-const Check = ({
-  size = 24,
-  className
-}) => /*#__PURE__*/React.createElement("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: size,
-  height: size,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: "2",
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-  className: className
-}, /*#__PURE__*/React.createElement("polyline", {
-  points: "20 6 9 17 4 12"
-}));
-const Camera = ({
-  size = 24,
-  className
-}) => /*#__PURE__*/React.createElement("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: size,
-  height: size,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: "2",
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-  className: className
-}, /*#__PURE__*/React.createElement("path", {
-  d: "M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"
-}), /*#__PURE__*/React.createElement("circle", {
-  cx: "12",
-  cy: "13",
-  r: "3"
-}));
-const terpeneColors = {
-  myrcene: "#2b398c",
-  caryophyllene: "#77823d",
-  humulene: "#fd8b03",
-  limonene: "#7bc70f",
-  ocimene: "#009282",
-  phellandrene: "#fd0106",
-  pinene: "#08a152",
-  terpinolene: "#4b5e3d",
-  terpineol: "#ee5a29",
-  linalool: "#9094d8",
-  bisabolol: "#e6c122"
-};
-const TerpeneBadge = ({
-  name
-}) => {
-  const key = name.split(" ")[0].toLowerCase().trim();
-  const color = terpeneColors[key] || "#4b5563";
-  return /*#__PURE__*/React.createElement("span", {
-    className: "inline-block text-white font-mont font-bold text-[9px] px-2 py-0.5 rounded-sm mr-1 mb-1 uppercase tracking-wide shadow-sm",
-    style: {
-      backgroundColor: color
-    }
-  }, name);
-};
-const BadgeElement = ({
-  type,
-  size = "sm"
-}) => {
-  const styles = {
-    full: {
-      size: "102px",
-      fontNew: "22px",
-      fontBest: "18px",
-      fontBuy: "15px",
-      lh: "1.1"
-    },
-    md: {
-      size: "68px",
-      fontNew: "15px",
-      fontBest: "13px",
-      fontBuy: "10px",
-      lh: "1.1"
-    },
-    sm: {
-      size: "52px",
-      fontNew: "11px",
-      fontBest: "9px",
-      fontBuy: "8px",
-      lh: "1.1"
-    }
-  };
-  const config = styles[size];
-  const boxStyle = {
-    width: config.size,
-    height: config.size,
-    minWidth: config.size,
-    minHeight: config.size
-  };
-  const clipStyle = {
-    clipPath: "polygon(50% 0%, 61% 10%, 75% 6%, 79% 20%, 93% 25%, 90% 39%, 100% 50%, 90% 61%, 93% 75%, 79% 80%, 75% 94%, 61% 90%, 50% 100%, 39% 90%, 25% 94%, 21% 80%, 7% 75%, 10% 61%, 0% 50%, 10% 39%, 7% 25%, 21% 20%, 25% 6%, 39% 10%)"
-  };
-  let content = null;
-  let bgClass = "";
-  if (type === "NEW") {
-    bgClass = "bg-[#A4F21E]";
-    content = /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: config.fontNew
-      }
-    }, "NEW");
-  } else if (type === "BEST SELLER") {
-    bgClass = "bg-[#FFC107]";
-    content = /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: config.fontBest,
-        lineHeight: config.lh
-      }
-    }, "BEST"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: config.fontBest,
-        lineHeight: config.lh
-      }
-    }, "SELLER"));
-  } else if (type === "BUY 1" || type && type.includes("BUY 1")) {
-    bgClass = "bg-[#E61633]";
-    content = /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: config.fontBuy,
-        lineHeight: config.lh
-      }
-    }, "BUY 1"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: config.fontBuy,
-        lineHeight: config.lh
-      }
-    }, "GET 1"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: config.fontBuy,
-        lineHeight: config.lh
-      }
-    }, "FREE"));
-  } else if (type === "BUY 2") {
-    bgClass = "bg-[#FF2E7E]";
-    content = /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: config.fontBuy,
-        lineHeight: config.lh
-      }
-    }, "BUY 2"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: config.fontBuy,
-        lineHeight: config.lh
-      }
-    }, "GET 1"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: config.fontBuy,
-        lineHeight: config.lh
-      }
-    }, "FREE"));
-  }
-  if (!content) return null;
-  return /*#__PURE__*/React.createElement("div", {
-    className: `flex flex-col justify-center items-center text-center text-white font-inter font-black shrink-0 grow-0 hover:scale-110 hover:rotate-6 transition-transform duration-200 ${bgClass}`,
-    style: {
-      ...boxStyle,
-      ...clipStyle
-    }
-  }, content);
-};
-const StatusBadge = ({
-  tags,
-  size = "sm"
-}) => {
-  const placeholderSize = size === "sm" ? "52px" : size === "md" ? "68px" : "102px";
-  const containerStyle = {
-    width: placeholderSize,
-    minWidth: placeholderSize
-  };
-  if (!tags || tags.length === 0) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: containerStyle,
-      className: "mr-2 shrink-0"
-    });
-  }
-  const tag = tags[0];
-  let type = "";
-  if (tag === "NEW") type = "NEW";else if (tag === "BEST SELLER") type = "BEST SELLER";else if (tag.includes("BUY 1")) type = "BUY 1";
-  if (type) {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "flex items-center justify-center mr-2 shrink-0",
-      style: containerStyle
-    }, /*#__PURE__*/React.createElement(BadgeElement, {
-      type: type,
-      size: size
-    }));
-  }
-  return /*#__PURE__*/React.createElement("div", {
-    style: containerStyle,
-    className: "mr-2 shrink-0"
-  });
-};
-const ProductCard = ({
-  product,
-  onClick
-}) => /*#__PURE__*/React.createElement("div", {
-  onClick: onClick ? () => {
-    onClick(product);
-  } : undefined,
-  className: `group py-3 px-2 transition-all duration-200 flex items-center justify-between border-b border-gray-700/50 last:border-0 ${onClick ? "cursor-pointer hover:bg-white/5" : "cursor-default"}`
-}, /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center flex-1 pr-2"
-}, /*#__PURE__*/React.createElement(StatusBadge, {
-  tags: product.tags,
-  size: "sm"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "flex flex-col justify-center"
-}, /*#__PURE__*/React.createElement("h3", {
-  className: "font-inter font-black text-white text-base md:text-lg uppercase leading-tight group-hover:text-[#a0d4b2] transition-colors mb-1"
-}, product.name), /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center gap-3 mb-1.5"
-}, /*#__PURE__*/React.createElement("span", {
-  className: "font-inter font-black text-white text-xs opacity-90"
-}, "THC ", product.thc), /*#__PURE__*/React.createElement("span", {
-  className: "font-inter font-black text-white text-xs opacity-90"
-}, "CBD ", product.cbd)), /*#__PURE__*/React.createElement("div", {
-  className: "flex flex-wrap gap-1"
-}, (product.terpenes || []).map((t, i) => /*#__PURE__*/React.createElement(TerpeneBadge, {
-  key: i,
-  name: t
-}))))), /*#__PURE__*/React.createElement("div", {
-  className: "text-right whitespace-nowrap pl-1 self-start pt-3"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "font-inter font-black text-lg md:text-xl text-[#a0d4b2] tracking-tight"
-}, product.p1, " ", /*#__PURE__*/React.createElement("span", {
-  className: "text-gray-500 text-sm align-middle mx-1 font-bold"
-}, "|"), " ", product.p35)));
-const BoxHeader = ({
-  title,
-  bgColor
-}) => /*#__PURE__*/React.createElement("div", {
-  className: "flex justify-between items-center px-4 py-2 border-b border-white/10",
-  style: {
-    backgroundColor: bgColor
-  }
-}, /*#__PURE__*/React.createElement("h2", {
-  className: "font-inter font-black text-xl md:text-2xl text-white uppercase tracking-tight"
-}, title), /*#__PURE__*/React.createElement("span", {
-  className: "font-inter font-black text-white text-xs md:text-sm opacity-90"
-}, "1G | 3.5G"));
-const WelcomeModal = ({
-  onClose
-}) => /*#__PURE__*/React.createElement("div", {
-  className: "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn",
-  onClick: () => {
-    onClose();
-  }
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-[#1d1e1e]/95 border border-[#a0d4b2]/40 w-full max-w-sm rounded-2xl shadow-[0_0_40px_rgba(160,212,178,0.15)] overflow-hidden relative flex flex-col",
-  onClick: e => e.stopPropagation()
-}, /*#__PURE__*/React.createElement("div", {
-  className: "absolute top-0 right-0 w-40 h-40 bg-[#a0d4b2]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "p-6 relative z-10"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "text-center mb-8 border-b border-white/10 pb-4"
-}, /*#__PURE__*/React.createElement("h2", {
-  className: "font-black text-3xl text-[#a0d4b2] uppercase tracking-tighter mb-1 leading-none"
-}, "HOW TO ORDER"), /*#__PURE__*/React.createElement("p", {
-  className: "text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]"
-}, "Quick Guide")), /*#__PURE__*/React.createElement("div", {
-  className: "space-y-6 mb-8"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "flex gap-4 items-start group"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300"
-}, "1"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-  className: "font-black text-white text-sm uppercase mb-1 tracking-wide"
-}, "SELECT YOUR STRAINS"), /*#__PURE__*/React.createElement("p", {
-  className: "text-gray-400 text-xs font-medium leading-relaxed"
-}, "Choose your preferred flowers or pre-rolls and add them to your cart."))), /*#__PURE__*/React.createElement("div", {
-  className: "flex gap-4 items-start group"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300"
-}, "2"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-  className: "font-black text-white text-sm uppercase mb-1 tracking-wide"
-}, "CHECK YOUR CART"), /*#__PURE__*/React.createElement("p", {
-  className: "text-gray-400 text-xs font-medium leading-relaxed"
-}, "Click the Shopping Bag icon to review your selected items."))), /*#__PURE__*/React.createElement("div", {
-  className: "flex gap-4 items-start group"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300"
-}, "3"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-  className: "font-black text-white text-sm uppercase mb-1 tracking-wide"
-}, "CAPTURE RECEIPT"), /*#__PURE__*/React.createElement("p", {
-  className: "text-gray-400 text-xs font-medium leading-relaxed"
-}, "Screenshot your order summary from your device to send to Admin via LINE OA."))), /*#__PURE__*/React.createElement("div", {
-  className: "flex gap-4 items-start group"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300"
-}, "4"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-  className: "font-black text-white text-sm uppercase mb-1 tracking-wide"
-}, "SEND TO ADMIN"), /*#__PURE__*/React.createElement("p", {
-  className: "text-gray-400 text-xs font-medium leading-relaxed"
-}, "Send the captured image to our Admin to verify and confirm your delivery.")))), /*#__PURE__*/React.createElement("button", {
-  onClick: () => {
-    onClose();
-  },
-  className: "w-full bg-[#a0d4b2] hover:bg-white hover:text-black text-black font-black py-4 rounded-xl uppercase tracking-[0.15em] text-xs md:text-sm transition-all duration-300 shadow-[0_4px_20px_rgba(160,212,178,0.2)] hover:shadow-[0_4px_25px_rgba(255,255,255,0.2)] flex items-center justify-center gap-3 transform active:scale-95"
-}, "START SHOPPING ", /*#__PURE__*/React.createElement("span", null, "→")))));
-const ProductModal = ({
-  product,
-  onClose,
-  onAddToCart,
-  enableCart
-}) => {
-  const [qty1g, setQty1g] = useState(0);
-  const [qty35g, setQty35g] = useState(0);
-  const handleAdd = () => {
-    if (qty1g > 0 || qty35g > 0) {
-      onAddToCart(product, qty1g, qty35g);
-      onClose();
-    }
-  };
-  const totalItems = qty1g + qty35g;
-  return /*#__PURE__*/React.createElement("div", {
-    className: "fixed inset-0 bg-black/80 z-50 overflow-y-auto backdrop-blur-sm animate-fadeIn",
-    onClick: () => {
-      onClose();
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "min-h-full flex items-center justify-center p-4"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-[#1d1e1e] border border-gray-700 w-full max-w-lg rounded-xl relative shadow-2xl overflow-hidden flex flex-col my-8",
-    onClick: e => e.stopPropagation()
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: e => {
-      e.stopPropagation();
-      onClose();
-    },
-    className: "absolute top-3 right-3 z-[60] text-white hover:text-black hover:bg-[#a0d4b2] transition-colors p-2.5 bg-black/50 rounded-full shadow-lg border border-white/20 active:scale-90",
-    style: {
-      minWidth: "44px",
-      minHeight: "44px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    },
-    "aria-label": "Close"
-  }, /*#__PURE__*/React.createElement(X, {
-    size: 22
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "relative bg-gradient-to-r from-gray-900 to-[#1d1e1e] p-6 pr-16 border-b border-gray-800"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-start gap-4"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex-1"
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-gray-500 text-xs uppercase tracking-[0.2em] mb-2"
-  }, product.cat === "COMPOUND" ? "COMPOUND GENETICS" : product.cat), /*#__PURE__*/React.createElement("h2", {
-    className: "font-black text-3xl md:text-4xl text-[#a0d4b2] uppercase leading-none mb-3 tracking-tight"
-  }, product.name), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-3"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "bg-[#a0d4b2]/10 text-[#a0d4b2] px-2 py-1 rounded text-xs font-bold border border-[#a0d4b2]/20"
-  }, "THC ", product.thc), product.cbd !== "0%" && /*#__PURE__*/React.createElement("span", {
-    className: "bg-gray-700/50 text-gray-300 px-2 py-1 rounded text-xs font-bold border border-gray-600"
-  }, "CBD ", product.cbd))), /*#__PURE__*/React.createElement("div", {
-    className: "pt-1"
-  }, /*#__PURE__*/React.createElement(StatusBadge, {
-    tags: product.tags,
-    size: "md"
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: "p-6 space-y-6 bg-[#1d1e1e]"
-  }, enableCart && /*#__PURE__*/React.createElement("div", {
-    className: "space-y-3"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: `flex items-center justify-between p-3 rounded-lg border ${qty1g > 0 ? "border-[#a0d4b2] bg-[#a0d4b2]/5" : "border-white/10 bg-white/5"} transition-colors`
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-    className: "block font-bold text-gray-300 text-sm uppercase"
-  }, "1 Gram"), /*#__PURE__*/React.createElement("span", {
-    className: "block font-black text-white text-xl"
-  }, product.p1)), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-4 bg-black/30 rounded-full p-1"
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      setQty1g(Math.max(0, qty1g - 1));
-    },
-    className: `p-2 rounded-full transition-colors ${qty1g > 0 ? "text-white hover:bg-white/10" : "text-gray-600"}`
-  }, /*#__PURE__*/React.createElement(Minus, {
-    size: 16
-  })), /*#__PURE__*/React.createElement("span", {
-    className: `font-black w-4 text-center ${qty1g > 0 ? "text-[#a0d4b2]" : "text-gray-500"}`
-  }, qty1g), /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      setQty1g(qty1g + 1);
-    },
-    className: "p-2 rounded-full text-white hover:bg-white/10 transition-colors"
-  }, /*#__PURE__*/React.createElement(Plus, {
-    size: 16
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: `flex items-center justify-between p-3 rounded-lg border ${qty35g > 0 ? "border-[#a0d4b2] bg-[#a0d4b2]/5" : "border-white/10 bg-white/5"} transition-colors`
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-    className: "block font-bold text-gray-300 text-sm uppercase"
-  }, "3.5 Grams"), /*#__PURE__*/React.createElement("span", {
-    className: "block font-black text-white text-xl"
-  }, product.p35)), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-4 bg-black/30 rounded-full p-1"
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      setQty35g(Math.max(0, qty35g - 1));
-    },
-    className: `p-2 rounded-full transition-colors ${qty35g > 0 ? "text-white hover:bg-white/10" : "text-gray-600"}`
-  }, /*#__PURE__*/React.createElement(Minus, {
-    size: 16
-  })), /*#__PURE__*/React.createElement("span", {
-    className: `font-black w-4 text-center ${qty35g > 0 ? "text-[#a0d4b2]" : "text-gray-500"}`
-  }, qty35g), /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      setQty35g(qty35g + 1);
-    },
-    className: "p-2 rounded-full text-white hover:bg-white/10 transition-colors"
-  }, /*#__PURE__*/React.createElement(Plus, {
-    size: 16
-  }))))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-    className: "font-bold text-gray-400 text-xs uppercase mb-3 flex items-center"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "w-1.5 h-1.5 rounded-full bg-[#a0d4b2] mr-2"
-  }), "Terpene Profile"), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-wrap gap-2"
-  }, (product.terpenes || []).map((t, i) => /*#__PURE__*/React.createElement("span", {
-    key: i,
-    className: "bg-gray-800 border border-gray-700 text-gray-300 font-mont font-bold text-[10px] md:text-xs px-3 py-1.5 rounded-md uppercase shadow-sm flex items-center"
-  }, t)))), enableCart && /*#__PURE__*/React.createElement("button", {
-    onClick: handleAdd,
-    disabled: totalItems === 0,
-    className: `w-full font-black py-4 uppercase rounded-lg transition-all duration-300 tracking-wide text-sm shadow-lg flex items-center justify-center gap-2
-                  ${totalItems > 0 ? "bg-white hover:bg-[#a0d4b2] text-black hover:text-black hover:shadow-[#a0d4b2]/20" : "bg-gray-800 text-gray-500 cursor-not-allowed border border-gray-700"}`
-  }, totalItems > 0 ? `Add to Cart (${totalItems})` : "Select Quantity"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      onClose();
-    },
-    className: "w-full font-black py-3 uppercase rounded-lg transition-all duration-300 tracking-wide text-xs text-gray-400 hover:text-white border border-white/10 hover:border-white/30 hover:bg-white/5"
-  }, "Close")))));
-};
-const App = () => {
-  // 🔒 CONTROL PANEL
-  const ENABLE_WELCOME = false;
-  const ENABLE_CART = false;
-  const ENABLE_PRODUCT_MODAL = false; // ปิดไว้ก่อน = การ์ดเป็นการแสดงผลอย่างเดียว กดไม่ขึ้นป๊อบอัพ
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [notification, setNotification] = useState(null);
-  const [cartBump, setCartBump] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(false);
-  const cartReady = useRef(false);
+      const { useState, useEffect, useRef } = React;
+      const X = ({ size = 24, className }) =>
+        /*#__PURE__*/ React.createElement(
+          "svg",
+          {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: size,
+            height: size,
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            className: className,
+          },
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M18 6 6 18",
+          }),
+          /*#__PURE__*/ React.createElement("path", {
+            d: "m6 6 12 12",
+          }),
+        );
+      const ShoppingBag = ({ size = 24, className }) =>
+        /*#__PURE__*/ React.createElement(
+          "svg",
+          {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: size,
+            height: size,
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            className: className,
+          },
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z",
+          }),
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M3 6h18",
+          }),
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M16 10a4 4 0 0 1-8 0",
+          }),
+        );
+      const Trash2 = ({ size = 24, className }) =>
+        /*#__PURE__*/ React.createElement(
+          "svg",
+          {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: size,
+            height: size,
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            className: className,
+          },
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M3 6h18",
+          }),
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6",
+          }),
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2",
+          }),
+          /*#__PURE__*/ React.createElement("line", {
+            x1: "10",
+            x2: "10",
+            y1: "11",
+            y2: "17",
+          }),
+          /*#__PURE__*/ React.createElement("line", {
+            x1: "14",
+            x2: "14",
+            y1: "11",
+            y2: "17",
+          }),
+        );
+      const Plus = ({ size = 24, className }) =>
+        /*#__PURE__*/ React.createElement(
+          "svg",
+          {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: size,
+            height: size,
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            className: className,
+          },
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M5 12h14",
+          }),
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M12 5v14",
+          }),
+        );
+      const Minus = ({ size = 24, className }) =>
+        /*#__PURE__*/ React.createElement(
+          "svg",
+          {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: size,
+            height: size,
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            className: className,
+          },
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M5 12h14",
+          }),
+        );
+      const Check = ({ size = 24, className }) =>
+        /*#__PURE__*/ React.createElement(
+          "svg",
+          {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: size,
+            height: size,
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            className: className,
+          },
+          /*#__PURE__*/ React.createElement("polyline", {
+            points: "20 6 9 17 4 12",
+          }),
+        );
+      const Camera = ({ size = 24, className }) =>
+        /*#__PURE__*/ React.createElement(
+          "svg",
+          {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: size,
+            height: size,
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            className: className,
+          },
+          /*#__PURE__*/ React.createElement("path", {
+            d: "M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z",
+          }),
+          /*#__PURE__*/ React.createElement("circle", {
+            cx: "12",
+            cy: "13",
+            r: "3",
+          }),
+        );
+      const terpeneColors = {
+        myrcene: "#2b398c",
+        caryophyllene: "#77823d",
+        humulene: "#fd8b03",
+        limonene: "#7bc70f",
+        ocimene: "#009282",
+        phellandrene: "#fd0106",
+        pinene: "#08a152",
+        terpinolene: "#4b5e3d",
+        terpineol: "#ee5a29",
+        linalool: "#9094d8",
+        bisabolol: "#e6c122",
+      };
+      const TerpeneBadge = ({ name }) => {
+        const key = name.split(" ")[0].toLowerCase().trim();
+        const color = terpeneColors[key] || "#4b5563";
+        return /*#__PURE__*/ React.createElement(
+          "span",
+          {
+            className:
+              "inline-block whitespace-nowrap text-white font-mont font-bold text-[9px] px-2 py-0.5 rounded-sm mr-1 mb-1 uppercase tracking-wide shadow-sm",
+            style: {
+              backgroundColor: color,
+            },
+          },
+          name,
+        );
+      };
+      const BadgeElement = ({ type, size = "sm" }) => {
+        const styles = {
+          full: {
+            size: "102px",
+            fontNew: "22px",
+            fontBest: "18px",
+            fontBuy: "15px",
+            lh: "1.1",
+          },
+          md: {
+            size: "68px",
+            fontNew: "15px",
+            fontBest: "13px",
+            fontBuy: "10px",
+            lh: "1.1",
+          },
+          sm: {
+            size: "52px",
+            fontNew: "11px",
+            fontBest: "9px",
+            fontBuy: "8px",
+            lh: "1.1",
+          },
+        };
+        const config = styles[size];
+        const boxStyle = {
+          width: config.size,
+          height: config.size,
+          minWidth: config.size,
+          minHeight: config.size,
+        };
+        const clipStyle = {
+          clipPath:
+            "polygon(50% 0%, 61% 10%, 75% 6%, 79% 20%, 93% 25%, 90% 39%, 100% 50%, 90% 61%, 93% 75%, 79% 80%, 75% 94%, 61% 90%, 50% 100%, 39% 90%, 25% 94%, 21% 80%, 7% 75%, 10% 61%, 0% 50%, 10% 39%, 7% 25%, 21% 20%, 25% 6%, 39% 10%)",
+        };
+        let content = null;
+        let bgClass = "";
+        if (type === "NEW") {
+          bgClass = "bg-[#A4F21E]";
+          content = /*#__PURE__*/ React.createElement(
+            "span",
+            {
+              style: {
+                fontSize: config.fontNew,
+              },
+            },
+            "NEW",
+          );
+        } else if (type === "BEST SELLER") {
+          bgClass = "bg-[#FFC107]";
+          content = /*#__PURE__*/ React.createElement(
+            React.Fragment,
+            null,
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBest,
+                  lineHeight: config.lh,
+                },
+              },
+              "BEST",
+            ),
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBest,
+                  lineHeight: config.lh,
+                },
+              },
+              "SELLER",
+            ),
+          );
+        } else if (type === "BUY 1" || (type && type.includes("BUY 1"))) {
+          bgClass = "bg-[#E61633]";
+          content = /*#__PURE__*/ React.createElement(
+            React.Fragment,
+            null,
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBuy,
+                  lineHeight: config.lh,
+                },
+              },
+              "BUY 1",
+            ),
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBuy,
+                  lineHeight: config.lh,
+                },
+              },
+              "GET 1",
+            ),
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBuy,
+                  lineHeight: config.lh,
+                },
+              },
+              "FREE",
+            ),
+          );
+        } else if (type === "BUY 2") {
+          bgClass = "bg-[#FF2E7E]";
+          content = /*#__PURE__*/ React.createElement(
+            React.Fragment,
+            null,
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBuy,
+                  lineHeight: config.lh,
+                },
+              },
+              "BUY 2",
+            ),
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBuy,
+                  lineHeight: config.lh,
+                },
+              },
+              "GET 1",
+            ),
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBuy,
+                  lineHeight: config.lh,
+                },
+              },
+              "FREE",
+            ),
+          );
+        } else if (type === "SOLD OUT") {
+          bgClass = "bg-[#5a5a5a]";
+          content = /*#__PURE__*/ React.createElement(
+            React.Fragment,
+            null,
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBest,
+                  lineHeight: config.lh,
+                },
+              },
+              "SOLD",
+            ),
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                style: {
+                  fontSize: config.fontBest,
+                  lineHeight: config.lh,
+                },
+              },
+              "OUT",
+            ),
+          );
+        }
+        if (!content) return null;
+        return /*#__PURE__*/ React.createElement(
+          "div",
+          {
+            className: `flex flex-col justify-center items-center text-center text-white font-inter font-black shrink-0 grow-0 hover:scale-110 hover:rotate-6 transition-transform duration-200 ${bgClass}`,
+            style: {
+              ...boxStyle,
+              ...clipStyle,
+            },
+          },
+          content,
+        );
+      };
+      const StatusBadge = ({ tags, size = "sm", soldOut = false }) => {
+        const placeholderSize =
+          size === "sm" ? "52px" : size === "md" ? "68px" : "102px";
+        const containerStyle = {
+          width: placeholderSize,
+          minWidth: placeholderSize,
+        };
+        if (soldOut) {
+          return /*#__PURE__*/ React.createElement(
+            "div",
+            {
+              className: "flex items-center justify-center mr-2 shrink-0",
+              style: containerStyle,
+            },
+            /*#__PURE__*/ React.createElement(BadgeElement, {
+              type: "SOLD OUT",
+              size: size,
+            }),
+          );
+        }
+        if (!tags || tags.length === 0) {
+          return /*#__PURE__*/ React.createElement("div", {
+            style: containerStyle,
+            className: "mr-2 shrink-0",
+          });
+        }
+        const tag = tags[0];
+        let type = "";
+        if (tag === "NEW") type = "NEW";
+        else if (tag === "BEST SELLER") type = "BEST SELLER";
+        else if (tag.includes("BUY 1")) type = "BUY 1";
+        if (type) {
+          return /*#__PURE__*/ React.createElement(
+            "div",
+            {
+              className: "flex items-center justify-center mr-2 shrink-0",
+              style: containerStyle,
+            },
+            /*#__PURE__*/ React.createElement(BadgeElement, {
+              type: type,
+              size: size,
+            }),
+          );
+        }
+        return /*#__PURE__*/ React.createElement("div", {
+          style: containerStyle,
+          className: "mr-2 shrink-0",
+        });
+      };
+      // ✅ STOCK HELPERS
+      // A product may carry an `outOfStock: ["g1" | "g35"]` array in menu.json —
+      // just list which size(s) are currently unavailable. Leave the field out
+      // entirely (or an empty array) when everything's in stock. No quantities to
+      // maintain — this is meant to be quick to edit every month.
+      const isOutOfStock = (product, key) =>
+        Array.isArray(product.outOfStock) && product.outOfStock.includes(key);
 
-  // ✅ MENU LOAD
-  const [menu, setMenu] = useState({
-    meta: {},
-    products: [],
-    preRolls: []
-  });
-  const [menuError, setMenuError] = useState("");
-  useEffect(() => {
-    fetch("./menu.json?v=" + Date.now()).then(r => {
-      if (!r.ok) throw new Error("menu.json not found: " + r.status);
-      return r.json();
-    }).then(data => {
-      setMenu(data);
-      setMenuError("");
-    }).catch(err => {
-      setMenuError(String(err));
-      setMenu({
-        meta: {},
-        products: [],
-        preRolls: []
-      });
-    });
-  }, []);
-  const products = menu.products || [];
-  const preRolls = menu.preRolls || [];
+      // Price block shown on the right of a ProductCard. A fixed two-column grid
+      // keeps every row perfectly aligned — the small price (or a "Sold Out" pill)
+      // shares a baseline on top, and the large gram size shares a baseline below,
+      // with a hairline rule between the two sizes. Built for a clean, premium
+      // read: the gram size leads, comma-grouped prices sit quietly above it.
+      const priceFmt = (n) => Number(n).toLocaleString("en-US");
+      // ฿ suffix icon — Inter Black, same weight as the number, just a touch
+      // smaller and softened so it still reads as a currency mark and not a
+      // second digit.
+      const BahtIcon = ({ className = "" }) =>
+        /*#__PURE__*/ React.createElement(
+          "span",
+          {
+            className: `font-inter font-black opacity-70 ${className}`,
+          },
+          "฿",
+        );
+      const PriceBlock = ({ p1, p35, g1Out, g35Out }) => {
+        // Top row: the price for a size, or a soft pill when it's sold out.
+        const Price = ({ n, out }) =>
+          out
+            ? /*#__PURE__*/ React.createElement(
+                "span",
+                {
+                  className:
+                    "inline-flex items-center justify-center bg-white/[0.03] border border-white/10 text-gray-500 text-[8px] md:text-[9px] font-bold uppercase tracking-[0.12em] px-2 py-1 rounded-full",
+                },
+                "Sold Out",
+              )
+            : /*#__PURE__*/ React.createElement(
+                "span",
+                {
+                  className:
+                    "font-inter font-bold text-gray-400 text-[11px] md:text-xs tracking-wide tabular-nums",
+                },
+                priceFmt(n),
+                /*#__PURE__*/ React.createElement(BahtIcon, {
+                  className: "text-[9px] md:text-[10px] ml-0.5",
+                }),
+              );
+        // Bottom row: the gram size — the lead value. Dimmed when that size is out.
+        const Gram = ({ label, out }) =>
+          /*#__PURE__*/ React.createElement(
+            "span",
+            {
+              className: `font-inter font-black text-lg md:text-xl tracking-tight uppercase ${out ? "text-gray-600" : "text-[#a0d4b2]"}`,
+            },
+            label,
+          );
+        const topWrap = "flex items-center justify-center h-6";
+        const gramWrap = "flex items-center justify-center h-8";
+        return /*#__PURE__*/ React.createElement(
+          "div",
+          {
+            className:
+              "grid grid-cols-[64px_1px_64px] md:grid-cols-[80px_1px_80px] items-center gap-x-2.5 text-center",
+          },
+          // Row 1 — prices / sold-out pills (empty cell above the divider)
+          /*#__PURE__*/ React.createElement(
+            "div",
+            { className: topWrap },
+            /*#__PURE__*/ React.createElement(Price, { n: p1, out: g1Out }),
+          ),
+          /*#__PURE__*/ React.createElement("span", null),
+          /*#__PURE__*/ React.createElement(
+            "div",
+            { className: topWrap },
+            /*#__PURE__*/ React.createElement(Price, { n: p35, out: g35Out }),
+          ),
+          // Row 2 — gram sizes + hairline divider
+          /*#__PURE__*/ React.createElement(
+            "div",
+            { className: gramWrap },
+            /*#__PURE__*/ React.createElement(Gram, { label: "1G", out: g1Out }),
+          ),
+          /*#__PURE__*/ React.createElement("div", {
+            className: "w-px h-6 bg-white/10 justify-self-center",
+          }),
+          /*#__PURE__*/ React.createElement(
+            "div",
+            { className: gramWrap },
+            /*#__PURE__*/ React.createElement(Gram, { label: "3.5G", out: g35Out }),
+          ),
+        );
+      };
+      const ProductCard = ({ product, onClick }) => {
+        const g1Out = isOutOfStock(product, "g1");
+        const g35Out = isOutOfStock(product, "g35");
+        const bothOut = g1Out && g35Out;
+        return /*#__PURE__*/ React.createElement(
+          "div",
+          {
+            onClick: onClick
+              ? () => {
+                  onClick(product);
+                }
+              : undefined,
+            className: `group py-3 px-2 transition-all duration-200 flex items-center justify-between border-b border-gray-700/50 last:border-0 ${onClick ? "cursor-pointer hover:bg-white/5" : "cursor-default"}`,
+          },
+          /*#__PURE__*/ React.createElement(
+            "div",
+            {
+              className: "flex items-center flex-1 min-w-0 pr-2",
+            },
+            /*#__PURE__*/ React.createElement(StatusBadge, {
+              tags: product.tags,
+              size: "sm",
+              soldOut: bothOut,
+            }),
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className: "flex flex-col justify-center min-w-0",
+              },
+              /*#__PURE__*/ React.createElement(
+                "h3",
+                {
+                  className: `font-inter font-black text-base md:text-lg uppercase leading-tight transition-colors mb-1 ${bothOut ? "text-gray-500" : "text-white group-hover:text-[#a0d4b2]"}`,
+                },
+                product.name,
+              ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className:
+                    "flex flex-col md:flex-row md:items-center gap-x-3 gap-y-0.5 mb-1.5",
+                },
+                /*#__PURE__*/ React.createElement(
+                  "span",
+                  {
+                    className:
+                      "font-inter font-black text-white text-xs opacity-90 whitespace-nowrap",
+                  },
+                  `THC ${product.thc}`,
+                ),
+                /*#__PURE__*/ React.createElement(
+                  "span",
+                  {
+                    className:
+                      "font-inter font-black text-white text-xs opacity-90 whitespace-nowrap",
+                  },
+                  `CBD ${product.cbd}`,
+                ),
+              ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className: "flex flex-wrap gap-1",
+                },
+                (product.terpenes || []).map((t, i) =>
+                  /*#__PURE__*/ React.createElement(TerpeneBadge, {
+                    key: i,
+                    name: t,
+                  }),
+                ),
+              ),
+            ),
+          ),
+          /*#__PURE__*/ React.createElement(
+            "div",
+            {
+              className: "whitespace-nowrap pl-1",
+            },
+            /*#__PURE__*/ React.createElement(PriceBlock, {
+              p1: product.p1,
+              p35: product.p35,
+              g1Out: g1Out,
+              g35Out: g35Out,
+            }),
+          ),
+        );
+      };
+      const BoxHeader = ({ title, bgColor }) =>
+        /*#__PURE__*/ React.createElement(
+          "div",
+          {
+            className:
+              "flex justify-between items-center px-4 py-2 border-b border-white/10",
+            style: {
+              backgroundColor: bgColor,
+            },
+          },
+          /*#__PURE__*/ React.createElement(
+            "h2",
+            {
+              className:
+                "font-inter font-black text-xl md:text-2xl text-white uppercase tracking-tight",
+            },
+            title,
+          ),
+          /*#__PURE__*/ React.createElement(
+            "span",
+            {
+              className:
+                "font-inter font-bold text-white/60 text-[10px] md:text-xs uppercase tracking-[0.2em]",
+            },
+            
+          ),
+        );
+      const WelcomeModal = ({ onClose }) =>
+        /*#__PURE__*/ React.createElement(
+          "div",
+          {
+            className:
+              "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn",
+            onClick: () => {
+              onClose();
+            },
+          },
+          /*#__PURE__*/ React.createElement(
+            "div",
+            {
+              className:
+                "bg-[#1d1e1e]/95 border border-[#a0d4b2]/40 w-full max-w-sm rounded-2xl shadow-[0_0_40px_rgba(160,212,178,0.15)] overflow-hidden relative flex flex-col",
+              onClick: (e) => e.stopPropagation(),
+            },
+            /*#__PURE__*/ React.createElement("div", {
+              className:
+                "absolute top-0 right-0 w-40 h-40 bg-[#a0d4b2]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none",
+            }),
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className: "p-6 relative z-10",
+              },
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className: "text-center mb-8 border-b border-white/10 pb-4",
+                },
+                /*#__PURE__*/ React.createElement(
+                  "h2",
+                  {
+                    className:
+                      "font-black text-3xl text-[#a0d4b2] uppercase tracking-tighter mb-1 leading-none",
+                  },
+                  "HOW TO ORDER",
+                ),
+                /*#__PURE__*/ React.createElement(
+                  "p",
+                  {
+                    className:
+                      "text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]",
+                  },
+                  "Quick Guide",
+                ),
+              ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className: "space-y-6 mb-8",
+                },
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className: "flex gap-4 items-start group",
+                  },
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className:
+                        "bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300",
+                    },
+                    "1",
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    null,
+                    /*#__PURE__*/ React.createElement(
+                      "h3",
+                      {
+                        className:
+                          "font-black text-white text-sm uppercase mb-1 tracking-wide",
+                      },
+                      "SELECT YOUR STRAINS",
+                    ),
+                    /*#__PURE__*/ React.createElement(
+                      "p",
+                      {
+                        className:
+                          "text-gray-400 text-xs font-medium leading-relaxed",
+                      },
+                      "Choose your preferred flowers or pre-rolls and add them to your cart.",
+                    ),
+                  ),
+                ),
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className: "flex gap-4 items-start group",
+                  },
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className:
+                        "bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300",
+                    },
+                    "2",
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    null,
+                    /*#__PURE__*/ React.createElement(
+                      "h3",
+                      {
+                        className:
+                          "font-black text-white text-sm uppercase mb-1 tracking-wide",
+                      },
+                      "CHECK YOUR CART",
+                    ),
+                    /*#__PURE__*/ React.createElement(
+                      "p",
+                      {
+                        className:
+                          "text-gray-400 text-xs font-medium leading-relaxed",
+                      },
+                      "Click the Shopping Bag icon to review your selected items.",
+                    ),
+                  ),
+                ),
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className: "flex gap-4 items-start group",
+                  },
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className:
+                        "bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300",
+                    },
+                    "3",
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    null,
+                    /*#__PURE__*/ React.createElement(
+                      "h3",
+                      {
+                        className:
+                          "font-black text-white text-sm uppercase mb-1 tracking-wide",
+                      },
+                      "CAPTURE RECEIPT",
+                    ),
+                    /*#__PURE__*/ React.createElement(
+                      "p",
+                      {
+                        className:
+                          "text-gray-400 text-xs font-medium leading-relaxed",
+                      },
+                      "Screenshot your order summary from your device to send to Admin via LINE OA.",
+                    ),
+                  ),
+                ),
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className: "flex gap-4 items-start group",
+                  },
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className:
+                        "bg-[#a0d4b2]/10 text-[#a0d4b2] w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-[#a0d4b2]/20 group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors duration-300",
+                    },
+                    "4",
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    null,
+                    /*#__PURE__*/ React.createElement(
+                      "h3",
+                      {
+                        className:
+                          "font-black text-white text-sm uppercase mb-1 tracking-wide",
+                      },
+                      "SEND TO ADMIN",
+                    ),
+                    /*#__PURE__*/ React.createElement(
+                      "p",
+                      {
+                        className:
+                          "text-gray-400 text-xs font-medium leading-relaxed",
+                      },
+                      "Send the captured image to our Admin to verify and confirm your delivery.",
+                    ),
+                  ),
+                ),
+              ),
+              /*#__PURE__*/ React.createElement(
+                "button",
+                {
+                  onClick: () => {
+                    onClose();
+                  },
+                  className:
+                    "w-full bg-[#a0d4b2] hover:bg-white hover:text-black text-black font-black py-4 rounded-xl uppercase tracking-[0.15em] text-xs md:text-sm transition-all duration-300 shadow-[0_4px_20px_rgba(160,212,178,0.2)] hover:shadow-[0_4px_25px_rgba(255,255,255,0.2)] flex items-center justify-center gap-3 transform active:scale-95",
+                },
+                "START SHOPPING ",
+                /*#__PURE__*/ React.createElement("span", null, "→"),
+              ),
+            ),
+          ),
+        );
+      // One row inside the size-quantity picker in ProductModal. Mirrors the same
+      // visual language as PriceBlock on the cards (grey pill = sold out) so the
+      // whole app reads as one system.
+      const SizeRow = ({ label, price, qty, out, onDec, onInc }) =>
+        /*#__PURE__*/ React.createElement(
+          "div",
+          {
+            className: `flex items-center justify-between p-3 rounded-lg border transition-colors ${out ? "border-white/5 bg-white/[0.02]" : qty > 0 ? "border-[#a0d4b2] bg-[#a0d4b2]/5" : "border-white/10 bg-white/5"}`,
+          },
+          /*#__PURE__*/ React.createElement(
+            "div",
+            null,
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                className:
+                  "block font-bold text-gray-300 text-sm uppercase mb-1",
+              },
+              label,
+            ),
+            out
+              ? /*#__PURE__*/ React.createElement(
+                  "span",
+                  {
+                    className:
+                      "inline-flex items-center bg-white/[0.06] border border-white/10 text-gray-500 text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-full",
+                  },
+                  "Sold Out",
+                )
+              : /*#__PURE__*/ React.createElement(
+                  "span",
+                  {
+                    className: "font-black text-xl text-white",
+                  },
+                  priceFmt(price),
+                  /*#__PURE__*/ React.createElement(BahtIcon, {
+                    className: "text-sm ml-0.5",
+                  }),
+                ),
+          ),
+          /*#__PURE__*/ React.createElement(
+            "div",
+            {
+              className: "flex items-center gap-4 bg-black/30 rounded-full p-1",
+            },
+            /*#__PURE__*/ React.createElement(
+              "button",
+              {
+                disabled: out,
+                onClick: onDec,
+                className: `p-2 rounded-full transition-colors ${qty > 0 ? "text-white hover:bg-white/10" : "text-gray-600"}`,
+              },
+              /*#__PURE__*/ React.createElement(Minus, {
+                size: 16,
+              }),
+            ),
+            /*#__PURE__*/ React.createElement(
+              "span",
+              {
+                className: `font-black w-4 text-center ${qty > 0 ? "text-[#a0d4b2]" : "text-gray-500"}`,
+              },
+              qty,
+            ),
+            /*#__PURE__*/ React.createElement(
+              "button",
+              {
+                disabled: out,
+                onClick: onInc,
+                className: `p-2 rounded-full transition-colors ${!out ? "text-white hover:bg-white/10" : "text-gray-700 cursor-not-allowed"}`,
+              },
+              /*#__PURE__*/ React.createElement(Plus, {
+                size: 16,
+              }),
+            ),
+          ),
+        );
+      const ProductModal = ({ product, onClose, onAddToCart, enableCart }) => {
+        const [qty1g, setQty1g] = useState(0);
+        const [qty35g, setQty35g] = useState(0);
+        const g1Out = isOutOfStock(product, "g1");
+        const g35Out = isOutOfStock(product, "g35");
+        const handleAdd = () => {
+          if (qty1g > 0 || qty35g > 0) {
+            onAddToCart(product, qty1g, qty35g);
+            onClose();
+          }
+        };
+        const totalItems = qty1g + qty35g;
+        return /*#__PURE__*/ React.createElement(
+          "div",
+          {
+            className:
+              "fixed inset-0 bg-black/80 z-50 overflow-y-auto backdrop-blur-sm animate-fadeIn",
+            onClick: () => {
+              onClose();
+            },
+          },
+          /*#__PURE__*/ React.createElement(
+            "div",
+            {
+              className: "min-h-full flex items-center justify-center p-4",
+            },
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className:
+                  "bg-[#1d1e1e] border border-gray-700 w-full max-w-lg rounded-xl relative shadow-2xl overflow-hidden flex flex-col my-8",
+                onClick: (e) => e.stopPropagation(),
+              },
+              /*#__PURE__*/ React.createElement(
+                "button",
+                {
+                  onClick: (e) => {
+                    e.stopPropagation();
+                    onClose();
+                  },
+                  className:
+                    "absolute top0 right-3 z-[60] text-white hover:text-black hover:bg-[#a0d4b2] transition-colors p-2.5 bg-black/50 rounded-full shadow-lg border border-white/20 active:scale-90",
+                  style: {
+                    minWidth: "44px",
+                    minHeight: "44px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent:
+                      "p00 pt50 flex flex-col flex-1 justify-start",
+                  },
+                  "aria-label": "Close",
+                },
+                /*#__PURE__*/ React.createElement(X, {
+                  size: 22,
+                }),
+              ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className:
+                    "relative bg-gradient-to-r from-gray-900 to-[#1d1e1e] p-6 pr-16 border-b border-gray-800",
+                },
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className: "flex justify-between items-start gap-4",
+                  },
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className: "flex-1",
+                    },
+                    /*#__PURE__*/ React.createElement(
+                      "p",
+                      {
+                        className:
+                          "font-bold text-gray-500 text-xs uppercase tracking-[0.2em] mb-2",
+                      },
+                      product.cat === "COMPOUND"
+                        ? "COMPOUND GENETICS"
+                        : product.cat,
+                    ),
+                    /*#__PURE__*/ React.createElement(
+                      "h2",
+                      {
+                        className:
+                          "font-black text-3xl md:text-4xl text-[#a0d4b2] uppercase leading-none mb-3 tracking-tight",
+                      },
+                      product.name,
+                    ),
+                    /*#__PURE__*/ React.createElement(
+                      "div",
+                      {
+                        className: "flex items-center gap-3",
+                      },
+                      /*#__PURE__*/ React.createElement(
+                        "span",
+                        {
+                          className:
+                            "bg-[#a0d4b2]/10 text-[#a0d4b2] px-2 py-1 rounded text-xs font-bold border border-[#a0d4b2]/20",
+                        },
+                        "THC ",
+                        product.thc,
+                      ),
+                      product.cbd !== "0%" &&
+                        /*#__PURE__*/ React.createElement(
+                          "span",
+                          {
+                            className:
+                              "bg-gray-700/50 text-gray-300 px-2 py-1 rounded text-xs font-bold border border-gray-600",
+                          },
+                          "CBD ",
+                          product.cbd,
+                        ),
+                    ),
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className: "pt-1",
+                    },
+                    /*#__PURE__*/ React.createElement(StatusBadge, {
+                      tags: product.tags,
+                      size: "md",
+                      soldOut: g1Out && g35Out,
+                    }),
+                  ),
+                ),
+              ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className: "p-6 space-y-6 bg-[#1d1e1e]",
+                },
+                enableCart &&
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className: "space-y-3",
+                    },
+                    /*#__PURE__*/ React.createElement(SizeRow, {
+                      label: "1 Gram",
+                      price: product.p1,
+                      qty: qty1g,
+                      out: g1Out,
+                      onDec: () => setQty1g(Math.max(0, qty1g - 1)),
+                      onInc: () => {
+                        if (!g1Out) setQty1g(qty1g + 1);
+                      },
+                    }),
+                    /*#__PURE__*/ React.createElement(SizeRow, {
+                      label: "3.5 Grams",
+                      price: product.p35,
+                      qty: qty35g,
+                      out: g35Out,
+                      onDec: () => setQty35g(Math.max(0, qty35g - 1)),
+                      onInc: () => {
+                        if (!g35Out) setQty35g(qty35g + 1);
+                      },
+                    }),
+                  ),
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  null,
+                  /*#__PURE__*/ React.createElement(
+                    "h3",
+                    {
+                      className:
+                        "font-bold text-gray-400 text-xs uppercase mb-3 flex items-center",
+                    },
+                    /*#__PURE__*/ React.createElement("span", {
+                      className: "w-1.5 h-1.5 rounded-full bg-[#a0d4b2] mr-2",
+                    }),
+                    "Terpene Profile",
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className: "flex flex-wrap gap-2",
+                    },
+                    (product.terpenes || []).map((t, i) =>
+                      /*#__PURE__*/ React.createElement(
+                        "span",
+                        {
+                          key: i,
+                          className:
+                            "bg-gray-800 border border-gray-700 text-gray-300 font-mont font-bold text-[10px] md:text-xs px-3 py-1.5 rounded-md uppercase shadow-sm flex items-center whitespace-nowrap",
+                        },
+                        t,
+                      ),
+                    ),
+                  ),
+                ),
+                enableCart &&
+                  /*#__PURE__*/ React.createElement(
+                    "button",
+                    {
+                      onClick: handleAdd,
+                      disabled: totalItems === 0,
+                      className: `w-full font-black py-4 uppercase rounded-lg transition-all duration-300 tracking-wide text-sm shadow-lg flex items-center justify-center gap-2
+                  ${totalItems > 0 ? "bg-white hover:bg-[#a0d4b2] text-black hover:text-black hover:shadow-[#a0d4b2]/20" : "bg-gray-800 text-gray-500 cursor-not-allowed border border-gray-700"}`,
+                    },
+                    totalItems > 0
+                      ? `Add to Cart (${totalItems})`
+                      : "Select Quantity",
+                  ),
+                /*#__PURE__*/ React.createElement(
+                  "button",
+                  {
+                    onClick: () => {
+                      onClose();
+                    },
+                    className:
+                      "w-full font-black py-3 uppercase rounded-lg transition-all duration-300 tracking-wide text-xs text-gray-400 hover:text-white border border-white/10 hover:border-white/30 hover:bg-white/5",
+                  },
+                  "Close",
+                ),
+              ),
+            ),
+          ),
+        );
+      };
+      const App = () => {
+        // 🔒 CONTROL PANEL
+        const ENABLE_WELCOME = false;
+        const ENABLE_CART = false;
+        const ENABLE_PRODUCT_MODAL = false; // ปิดไว้ก่อน = การ์ดเป็นการแสดงผลอย่างเดียว กดไม่ขึ้นป๊อบอัพ
+        const [selectedProduct, setSelectedProduct] = useState(null);
+        const [cart, setCart] = useState([]);
+        const [isCartOpen, setIsCartOpen] = useState(false);
+        const [notification, setNotification] = useState(null);
+        const [cartBump, setCartBump] = useState(false);
+        const [showWelcome, setShowWelcome] = useState(false);
+        const cartReady = useRef(false);
 
-  // ✅ Load cart from session once
-  useEffect(() => {
-    try {
-      const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
-      if (Array.isArray(saved)) setCart(saved);
-    } catch {}
-    cartReady.current = true;
-  }, []);
+        // ✅ MENU LOAD
+        const [menu, setMenu] = useState({
+          meta: {},
+          products: [],
+          preRolls: [],
+        });
+        const [menuError, setMenuError] = useState("");
+        useEffect(() => {
+          fetch("./menu.json?v=" + Date.now())
+            .then((r) => {
+              if (!r.ok) throw new Error("menu.json not found: " + r.status);
+              return r.json();
+            })
+            .then((data) => {
+              setMenu(data);
+              setMenuError("");
+            })
+            .catch((err) => {
+              setMenuError(String(err));
+              setMenu({
+                meta: {},
+                products: [],
+                preRolls: [],
+              });
+            });
+        }, []);
+        const products = menu.products || [];
+        const preRolls = menu.preRolls || [];
 
-  // ✅ Save cart whenever changed
-  useEffect(() => {
-    if (!cartReady.current) return;
-    try {
-      sessionStorage.setItem("cart_v1", JSON.stringify(cart));
-    } catch {}
-    window.dispatchEvent(new Event("cart:updated"));
-  }, [cart]);
+        // ✅ Load cart from session once
+        useEffect(() => {
+          try {
+            const saved = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
+            if (Array.isArray(saved)) setCart(saved);
+          } catch {}
+          cartReady.current = true;
+        }, []);
 
-  // ✅ open cart event
-  useEffect(() => {
-    if (!ENABLE_CART) return;
-    const open = () => setIsCartOpen(true);
-    window.addEventListener("cart:open", open);
-    return () => window.removeEventListener("cart:open", open);
-  }, []);
+        // ✅ Save cart whenever changed
+        useEffect(() => {
+          if (!cartReady.current) return;
+          try {
+            sessionStorage.setItem("cart_v1", JSON.stringify(cart));
+          } catch {}
+          window.dispatchEvent(new Event("cart:updated"));
+        }, [cart]);
 
-  // ✅ Close modal with Escape key (desktop convenience)
-  useEffect(() => {
-    if (!selectedProduct) return;
-    const handleKey = e => {
-      if (e.key === "Escape") setSelectedProduct(null);
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [selectedProduct]);
-  const handleBatchAddToCart = (product, qty1, qty35) => {
-    let newItems = [];
-    let promoText = "";
-    let tags = product.tags || [];
-    if (tags.length > 0) {
-      const tag = tags[0];
-      if (tag.includes("BUY 1")) promoText = "BUY 1 GET 1 FREE";else if (tag.includes("BUY 2")) promoText = "BUY 2 GET 1 FREE";
-    }
-    const base = Date.now();
-    for (let i = 0; i < qty1; i++) newItems.push({
-      id: base + i,
-      name: product.name,
-      size: "1G",
-      price: product.p1,
-      promo: promoText,
-      tags: tags
-    });
-    for (let i = 0; i < qty35; i++) newItems.push({
-      id: base + qty1 + i + 1000,
-      name: product.name,
-      size: "3.5G",
-      price: product.p35,
-      promo: promoText,
-      tags: tags
-    });
-    setCart(prev => [...prev, ...newItems]);
-    const totalAdded = qty1 + qty35;
-    setNotification(`ADDED: ${product.name} (${totalAdded} ITEMS)`);
-    setCartBump(true);
-    if (window.notifyTimer) clearTimeout(window.notifyTimer);
-    if (window.bumpTimer) clearTimeout(window.bumpTimer);
-    window.notifyTimer = setTimeout(() => setNotification(null), 2500);
-    window.bumpTimer = setTimeout(() => setCartBump(false), 300);
-  };
-  const addSingleToCart = (product, size, price, e) => {
-    if (e) e.stopPropagation();
-    let promoText = "";
-    if (size === "JOINT") promoText = "BUY 2 GET 1 FREE";
-    const newItem = {
-      id: Date.now() + Math.floor(Math.random() * 999),
-      name: product.name,
-      size,
-      price,
-      promo: promoText,
-      tags: product.tags || []
-    };
-    setCart(prev => [...prev, newItem]);
-    setNotification(`ADDED: ${product.name} (${size})`);
-    setCartBump(true);
-    if (window.notifyTimer) clearTimeout(window.notifyTimer);
-    if (window.bumpTimer) clearTimeout(window.bumpTimer);
-    window.notifyTimer = setTimeout(() => setNotification(null), 2500);
-    window.bumpTimer = setTimeout(() => setCartBump(false), 300);
-  };
-  const removeFromCart = id => {
-    setCart(cart.filter(item => item.id !== id));
-  };
-  const clearCart = () => {
-    setCart([]);
-  };
-  const totalGrams = cart.reduce((sum, item) => {
-    if (item.size === "1G") return sum + 1;
-    if (item.size === "3.5G") return sum + 3.5;
-    return sum;
-  }, 0);
-  const totalJoints = cart.reduce((sum, item) => item.size === "JOINT" ? sum + 1 : sum, 0);
-  const groupedCart = cart.reduce((acc, item) => {
-    if (!acc[item.name]) acc[item.name] = {
-      name: item.name,
-      tags: item.tags,
-      items: []
-    };
-    acc[item.name].items.push(item);
-    return acc;
-  }, {});
-  const sativa = products.filter(p => p.cat === "SATIVA");
-  const indica = products.filter(p => p.cat === "INDICA");
-  const hybrid = products.filter(p => p.cat === "HYBRID");
-  const cbd = products.filter(p => p.cat === "CBD");
-  const compound = products.filter(p => p.cat === "COMPOUND");
-  return /*#__PURE__*/React.createElement("div", {
-    className: "min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white"
-  }, menuError && /*#__PURE__*/React.createElement("div", {
-    className: "max-w-[1400px] mx-auto w-full px-4 py-3 mb-4 bg-red-500/20 border border-red-500 text-red-200 text-sm"
-  }, "MENU ERROR: ", menuError), notification && /*#__PURE__*/React.createElement("div", {
-    className: "fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#a0d4b2] text-black px-4 py-3 rounded shadow-2xl z-[100] flex items-center gap-3 animate-toastIn border border-white/20"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-black/10 p-1.5 rounded-full shrink-0"
-  }, /*#__PURE__*/React.createElement(Check, {
-    size: 16
-  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-    className: "block font-black text-[10px] uppercase tracking-wider opacity-60"
-  }, "ADDED TO CART"), /*#__PURE__*/React.createElement("span", {
-    className: "block font-bold text-xs uppercase leading-none"
-  }, notification))), /*#__PURE__*/React.createElement("header", {
-    className: "max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 flex flex-col items-center text-center"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "font-black text-2xl text-white uppercase tracking-wider opacity-80 mb-2 w-full text-center"
-  }, "THE DISPENSARY"), /*#__PURE__*/React.createElement("h1", {
-    className: "font-black text-[40px] md:text-5xl text-[#a0d4b2] uppercase leading-none tracking-tight mb-2 w-full text-center"
-  }, "FLOWER MENU"), /*#__PURE__*/React.createElement("p", {
-    className: "font-black text-lg text-white uppercase tracking-[0.2em] mb-8 w-full text-center"
-  }, menu.meta?.monthLabel || new Date().toLocaleString("en-US", {
-    month: "long",
-    year: "numeric"
-  }).toUpperCase()), /*#__PURE__*/React.createElement("div", {
-    className: "border-t border-b border-gray-600 py-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-xs font-inter uppercase tracking-wide text-gray-400 w-full max-w-4xl"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", {
-    className: "block text-white mb-1 text-sm font-black"
-  }, "TRUSTED QUALITY"), "HAND-TRIMMED, LAB-TESTED"), /*#__PURE__*/React.createElement("div", {
-    className: "md:border-x border-gray-600"
-  }, /*#__PURE__*/React.createElement("strong", {
-    className: "block text-white mb-1 text-sm font-black"
-  }, "GACP CERTIFIED"), "MEDICAL STANDARDS COMPLIANT"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", {
-    className: "block text-white mb-1 text-sm font-black"
-  }, "PRESCRIPTION AVAILABLE"), "DOCTOR'S PRESCRIPTIONS IN-STORE"))), /*#__PURE__*/React.createElement("main", {
-    className: "flex flex-col md:flex-row gap-6 max-w-[1400px] mx-auto w-full px-4"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "contents md:flex md:flex-col md:w-1/2 md:gap-6"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "order-1 border border-white/20 rounded-sm overflow-hidden flex flex-col bg-white/[0.01]"
-  }, /*#__PURE__*/React.createElement(BoxHeader, {
-    title: "SATIVA",
-    bgColor: "#9e9e5e"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "p-2 space-y-1"
-  }, sativa.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
-    key: idx,
-    product: p,
-    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
-  })))), menu?.meta?.showCBD && /*#__PURE__*/React.createElement("div", {
-    className: "order-4 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]"
-  }, /*#__PURE__*/React.createElement(BoxHeader, {
-    title: "CBD",
-    bgColor: "#9e5e97"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "p-2"
-  }, cbd.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
-    key: idx,
-    product: p,
-    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: "order-6 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col flex-1"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-center px-4 py-3 border-b border-white/20 bg-[#1d1e1e]"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "font-black text-2xl md:text-3xl text-[#a0d4b2] uppercase"
-  }, "PRE-ROLLS"), /*#__PURE__*/React.createElement("div", {
-    className: "font-black text-xl md:text-2xl text-white"
-  }, "550/JOINT")), /*#__PURE__*/React.createElement("div", {
-    className: "p-4 flex flex-col flex-1"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-end mb-2"
-  }, /*#__PURE__*/React.createElement(BadgeElement, {
-    type: "BUY 2",
-    size: "full"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "grid grid-cols-2 gap-2 content-center flex-1"
-  }, preRolls.map((name, i) => /*#__PURE__*/React.createElement("button", {
-    key: i,
-    onClick: ENABLE_CART ? e => addSingleToCart({
-      name: name
-    }, "JOINT", 550, e) : undefined,
-    disabled: !ENABLE_CART,
-    className: `group relative bg-white/5 border border-white/10 p-2 rounded flex items-center justify-between transition-all text-left h-full ${ENABLE_CART ? "hover:bg-white/10 hover:border-[#a0d4b2] active:scale-95 active:bg-[#a0d4b2]/20 cursor-pointer" : "cursor-default"}`
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center min-w-0 flex-1 pr-2"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "text-[#a0d4b2] mr-2 text-xs shrink-0"
-  }, "●"), /*#__PURE__*/React.createElement("span", {
-    className: "font-black text-[10px] md:text-xs text-white uppercase tracking-wide leading-tight"
-  }, name)), ENABLE_CART && /*#__PURE__*/React.createElement("div", {
-    className: "bg-[#1d1e1e] p-1 rounded text-[#a0d4b2] group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors shrink-0 border border-[#a0d4b2]/20 group-hover:border-transparent"
-  }, /*#__PURE__*/React.createElement(Plus, {
-    size: 14
-  })))))), /*#__PURE__*/React.createElement("div", {
-    className: "px-4 pb-2 text-center text-[10px] text-gray-500 font-bold uppercase"
-  }, ENABLE_CART ? "(CLICK STRAIN TO ADD • ROLLING SERVICE AVAILABLE)" : "(ROLLING SERVICE AVAILABLE)"))), /*#__PURE__*/React.createElement("div", {
-    className: "contents md:flex md:flex-col md:w-1/2 md:gap-6"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "order-2 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]"
-  }, /*#__PURE__*/React.createElement(BoxHeader, {
-    title: "INDICA",
-    bgColor: "#158cab"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "p-2 space-y-1"
-  }, indica.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
-    key: idx,
-    product: p,
-    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: "order-3 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]"
-  }, /*#__PURE__*/React.createElement(BoxHeader, {
-    title: "HYBRID",
-    bgColor: "#797a72"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "p-2 space-y-1"
-  }, hybrid.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
-    key: idx,
-    product: p,
-    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
-  })))), menu?.meta?.showCompound && /*#__PURE__*/React.createElement("div", {
-    className: "order-5 border border-blue-900/60 rounded-sm overflow-hidden bg-[#0a101f] relative flex flex-col"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "absolute inset-0 opacity-10 pointer-events-none",
-    style: {
-      backgroundImage: "radial-gradient(circle, #333 1px, transparent 1px)",
-      backgroundSize: "20px 20px"
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-center px-4 py-3 border-b border-blue-900/40 relative z-10 bg-[#0a101f]/80 backdrop-blur-sm"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "font-black text-xl md:text-2xl text-white uppercase tracking-tight"
-  }, "COMPOUND GENETICS"), /*#__PURE__*/React.createElement("span", {
-    className: "font-black text-white text-xs md:text-sm opacity-80"
-  }, "1G | 3.5G")), /*#__PURE__*/React.createElement("div", {
-    className: "p-2 space-y-1 relative z-10 flex-1"
-  }, compound.map((p, idx) => /*#__PURE__*/React.createElement(ProductCard, {
-    key: idx,
-    product: p,
-    onClick: ENABLE_PRODUCT_MODAL ? setSelectedProduct : undefined
-  })))))), selectedProduct && /*#__PURE__*/React.createElement(ProductModal, {
-    product: selectedProduct,
-    onClose: () => setSelectedProduct(null),
-    onAddToCart: handleBatchAddToCart,
-    enableCart: ENABLE_CART
-  }), showWelcome && /*#__PURE__*/React.createElement(WelcomeModal, {
-    onClose: () => setShowWelcome(false)
-  }), ENABLE_CART && isCartOpen && /*#__PURE__*/React.createElement("div", {
-    className: "fixed inset-0 bg-black/90 z-[60] overflow-y-auto backdrop-blur-sm animate-fadeIn",
-    onClick: () => {
-      setIsCartOpen(false);
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "min-h-full flex items-center justify-center p-4"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-[#1d1e1e] border-2 border-[#a0d4b2] w-full max-w-md relative shadow-2xl flex flex-col my-8",
-    onClick: e => e.stopPropagation()
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-[#a0d4b2] p-4 pb-5 flex flex-col gap-3 text-black shrink-0 relative"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-start"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
-    className: "font-black text-2xl uppercase tracking-tight leading-none"
-  }, "ORDER SUMMARY"), /*#__PURE__*/React.createElement("p", {
-    className: "font-bold text-[10px] uppercase opacity-60 tracking-widest"
-  }, "Verify your items below")), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-2"
-  }, cart.length > 0 && /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      clearCart();
-    },
-    className: "bg-red-500/20 hover:bg-red-500 hover:text-white p-2 rounded-full transition-colors mr-1",
-    title: "Clear Order"
-  }, /*#__PURE__*/React.createElement(Trash2, {
-    size: 20,
-    className: "text-black hover:text-white"
-  })), /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      setIsCartOpen(false);
-    },
-    className: "bg-black/10 hover:bg-black/20 p-2 rounded-full transition-colors"
-  }, /*#__PURE__*/React.createElement(X, {
-    size: 20,
-    className: "text-black"
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-[#1d1e1e] rounded-lg py-2 px-4 flex items-center justify-center gap-4 border border-black/20 shadow-md"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-2 border-r border-[#a0d4b2]/20 pr-4"
-  }, /*#__PURE__*/React.createElement(Camera, {
-    size: 14,
-    className: "text-[#a0d4b2]"
-  }), /*#__PURE__*/React.createElement("span", {
-    className: "font-black text-[10px] uppercase tracking-widest text-[#a0d4b2]"
-  }, "CHECKOUT:")), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-3"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-1.5"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "bg-[#a0d4b2] text-black w-4 h-4 rounded-full flex items-center justify-center font-black text-[9px] shadow-sm leading-none pt-[1px]"
-  }, "1"), /*#__PURE__*/React.createElement("span", {
-    className: "font-bold text-[9px] uppercase tracking-wide text-[#a0d4b2]"
-  }, "Screenshot")), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-1.5"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "bg-[#a0d4b2] text-black w-4 h-4 rounded-full flex items-center justify-center font-black text-[9px] shadow-sm leading-none pt-[1px]"
-  }, "2"), /*#__PURE__*/React.createElement("span", {
-    className: "font-bold text-[9px] uppercase tracking-wide text-[#a0d4b2]"
-  }, "Send Admin"))))), /*#__PURE__*/React.createElement("div", {
-    className: "p-4 space-y-4 bg-[#1d1e1e]"
-  }, cart.length === 0 ? /*#__PURE__*/React.createElement("div", {
-    className: "text-center py-10 text-gray-500 font-bold uppercase tracking-wide"
-  }, "Your cart is empty") : Object.values(groupedCart).map((group, idx) => /*#__PURE__*/React.createElement("div", {
-    key: idx,
-    className: "bg-white/5 border border-white/10 p-3 cart-item-enter relative group flex flex-col gap-2"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-center border-b border-white/10 pb-2"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "font-black text-[#a0d4b2] text-lg uppercase tracking-tight"
-  }, group.name), /*#__PURE__*/React.createElement("div", {
-    className: "scale-75 origin-right"
-  }, /*#__PURE__*/React.createElement(StatusBadge, {
-    tags: group.tags,
-    size: "sm"
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col gap-2"
-  }, group.items.map(item => /*#__PURE__*/React.createElement("div", {
-    key: item.id,
-    className: "flex justify-between items-start pl-2 border-l-2 border-[#a0d4b2]/30"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-2"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "font-bold text-black bg-white text-[10px] px-1.5 rounded"
-  }, item.size), /*#__PURE__*/React.createElement("span", {
-    className: "text-xs text-gray-400"
-  }, "× 1")), item.promo && /*#__PURE__*/React.createElement("div", {
-    className: "inline-block px-1.5 py-0.5 rounded-[2px] text-[8px] font-black uppercase mt-1 tracking-wide text-white w-fit",
-    style: {
-      backgroundColor: item.promo.includes("BUY 1") ? "#E61633" : "#FF2E7E"
-    }
-  }, item.promo)), /*#__PURE__*/React.createElement("button", {
-    onClick: () => removeFromCart(item.id),
-    className: "text-gray-300 hover:text-red-500 p-2 transition-colors"
-  }, /*#__PURE__*/React.createElement(Trash2, {
-    size: 16
-  })))))))), /*#__PURE__*/React.createElement("div", {
-    className: "p-4 border-t border-gray-700 bg-black/20 shrink-0"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col gap-2"
-  }, totalGrams > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-end border-b border-gray-700/50 pb-2"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "font-bold text-[#a0d4b2] text-sm uppercase"
-  }, "Total Flower"), /*#__PURE__*/React.createElement("span", {
-    className: "font-black text-[#a0d4b2] text-3xl"
-  }, totalGrams, " ", /*#__PURE__*/React.createElement("span", {
-    className: "text-sm align-top text-[#a0d4b2]/70"
-  }, "G"))), totalJoints > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-end"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "font-bold text-[#a0d4b2] text-sm uppercase"
-  }, "Total Pre-rolls"), /*#__PURE__*/React.createElement("span", {
-    className: "font-black text-[#a0d4b2] text-3xl"
-  }, totalJoints, " ", /*#__PURE__*/React.createElement("span", {
-    className: "text-sm align-top text-[#a0d4b2]/70"
-  }, "JOINTS"))), totalGrams === 0 && totalJoints === 0 && /*#__PURE__*/React.createElement("div", {
-    className: "text-center text-gray-500 text-xs italic py-2"
-  }, "No items selected")))))), ENABLE_CART && /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      setIsCartOpen(true);
-    },
-    className: `fixed bottom-6 right-6 z-[70] bg-[#1d1e1e] border border-[#a0d4b2]/40 shadow-2xl p-3 rounded-full text-white hover:text-[#a0d4b2] transition-all ${cartBump ? "scale-125 text-[#a0d4b2]" : ""}`,
-    "aria-label": "Open cart"
-  }, /*#__PURE__*/React.createElement(ShoppingBag, {
-    size: 22
-  }), cart.length > 0 && /*#__PURE__*/React.createElement("span", {
-    className: "absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-[#1d1e1e]"
-  }, cart.length)));
-};
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(/*#__PURE__*/React.createElement(App, null));
-if (window.__dismissLoading) window.__dismissLoading();
+        // ✅ open cart event
+        useEffect(() => {
+          if (!ENABLE_CART) return;
+          const open = () => setIsCartOpen(true);
+          window.addEventListener("cart:open", open);
+          return () => window.removeEventListener("cart:open", open);
+        }, []);
 
-</script>
+        // ✅ Close modal with Escape key (desktop convenience)
+        useEffect(() => {
+          if (!selectedProduct) return;
+          const handleKey = (e) => {
+            if (e.key === "Escape") setSelectedProduct(null);
+          };
+          window.addEventListener("keydown", handleKey);
+          return () => window.removeEventListener("keydown", handleKey);
+        }, [selectedProduct]);
+        const handleBatchAddToCart = (product, qty1, qty35) => {
+          let newItems = [];
+          let promoText = "";
+          let tags = product.tags || [];
+          if (tags.length > 0) {
+            const tag = tags[0];
+            if (tag.includes("BUY 1")) promoText = "BUY 1 GET 1 FREE";
+            else if (tag.includes("BUY 2")) promoText = "BUY 2 GET 1 FREE";
+          }
+          const base = Date.now();
+          for (let i = 0; i < qty1; i++)
+            newItems.push({
+              id: base + i,
+              name: product.name,
+              size: "1G",
+              price: product.p1,
+              promo: promoText,
+              tags: tags,
+            });
+          for (let i = 0; i < qty35; i++)
+            newItems.push({
+              id: base + qty1 + i + 1000,
+              name: product.name,
+              size: "3.5G",
+              price: product.p35,
+              promo: promoText,
+              tags: tags,
+            });
+          setCart((prev) => [...prev, ...newItems]);
+          const totalAdded = qty1 + qty35;
+          setNotification(`ADDED: ${product.name} (${totalAdded} ITEMS)`);
+          setCartBump(true);
+          if (window.notifyTimer) clearTimeout(window.notifyTimer);
+          if (window.bumpTimer) clearTimeout(window.bumpTimer);
+          window.notifyTimer = setTimeout(() => setNotification(null), 2500);
+          window.bumpTimer = setTimeout(() => setCartBump(false), 300);
+        };
+        const addSingleToCart = (product, size, price, e) => {
+          if (e) e.stopPropagation();
+          let promoText = "";
+          if (size === "JOINT") promoText = "BUY 2 GET 1 FREE";
+          const newItem = {
+            id: Date.now() + Math.floor(Math.random() * 999),
+            name: product.name,
+            size,
+            price,
+            promo: promoText,
+            tags: product.tags || [],
+          };
+          setCart((prev) => [...prev, newItem]);
+          setNotification(`ADDED: ${product.name} (${size})`);
+          setCartBump(true);
+          if (window.notifyTimer) clearTimeout(window.notifyTimer);
+          if (window.bumpTimer) clearTimeout(window.bumpTimer);
+          window.notifyTimer = setTimeout(() => setNotification(null), 2500);
+          window.bumpTimer = setTimeout(() => setCartBump(false), 300);
+        };
+        const removeFromCart = (id) => {
+          setCart(cart.filter((item) => item.id !== id));
+        };
+        const clearCart = () => {
+          setCart([]);
+        };
+        const totalGrams = cart.reduce((sum, item) => {
+          if (item.size === "1G") return sum + 1;
+          if (item.size === "3.5G") return sum + 3.5;
+          return sum;
+        }, 0);
+        const totalJoints = cart.reduce(
+          (sum, item) => (item.size === "JOINT" ? sum + 1 : sum),
+          0,
+        );
+        const groupedCart = cart.reduce((acc, item) => {
+          if (!acc[item.name])
+            acc[item.name] = {
+              name: item.name,
+              tags: item.tags,
+              items: [],
+            };
+          acc[item.name].items.push(item);
+          return acc;
+        }, {});
+        // "BUY 1 GET 1 FREE" items sink to the bottom of their box — Array.sort
+        // is stable, so everything else keeps its existing order.
+        const hasPromo = (p) => (p.tags || []).some((t) => t.includes("BUY 1"));
+        const sortPromoLast = (arr) =>
+          [...arr].sort((a, b) => hasPromo(a) - hasPromo(b));
+        const sativa = sortPromoLast(
+          products.filter((p) => p.cat === "SATIVA"),
+        );
+        const indica = sortPromoLast(
+          products.filter((p) => p.cat === "INDICA"),
+        );
+        const hybrid = sortPromoLast(
+          products.filter((p) => p.cat === "HYBRID"),
+        );
+        const cbd = sortPromoLast(products.filter((p) => p.cat === "CBD"));
+        const compound = sortPromoLast(
+          products.filter((p) => p.cat === "COMPOUND"),
+        );
+        return /*#__PURE__*/ React.createElement(
+          "div",
+          {
+            className:
+              "min-h-screen flex flex-col pb-10 bg-[#1d1e1e] text-white",
+          },
+          menuError &&
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className:
+                  "max-w-[1400px] mx-auto w-full px-4 py-3 mb-4 bg-red-500/20 border border-red-500 text-red-200 text-sm",
+              },
+              "MENU ERROR: ",
+              menuError,
+            ),
+          notification &&
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className:
+                  "fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#a0d4b2] text-black px-4 py-3 rounded shadow-2xl z-[100] flex items-center gap-3 animate-toastIn border border-white/20",
+              },
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className: "bg-black/10 p-1.5 rounded-full shrink-0",
+                },
+                /*#__PURE__*/ React.createElement(Check, {
+                  size: 16,
+                }),
+              ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                null,
+                /*#__PURE__*/ React.createElement(
+                  "span",
+                  {
+                    className:
+                      "block font-black text-[10px] uppercase tracking-wider opacity-60",
+                  },
+                  "ADDED TO CART",
+                ),
+                /*#__PURE__*/ React.createElement(
+                  "span",
+                  {
+                    className: "block font-bold text-xs uppercase leading-none",
+                  },
+                  notification,
+                ),
+              ),
+            ),
+          /*#__PURE__*/ React.createElement(
+            "header",
+            {
+              className:
+                "max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 flex flex-col items-center text-center",
+            },
+            /*#__PURE__*/ React.createElement(
+              "h2",
+              {
+                className:
+                  "font-black text-2xl text-white uppercase tracking-wider opacity-80 mb-2 w-full text-center",
+              },
+              "THE DISPENSARY",
+            ),
+            /*#__PURE__*/ React.createElement(
+              "h1",
+              {
+                className:
+                  "font-black text-[40px] md:text-5xl text-[#a0d4b2] uppercase leading-none tracking-tight mb-2 w-full text-center",
+              },
+              "FLOWER MENU",
+            ),
+            /*#__PURE__*/ React.createElement(
+              "p",
+              {
+                className:
+                  "font-black text-lg text-white uppercase tracking-[0.2em] mb-8 w-full text-center",
+              },
+              menu.meta?.monthLabel ||
+                new Date()
+                  .toLocaleString("en-US", {
+                    month: "long",
+                    year: "numeric",
+                  })
+                  .toUpperCase(),
+            ),
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className:
+                  "border-t border-b border-gray-600 py-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-xs font-inter uppercase tracking-wide text-gray-400 w-full max-w-4xl",
+              },
+              /*#__PURE__*/ React.createElement(
+                "div",
+                null,
+                /*#__PURE__*/ React.createElement(
+                  "strong",
+                  {
+                    className: "block text-white mb-1 text-sm font-black",
+                  },
+                  "TRUSTED QUALITY",
+                ),
+                "HAND-TRIMMED, LAB-TESTED",
+              ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className: "md:border-x border-gray-600",
+                },
+                /*#__PURE__*/ React.createElement(
+                  "strong",
+                  {
+                    className: "block text-white mb-1 text-sm font-black",
+                  },
+                  "GACP CERTIFIED",
+                ),
+                "MEDICAL STANDARDS COMPLIANT",
+              ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                null,
+                /*#__PURE__*/ React.createElement(
+                  "strong",
+                  {
+                    className: "block text-white mb-1 text-sm font-black",
+                  },
+                  "PRESCRIPTION AVAILABLE",
+                ),
+                "DOCTOR'S PRESCRIPTIONS IN-STORE",
+              ),
+            ),
+          ),
+          /*#__PURE__*/ React.createElement(
+            "main",
+            {
+              className:
+                "flex flex-col md:flex-row md:items-start gap-6 max-w-[1400px] mx-auto w-full px-4",
+            },
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className: "contents md:flex md:flex-col md:w-1/2 md:gap-6",
+              },
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className:
+                    "order-1 border border-white/20 rounded-sm overflow-hidden flex flex-col bg-white/[0.01]",
+                },
+                /*#__PURE__*/ React.createElement(BoxHeader, {
+                  title: "SATIVA",
+                  bgColor: "#9e9e5e",
+                }),
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className: "p-2 space-y-1",
+                  },
+                  sativa.map((p, idx) =>
+                    /*#__PURE__*/ React.createElement(ProductCard, {
+                      key: idx,
+                      product: p,
+                      onClick: ENABLE_PRODUCT_MODAL
+                        ? setSelectedProduct
+                        : undefined,
+                    }),
+                  ),
+                ),
+              ),
+              menu?.meta?.showCBD &&
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className:
+                      "order-4 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]",
+                  },
+                  /*#__PURE__*/ React.createElement(BoxHeader, {
+                    title: "CBD",
+                    bgColor: "#9e5e97",
+                  }),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className: "p-2",
+                    },
+                    cbd.map((p, idx) =>
+                      /*#__PURE__*/ React.createElement(ProductCard, {
+                        key: idx,
+                        product: p,
+                        onClick: ENABLE_PRODUCT_MODAL
+                          ? setSelectedProduct
+                          : undefined,
+                      }),
+                    ),
+                  ),
+                ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className:
+                    "order-6 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col",
+                },
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className:
+                      "flex justify-between items-center gap-2 px-4 py-3 border-b border-white/20 bg-[#1d1e1e]",
+                  },
+                  /*#__PURE__*/ React.createElement(
+                    "h2",
+                    {
+                      className:
+                        "font-black text-2xl md:text-3xl text-[#a0d4b2] uppercase",
+                    },
+                    "PRE-ROLLS",
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className: "flex items-center gap-2 shrink-0",
+                    },
+                    /*#__PURE__*/ React.createElement(
+                      "div",
+                      {
+                        className:
+                          "font-black text-xl md:text-2xl text-white shrink-0",
+                      },
+                      "550/JOINT",
+                    ),
+                    /*#__PURE__*/ React.createElement(BadgeElement, {
+                      type: "BUY 2",
+                      size: "sm",
+                    }),
+                  ),
+                ),
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className: "p-3 md:p-4 flex-1",
+                  },
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className:
+                        "grid grid-cols-2 auto-rows-fr gap-2 md:gap-2.5",
+                    },
+                    preRolls.map((name, i) =>
+                      /*#__PURE__*/ React.createElement(
+                        "button",
+                        {
+                          key: i,
+                          onClick: ENABLE_CART
+                            ? (e) =>
+                                addSingleToCart(
+                                  {
+                                    name: name,
+                                  },
+                                  "JOINT",
+                                  550,
+                                  e,
+                                )
+                            : undefined,
+                          disabled: !ENABLE_CART,
+                          className: `group relative bg-white/5 border border-white/10 py-2.5 px-3 rounded min-h-[48px] flex items-center justify-between gap-2 transition-all text-left ${ENABLE_CART ? "hover:bg-white/10 hover:border-[#a0d4b2] active:scale-95 active:bg-[#a0d4b2]/20 cursor-pointer" : "cursor-default"}`,
+                        },
+                        /*#__PURE__*/ React.createElement(
+                          "div",
+                          {
+                            className: "flex items-center min-w-0 flex-1 gap-2",
+                          },
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className: "text-[#a0d4b2] text-xs shrink-0",
+                            },
+                            "●",
+                          ),
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className:
+                                "font-black text-xs md:text-sm text-white uppercase tracking-wide leading-tight break-words",
+                            },
+                            name,
+                          ),
+                        ),
+                        ENABLE_CART &&
+                          /*#__PURE__*/ React.createElement(
+                            "div",
+                            {
+                              className:
+                                "bg-[#1d1e1e] p-1 rounded text-[#a0d4b2] group-hover:bg-[#a0d4b2] group-hover:text-black transition-colors shrink-0 border border-[#a0d4b2]/20 group-hover:border-transparent",
+                            },
+                            /*#__PURE__*/ React.createElement(Plus, {
+                              size: 14,
+                            }),
+                          ),
+                      ),
+                    ),
+                  ),
+                ),
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className:
+                      "px-4 pb-2 pt-2 text-center text-[10px] text-gray-500 font-bold uppercase mt-auto",
+                  },
+                  ENABLE_CART
+                    ? "(CLICK STRAIN TO ADD • ROLLING SERVICE AVAILABLE)"
+                    : "(ROLLING SERVICE AVAILABLE)",
+                ),
+              ),
+            ),
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className: "contents md:flex md:flex-col md:w-1/2 md:gap-6",
+              },
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className:
+                    "order-2 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]",
+                },
+                /*#__PURE__*/ React.createElement(BoxHeader, {
+                  title: "INDICA",
+                  bgColor: "#158cab",
+                }),
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className: "p-2 space-y-1",
+                  },
+                  indica.map((p, idx) =>
+                    /*#__PURE__*/ React.createElement(ProductCard, {
+                      key: idx,
+                      product: p,
+                      onClick: ENABLE_PRODUCT_MODAL
+                        ? setSelectedProduct
+                        : undefined,
+                    }),
+                  ),
+                ),
+              ),
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className:
+                    "order-3 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01]",
+                },
+                /*#__PURE__*/ React.createElement(BoxHeader, {
+                  title: "HYBRID",
+                  bgColor: "#797a72",
+                }),
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className: "p-2 space-y-1",
+                  },
+                  hybrid.map((p, idx) =>
+                    /*#__PURE__*/ React.createElement(ProductCard, {
+                      key: idx,
+                      product: p,
+                      onClick: ENABLE_PRODUCT_MODAL
+                        ? setSelectedProduct
+                        : undefined,
+                    }),
+                  ),
+                ),
+              ),
+              menu?.meta?.showCompound &&
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className:
+                      "order-5 border border-blue-900/60 rounded-sm overflow-hidden bg-[#0a101f] relative flex flex-col",
+                  },
+                  /*#__PURE__*/ React.createElement("div", {
+                    className:
+                      "absolute inset-0 opacity-10 pointer-events-none",
+                    style: {
+                      backgroundImage:
+                        "radial-gradient(circle, #333 1px, transparent 1px)",
+                      backgroundSize: "20px 20px",
+                    },
+                  }),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className:
+                        "flex justify-between items-center px-4 py-3 border-b border-blue-900/40 relative z-10 bg-[#0a101f]/80 backdrop-blur-sm",
+                    },
+                    /*#__PURE__*/ React.createElement(
+                      "h2",
+                      {
+                        className:
+                          "font-black text-xl md:text-2xl text-white uppercase tracking-tight",
+                      },
+                      "COMPOUND GENETICS",
+                    ),
+                    /*#__PURE__*/ React.createElement(
+                      "span",
+                      {
+                        className:
+                          "font-bold text-white/60 text-[10px] md:text-xs uppercase tracking-[0.2em]",
+                      },
+                      "THB",
+                    ),
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className: "p-2 space-y-1 relative z-10 flex-1",
+                    },
+                    compound.map((p, idx) =>
+                      /*#__PURE__*/ React.createElement(ProductCard, {
+                        key: idx,
+                        product: p,
+                        onClick: ENABLE_PRODUCT_MODAL
+                          ? setSelectedProduct
+                          : undefined,
+                      }),
+                    ),
+                  ),
+                ),
+            ),
+          ),
+          selectedProduct &&
+            /*#__PURE__*/ React.createElement(ProductModal, {
+              product: selectedProduct,
+              onClose: () => setSelectedProduct(null),
+              onAddToCart: handleBatchAddToCart,
+              enableCart: ENABLE_CART,
+            }),
+          showWelcome &&
+            /*#__PURE__*/ React.createElement(WelcomeModal, {
+              onClose: () => setShowWelcome(false),
+            }),
+          ENABLE_CART &&
+            isCartOpen &&
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className:
+                  "fixed inset-0 bg-black/90 z-[60] overflow-y-auto backdrop-blur-sm animate-fadeIn",
+                onClick: () => {
+                  setIsCartOpen(false);
+                },
+              },
+              /*#__PURE__*/ React.createElement(
+                "div",
+                {
+                  className: "min-h-full flex items-center justify-center p-4",
+                },
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className:
+                      "bg-[#1d1e1e] border-2 border-[#a0d4b2] w-full max-w-md relative shadow-2xl flex flex-col my-8",
+                    onClick: (e) => e.stopPropagation(),
+                  },
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className:
+                        "bg-[#a0d4b2] p-4 pb-5 flex flex-col gap-3 text-black shrink-0 relative",
+                    },
+                    /*#__PURE__*/ React.createElement(
+                      "div",
+                      {
+                        className: "flex justify-between items-start",
+                      },
+                      /*#__PURE__*/ React.createElement(
+                        "div",
+                        null,
+                        /*#__PURE__*/ React.createElement(
+                          "h2",
+                          {
+                            className:
+                              "font-black text-2xl uppercase tracking-tight leading-none",
+                          },
+                          "ORDER SUMMARY",
+                        ),
+                        /*#__PURE__*/ React.createElement(
+                          "p",
+                          {
+                            className:
+                              "font-bold text-[10px] uppercase opacity-60 tracking-widest",
+                          },
+                          "Verify your items below",
+                        ),
+                      ),
+                      /*#__PURE__*/ React.createElement(
+                        "div",
+                        {
+                          className: "flex items-center gap-2",
+                        },
+                        cart.length > 0 &&
+                          /*#__PURE__*/ React.createElement(
+                            "button",
+                            {
+                              onClick: () => {
+                                clearCart();
+                              },
+                              className:
+                                "bg-red-500/20 hover:bg-red-500 hover:text-white p-2 rounded-full transition-colors mr-1",
+                              title: "Clear Order",
+                            },
+                            /*#__PURE__*/ React.createElement(Trash2, {
+                              size: 20,
+                              className: "text-black hover:text-white",
+                            }),
+                          ),
+                        /*#__PURE__*/ React.createElement(
+                          "button",
+                          {
+                            onClick: () => {
+                              setIsCartOpen(false);
+                            },
+                            className:
+                              "bg-black/10 hover:bg-black/20 p-2 rounded-full transition-colors",
+                          },
+                          /*#__PURE__*/ React.createElement(X, {
+                            size: 20,
+                            className: "text-black",
+                          }),
+                        ),
+                      ),
+                    ),
+                    /*#__PURE__*/ React.createElement(
+                      "div",
+                      {
+                        className:
+                          "bg-[#1d1e1e] rounded-lg py-2 px-4 flex items-center justify-center gap-4 border border-black/20 shadow-md",
+                      },
+                      /*#__PURE__*/ React.createElement(
+                        "div",
+                        {
+                          className:
+                            "flex items-center gap-2 border-r border-[#a0d4b2]/20 pr-4",
+                        },
+                        /*#__PURE__*/ React.createElement(Camera, {
+                          size: 14,
+                          className: "text-[#a0d4b2]",
+                        }),
+                        /*#__PURE__*/ React.createElement(
+                          "span",
+                          {
+                            className:
+                              "font-black text-[10px] uppercase tracking-widest text-[#a0d4b2]",
+                          },
+                          "CHECKOUT:",
+                        ),
+                      ),
+                      /*#__PURE__*/ React.createElement(
+                        "div",
+                        {
+                          className: "flex items-center gap-3",
+                        },
+                        /*#__PURE__*/ React.createElement(
+                          "div",
+                          {
+                            className: "flex items-center gap-1.5",
+                          },
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className:
+                                "bg-[#a0d4b2] text-black w-4 h-4 rounded-full flex items-center justify-center font-black text-[9px] shadow-sm leading-none pt-[1px]",
+                            },
+                            "1",
+                          ),
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className:
+                                "font-bold text-[9px] uppercase tracking-wide text-[#a0d4b2]",
+                            },
+                            "Screenshot",
+                          ),
+                        ),
+                        /*#__PURE__*/ React.createElement(
+                          "div",
+                          {
+                            className: "flex items-center gap-1.5",
+                          },
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className:
+                                "bg-[#a0d4b2] text-black w-4 h-4 rounded-full flex items-center justify-center font-black text-[9px] shadow-sm leading-none pt-[1px]",
+                            },
+                            "2",
+                          ),
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className:
+                                "font-bold text-[9px] uppercase tracking-wide text-[#a0d4b2]",
+                            },
+                            "Send Admin",
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className: "p-4 space-y-4 bg-[#1d1e1e]",
+                    },
+                    cart.length === 0
+                      ? /*#__PURE__*/ React.createElement(
+                          "div",
+                          {
+                            className:
+                              "text-center py-10 text-gray-500 font-bold uppercase tracking-wide",
+                          },
+                          "Your cart is empty",
+                        )
+                      : Object.values(groupedCart).map((group, idx) =>
+                          /*#__PURE__*/ React.createElement(
+                            "div",
+                            {
+                              key: idx,
+                              className:
+                                "bg-white/5 border border-white/10 p-3 cart-item-enter relative group flex flex-col gap-2",
+                            },
+                            /*#__PURE__*/ React.createElement(
+                              "div",
+                              {
+                                className:
+                                  "flex justify-between items-center border-b border-white/10 pb-2",
+                              },
+                              /*#__PURE__*/ React.createElement(
+                                "span",
+                                {
+                                  className:
+                                    "font-black text-[#a0d4b2] text-lg uppercase tracking-tight",
+                                },
+                                group.name,
+                              ),
+                              /*#__PURE__*/ React.createElement(
+                                "div",
+                                {
+                                  className: "scale-75 origin-right",
+                                },
+                                /*#__PURE__*/ React.createElement(StatusBadge, {
+                                  tags: group.tags,
+                                  size: "sm",
+                                }),
+                              ),
+                            ),
+                            /*#__PURE__*/ React.createElement(
+                              "div",
+                              {
+                                className: "flex flex-col gap-2",
+                              },
+                              group.items.map((item) =>
+                                /*#__PURE__*/ React.createElement(
+                                  "div",
+                                  {
+                                    key: item.id,
+                                    className:
+                                      "flex justify-between items-start pl-2 border-l-2 border-[#a0d4b2]/30",
+                                  },
+                                  /*#__PURE__*/ React.createElement(
+                                    "div",
+                                    {
+                                      className: "flex flex-col",
+                                    },
+                                    /*#__PURE__*/ React.createElement(
+                                      "div",
+                                      {
+                                        className: "flex items-center gap-2",
+                                      },
+                                      /*#__PURE__*/ React.createElement(
+                                        "span",
+                                        {
+                                          className:
+                                            "font-bold text-black bg-white text-[10px] px-1.5 rounded",
+                                        },
+                                        item.size,
+                                      ),
+                                      /*#__PURE__*/ React.createElement(
+                                        "span",
+                                        {
+                                          className: "text-xs text-gray-400",
+                                        },
+                                        "× 1",
+                                      ),
+                                    ),
+                                    item.promo &&
+                                      /*#__PURE__*/ React.createElement(
+                                        "div",
+                                        {
+                                          className:
+                                            "inline-block px-1.5 py-0.5 rounded-[2px] text-[8px] font-black uppercase mt-1 tracking-wide text-white w-fit",
+                                          style: {
+                                            backgroundColor:
+                                              item.promo.includes("BUY 1")
+                                                ? "#E61633"
+                                                : "#FF2E7E",
+                                          },
+                                        },
+                                        item.promo,
+                                      ),
+                                  ),
+                                  /*#__PURE__*/ React.createElement(
+                                    "button",
+                                    {
+                                      onClick: () => removeFromCart(item.id),
+                                      className:
+                                        "text-gray-300 hover:text-red-500 p-2 transition-colors",
+                                    },
+                                    /*#__PURE__*/ React.createElement(Trash2, {
+                                      size: 16,
+                                    }),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                  ),
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className:
+                        "p-4 border-t border-gray-700 bg-black/20 shrink-0",
+                    },
+                    /*#__PURE__*/ React.createElement(
+                      "div",
+                      {
+                        className: "flex flex-col gap-2",
+                      },
+                      totalGrams > 0 &&
+                        /*#__PURE__*/ React.createElement(
+                          "div",
+                          {
+                            className:
+                              "flex justify-between items-end border-b border-gray-700/50 pb-2",
+                          },
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className:
+                                "font-bold text-[#a0d4b2] text-sm uppercase",
+                            },
+                            "Total Flower",
+                          ),
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className: "font-black text-[#a0d4b2] text-3xl",
+                            },
+                            totalGrams,
+                            " ",
+                            /*#__PURE__*/ React.createElement(
+                              "span",
+                              {
+                                className:
+                                  "text-sm align-top text-[#a0d4b2]/70",
+                              },
+                              "G",
+                            ),
+                          ),
+                        ),
+                      totalJoints > 0 &&
+                        /*#__PURE__*/ React.createElement(
+                          "div",
+                          {
+                            className: "flex justify-between items-end",
+                          },
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className:
+                                "font-bold text-[#a0d4b2] text-sm uppercase",
+                            },
+                            "Total Pre-rolls",
+                          ),
+                          /*#__PURE__*/ React.createElement(
+                            "span",
+                            {
+                              className: "font-black text-[#a0d4b2] text-3xl",
+                            },
+                            totalJoints,
+                            " ",
+                            /*#__PURE__*/ React.createElement(
+                              "span",
+                              {
+                                className:
+                                  "text-sm align-top text-[#a0d4b2]/70",
+                              },
+                              "JOINTS",
+                            ),
+                          ),
+                        ),
+                      totalGrams === 0 &&
+                        totalJoints === 0 &&
+                        /*#__PURE__*/ React.createElement(
+                          "div",
+                          {
+                            className:
+                              "text-center text-gray-500 text-xs italic py-2",
+                          },
+                          "No items selected",
+                        ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ENABLE_CART &&
+            /*#__PURE__*/ React.createElement(
+              "button",
+              {
+                onClick: () => {
+                  setIsCartOpen(true);
+                },
+                className: `fixed bottom-6 right-6 z-[70] bg-[#1d1e1e] border border-[#a0d4b2]/40 shadow-2xl p-3 rounded-full text-white hover:text-[#a0d4b2] transition-all ${cartBump ? "scale-125 text-[#a0d4b2]" : ""}`,
+                "aria-label": "Open cart",
+              },
+              /*#__PURE__*/ React.createElement(ShoppingBag, {
+                size: 22,
+              }),
+              cart.length > 0 &&
+                /*#__PURE__*/ React.createElement(
+                  "span",
+                  {
+                    className:
+                      "absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-[#1d1e1e]",
+                  },
+                  cart.length,
+                ),
+            ),
+        );
+      };
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(/*#__PURE__*/ React.createElement(App, null));
+      if (window.__dismissLoading) window.__dismissLoading();
+    </script>
   </body>
 </html>
