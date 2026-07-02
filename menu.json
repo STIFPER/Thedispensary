@@ -1,29 +1,40 @@
 {
   "meta": {
+    "monthLabel": "July 2026",
     "showCompound": false,
     "showCBD": false
   },
-
   "products": [
     {
       "cat": "SATIVA",
       "name": "PINEAPPLE XPRESS 2.0",
-      "tags": ["BEST SELLER"],
+      "tags": [
+        "BEST SELLER"
+      ],
       "thc": "32-35%",
       "cbd": "1-2%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (MUSK)", "PINENE (PINE)"]
+      "terpenes": [
+        "MYRCENE (MUSK)",
+        "PINENE (PINE)"
+      ]
     },
     {
       "cat": "SATIVA",
       "name": "DOPAMINE",
-      "tags": ["NEW"],
+      "tags": [],
       "thc": "16-20%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["Limonene (Citrus)", "Caryophyllene (Pepper)"]
+      "terpenes": [
+        "Limonene (Citrus)",
+        "Caryophyllene (Pepper)"
+      ],
+      "outOfStock": [
+        "g1"
+      ]
     },
     {
       "cat": "SATIVA",
@@ -33,37 +44,45 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (EARTHY)", "LIMONENE (CITRUS)"]
+      "terpenes": [
+        "MYRCENE (EARTHY)",
+        "LIMONENE (CITRUS)"
+      ],
+      "outOfStock": [
+        "g35"
+      ]
     },
-    {
-      "cat": "SATIVA",
-      "name": "MANGO SUNSET HAZE",
-      "tags": [],
-      "thc": "20-24%",
-      "cbd": "0%",
-      "p1": 700,
-      "p35": 2200,
-      "terpenes": ["MYRCENE (MANGO)", "LIMONENE (LEMON)"]
-    },
+   
     {
       "cat": "SATIVA",
       "name": "TROP CHERRY GAS #14",
-      "tags": ["BUY 1 GET 1 FREE"],
+      "tags": [],
       "thc": "20-22%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"]
+      "terpenes": [
+        "MYRCENE (MUSK)",
+        "LIMONENE (CITRUS)"
+      ]
     },
     {
       "cat": "HYBRID",
       "name": "Permanent Marker",
-      "tags": ["NEW"],
+      "tags": [
+        "BUY 1 GET 1 FREE"
+      ],
       "thc": "24-28%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["Myrcene (Herbal)", "Caryophyllene (Pepper)"]
+      "terpenes": [
+        "Myrcene (Herbal)",
+        "Caryophyllene (Pepper)"
+      ],
+      "outOfStock": [
+        "g35"
+      ]
     },
     {
       "cat": "HYBRID",
@@ -73,7 +92,10 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["Limonene (Fruits)", "Caryophyllene (Pepper)"]
+      "terpenes": [
+        "Limonene (Fruits)",
+        "Caryophyllene (Pepper)"
+      ]
     },
     {
       "cat": "HYBRID",
@@ -83,7 +105,10 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (FRUITY)", "LIMONENE (GAS)"]
+      "terpenes": [
+        "MYRCENE (FRUITY)",
+        "LIMONENE (GAS)"
+      ]
     },
     {
       "cat": "HYBRID",
@@ -93,7 +118,10 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["LIMONENE (CITRUS)", "MYRCENE (CREAM)"]
+      "terpenes": [
+        "LIMONENE (CITRUS)",
+        "MYRCENE (CREAM)"
+      ]
     },
     {
       "cat": "HYBRID",
@@ -103,29 +131,65 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (GRAPE)", "LINALOOL (FLORAL)"]
+      "terpenes": [
+        "MYRCENE (GRAPE)",
+        "LINALOOL (FLORAL)"
+      ],
+      "outOfStock": [
+        "g1"
+      ]
     },
     {
       "cat": "HYBRID",
       "name": "OREOZ",
-      "tags": ["BUY 1 GET 1 FREE"],
+      "tags": [
+        "BUY 1 GET 1 FREE"
+      ],
       "thc": "20-24%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (FRUIT)", "CARYOPHYLLENE (EARTHY)"]
+      "terpenes": [
+        "MYRCENE (FRUIT)",
+        "CARYOPHYLLENE (EARTHY)"
+      ],
+      "outOfStock": [
+        "g1"
+      ]
     },
     {
       "cat": "HYBRID",
       "name": "PURE MICHIGAN",
-      "tags": ["BUY 1 GET 1 FREE"],
+      "tags": [
+        "BUY 1 GET 1 FREE"
+      ],
       "thc": "20-22%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (FRUIT)", "CARYOPHYLLENE (PEPPER)"]
+      "terpenes": [
+        "MYRCENE (FRUIT)",
+        "CARYOPHYLLENE (PEPPER)"
+      ],
+      "outOfStock": [
+        "g1"
+      ]
     },
-
+    {
+      "cat": "INDICA",
+      "name": "BLACK GARLIC",
+      "tags": [
+        "NEW"
+      ],
+      "thc": "23-27%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": [
+        "MYRCENE (EARTHY)",
+        "HUMULENE (WOOD)"
+      ]
+    },
     {
       "cat": "INDICA",
       "name": "SWEET OCTANE",
@@ -134,37 +198,53 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (GAS)"]
+      "terpenes": [
+        "MYRCENE (FRUIT)",
+        "LIMONENE (GAS)"
+      ],
+      "outOfStock": [
+        "g35"
+      ]
     },
     {
       "cat": "INDICA",
       "name": "CASHEW SUNDAE",
-      "tags": [],
+      "tags": [
+        "BUY 1 GET 1 FREE"
+      ],
       "thc": "19-21%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["BISABOLOL (NUTTY)", "CARYOPHYLLENE (EARTHY)"]
+      "terpenes": [
+        "BISABOLOL (NUTTY)",
+        "CARYOPHYLLENE (EARTHY)"
+      ]
     },
     {
       "cat": "INDICA",
       "name": "CHERRY MARKER",
-      "tags": ["BUY 1 GET 1 FREE"],
+      "tags": [],
       "thc": "24-28%",
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (FRUITY)", "CARYOPHYLLENE (GAS)"]
+      "terpenes": [
+        "MYRCENE (FRUITY)",
+        "CARYOPHYLLENE (GAS)"
+      ],
+      "outOfStock": [
+        "g35"
+      ]
     }
   ],
-
   "preRolls": [
-    "CUBAN DOOBIE",
-    "VANILLA FRUITTEN PIE",
     "CASHEW SUNDAE",
-    "PEACH PIE RUNTZ",
-    "PINEAPPLE XPRESS 2.0",
-    "BERRY BOOMSTICK",
-    "TROP CHERRY GAS #14"
+    "CUBAN DOOBIE",
+    "MATCHA LOLLIPOP",
+    "GOOFIEZ",
+    "EXOTIC²",
+    "DA FUNK",
+    "CANDY PAVE"
   ]
 }
