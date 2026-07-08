@@ -205,11 +205,6 @@
   <body>
     <div id="navbar"></div>
 
-   </style>
-  </head>
-  <body>
-    <div id="navbar"></div>
-
     <!-- Swiper Coverflow Section -->
     <section class="promo-section overflow-hidden">
       <div class="swiper mySwiper">
@@ -220,10 +215,9 @@
             <div class="promo-card">
               <img
                 src="assets/images/B1g1free.jpg"
-                alt="Monthly Specials"
+                alt="Buy 1 Get 1 Free"
                 class="bg-image"
-            
-              </div>
+              />
             </div>
           </div>
 
@@ -234,8 +228,7 @@
                 src="assets/images/MONTHLY SPECIALS.jpg"
                 alt="Monthly Specials"
                 class="bg-image"
-            
-              </div>
+              />
             </div>
           </div>
 
@@ -248,8 +241,7 @@
                 src="assets/images/BUY 2 GET 3RD 50 OFF.jpg"
                 alt="Buy 2 Get 3rd 50% Off"
                 class="bg-image"
-        
-              </div>
+              />
             </div>
           </div>
 
@@ -260,8 +252,7 @@
                 src="assets/images/PRE-ROLL PARTY.jpg"
                 alt="Pre-Roll Party"
                 class="bg-image"
-              
-              </div>
+              />
             </div>
           </div>
 
@@ -273,8 +264,7 @@
                 src="assets/images/BUY1GET1FREE.jpg"
                 alt="Pre-Rolls Buy 1 Get 1 Free"
                 class="bg-image"
-              
-              </div>
+              />
             </div>
           </div>
 
@@ -286,9 +276,6 @@
                 alt="The Dispensary Club"
                 class="bg-image"
               />
-              
-                >
-              </div>
             </div>
           </div>
 
@@ -315,19 +302,6 @@
     <!-- Swiper JS Initialization -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="navbar-loader.js"></script>
-
-<script>
-  window.addEventListener("load", () => {
-    document.getElementById("navPromo")?.classList.add("active");
-  });
-</script>
-    
-
-    <script>
-      window.addEventListener("load", () => {
-        document.getElementById("navPromo")?.classList.add("active");
-      });
-    </script>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -390,17 +364,18 @@
           // เปลี่ยนเมาส์เป็นรูปนิ้วชี้ เพื่อบอก UX ว่าตรงนี้กดได้
           const bgImage = card.querySelector(".bg-image");
           const overlay = card.querySelector(".overlay");
-          bgImage.style.cursor = "pointer";
-          overlay.style.cursor = "pointer";
+          card.style.cursor = "pointer";
+          if (bgImage) bgImage.style.cursor = "pointer";
+          if (overlay) overlay.style.cursor = "pointer";
 
           card.addEventListener("click", (e) => {
             // ถ้าผู้ใช้คลิกโดนปุ่ม REDEEM OFFER ให้ข้ามไป ไม่ต้องเปิดรูป (ปล่อยให้ปุ่มทำหน้าที่ของมัน)
             if (e.target.closest("a.btn-hover-effect")) return;
 
-            // ดึงข้อมูลจากการ์ด
-            const imgSrc = card.querySelector(".bg-image").src;
-            const title = card.querySelector("h3").innerText;
-            const desc = card.querySelector("p").innerText;
+            // ดึงข้อมูลจากการ์ด (บาง card ยังไม่มี title/description ก็ให้ข้ามไปเงียบๆ)
+            const imgSrc = card.querySelector(".bg-image")?.src || "";
+            const title = card.querySelector("h3")?.innerText || "";
+            const desc = card.querySelector("p")?.innerText || "";
 
             // นำข้อมูลไปใส่ใน Modal
             lightboxImg.src = imgSrc;
