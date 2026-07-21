@@ -46,7 +46,8 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"]
+      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"],
+      "outOfStock": ["g1"]
     },
     {
       "cat": "HYBRID",
@@ -67,7 +68,8 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["Limonene (Fruits)", "Caryophyllene (Pepper)"]
+      "terpenes": ["Limonene (Fruits)", "Caryophyllene (Pepper)"],
+      "outOfStock": ["g35"]
     },
     {
       "cat": "HYBRID",
@@ -109,7 +111,7 @@
       "p1": 700,
       "p35": 2200,
       "terpenes": ["MYRCENE (FRUIT)", "CARYOPHYLLENE (EARTHY)"],
-      "outOfStock": ["g1"]
+      "hidden": true
     },
     {
       "cat": "HYBRID",
@@ -120,7 +122,7 @@
       "p1": 700,
       "p35": 2200,
       "terpenes": ["MYRCENE (FRUIT)", "CARYOPHYLLENE (PEPPER)"],
-      "outOfStock": ["g1"]
+      "hidden": true
     },
     {
       "cat": "INDICA",
@@ -151,7 +153,8 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["BISABOLOL (NUTTY)", "CARYOPHYLLENE (EARTHY)"]
+      "terpenes": ["BISABOLOL (NUTTY)", "CARYOPHYLLENE (EARTHY)"],
+      "hidden": true
     },
     {
       "cat": "INDICA",
@@ -167,11 +170,14 @@
   ],
   "preRolls": [
     "CASHEW SUNDAE",
-    "CUBAN DOOBIE",
     "MATCHA LOLLIPOP",
     "GOOFIEZ",
     "EXOTIC²",
     "DA FUNK",
-    "CANDY PAVE"
+    "CANDY PAVE",
+    "SUPER SLURRICANE",
+    "PURE MICHIGAN",
+    "TROP CHERRY GAS #14",
+    "PINEAPPLE XPRESS 2.0"
   ]
 }

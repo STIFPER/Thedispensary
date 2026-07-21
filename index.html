@@ -1424,7 +1424,7 @@
               });
             });
         }, []);
-        const products = menu.products || [];
+        const products = (menu.products || []).filter((p) => !p.hidden);
         const preRolls = menu.preRolls || [];
 
         // ✅ Load cart from session once
