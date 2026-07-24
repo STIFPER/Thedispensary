@@ -51,6 +51,26 @@
     },
     {
       "cat": "HYBRID",
+      "name": "RANCID RUNTZ",
+      "tags": [],
+      "thc": "28-30%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["MYRCENE (FRUITY)", "LIMONENE (GAS)"]
+    },
+    {
+      "cat": "HYBRID",
+      "name": "APPLE GELATO",
+      "tags": [],
+      "thc": "24-28%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["LIMONENE (CITRUS)", "MYRCENE (CREAM)"]
+    },
+    {
+      "cat": "HYBRID",
       "name": "Permanent Marker",
       "tags": [],
       "thc": "24-28%",
@@ -70,26 +90,6 @@
       "p35": 2200,
       "terpenes": ["Limonene (Fruits)", "Caryophyllene (Pepper)"],
       "outOfStock": ["g35"]
-    },
-    {
-      "cat": "HYBRID",
-      "name": "RANCID RUNTZ",
-      "tags": [],
-      "thc": "28-30%",
-      "cbd": "<1%",
-      "p1": 700,
-      "p35": 2200,
-      "terpenes": ["MYRCENE (FRUITY)", "LIMONENE (GAS)"]
-    },
-    {
-      "cat": "HYBRID",
-      "name": "APPLE GELATO",
-      "tags": [],
-      "thc": "24-28%",
-      "cbd": "0%",
-      "p1": 700,
-      "p35": 2200,
-      "terpenes": ["LIMONENE (CITRUS)", "MYRCENE (CREAM)"]
     },
     {
       "cat": "HYBRID",
