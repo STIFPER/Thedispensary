@@ -1549,17 +1549,25 @@
         const hasPromo = (p) => (p.tags || []).some((t) => t.includes("BUY 1"));
         const sortPromoLast = (arr) =>
           [...arr].sort((a, b) => hasPromo(a) - hasPromo(b));
-        const sativa = sortPromoLast(
-          products.filter((p) => p.cat === "SATIVA"),
-        );
-        const indica = sortPromoLast(
-          products.filter((p) => p.cat === "INDICA"),
-        );
-        const hybrid = sortPromoLast(
-          products.filter((p) => p.cat === "HYBRID"),
-        );
-        const cbd = sortPromoLast(products.filter((p) => p.cat === "CBD"));
-        const compound = sortPromoLast(
+        // Stock sinks below promo: fully in-stock (both g1 and g35) always on
+        // top, fully sold-out always at the very bottom, partial stock in
+        // between. Applied after sortPromoLast so, within the same stock
+        // tier, the promo ordering from above still holds (stable sort).
+        const stockRank = (p) => {
+          const g1Out = isOutOfStock(p, "g1");
+          const g35Out = isOutOfStock(p, "g35");
+          if (g1Out && g35Out) return 2;
+          if (g1Out || g35Out) return 1;
+          return 0;
+        };
+        const sortByStock = (arr) =>
+          [...arr].sort((a, b) => stockRank(a) - stockRank(b));
+        const arrangeBox = (arr) => sortByStock(sortPromoLast(arr));
+        const sativa = arrangeBox(products.filter((p) => p.cat === "SATIVA"));
+        const indica = arrangeBox(products.filter((p) => p.cat === "INDICA"));
+        const hybrid = arrangeBox(products.filter((p) => p.cat === "HYBRID"));
+        const cbd = arrangeBox(products.filter((p) => p.cat === "CBD"));
+        const compound = arrangeBox(
           products.filter((p) => p.cat === "COMPOUND"),
         );
         return /*#__PURE__*/ React.createElement(
@@ -1963,14 +1971,6 @@
                           "font-black text-xl md:text-2xl text-white uppercase tracking-tight",
                       },
                       "COMPOUND GENETICS",
-                    ),
-                    /*#__PURE__*/ React.createElement(
-                      "span",
-                      {
-                        className:
-                          "font-bold text-white/60 text-[10px] md:text-xs uppercase tracking-[0.2em]",
-                      },
-                      "THB",
                     ),
                   ),
                   /*#__PURE__*/ React.createElement(

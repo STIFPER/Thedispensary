@@ -1,7 +1,6 @@
 {
   "meta": {
-    "monthLabel": "July 2026",
-    "showCompound": false,
+    "showCompound": true,
     "showCBD": false
   },
   "products": [
@@ -24,7 +23,7 @@
       "p1": 700,
       "p35": 2200,
       "terpenes": ["Limonene (Citrus)", "Caryophyllene (Pepper)"],
-      "outOfStock": ["g1"]
+      "outOfStock": ["g35"]
     },
     {
       "cat": "SATIVA",
@@ -34,8 +33,7 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (EARTHY)", "LIMONENE (CITRUS)"],
-      "outOfStock": ["g35"]
+      "terpenes": ["MYRCENE (EARTHY)", "LIMONENE (CITRUS)"]
     },
 
     {
@@ -88,8 +86,7 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["Limonene (Fruits)", "Caryophyllene (Pepper)"],
-      "outOfStock": ["g35"]
+      "terpenes": ["Limonene (Fruits)", "Caryophyllene (Pepper)"]
     },
     {
       "cat": "HYBRID",
@@ -99,8 +96,7 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (GRAPE)", "LINALOOL (FLORAL)"],
-      "outOfStock": ["g1"]
+      "terpenes": ["MYRCENE (GRAPE)", "LINALOOL (FLORAL)"]
     },
     {
       "cat": "HYBRID",
@@ -143,7 +139,7 @@
       "p1": 700,
       "p35": 2200,
       "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (GAS)"],
-      "outOfStock": ["g35"]
+      "hidden": true
     },
     {
       "cat": "INDICA",
@@ -164,20 +160,28 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (FRUITY)", "CARYOPHYLLENE (GAS)"],
+      "terpenes": ["MYRCENE (FRUITY)", "CARYOPHYLLENE (GAS)"]
+    },
+    {
+      "cat": "COMPOUND",
+      "name": "DA FUNK",
+      "tags": [],
+      "thc": "21-23%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2500,
+      "terpenes": ["OCIMENE (FRUIT)", "MYRCENE (MUSK)"],
       "outOfStock": ["g35"]
     }
   ],
   "preRolls": [
-    "CASHEW SUNDAE",
     "MATCHA LOLLIPOP",
     "GOOFIEZ",
-    "EXOTIC²",
     "DA FUNK",
-    "CANDY PAVE",
-    "SUPER SLURRICANE",
     "PURE MICHIGAN",
     "TROP CHERRY GAS #14",
-    "PINEAPPLE XPRESS 2.0"
+    "PINEAPPLE XPRESS 2.0",
+    "SUPER BERRY RUNTZ",
+    "SENSI DAWG"
   ]
 }
