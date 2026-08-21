@@ -39,13 +39,14 @@
     {
       "cat": "SATIVA",
       "name": "TROP CHERRY GAS #14",
-      "tags": ["BUY 1 GET 1 FREE"],
+      "tags": [],
       "thc": "20-22%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
       "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"],
-      "outOfStock": ["g1"]
+      "outOfStock": ["g1"],
+      "hidden": true
     },
     {
       "cat": "HYBRID",
