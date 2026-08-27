@@ -16,39 +16,6 @@
     return last;
   }
 
-  function clearActive(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.remove("active");
-    el.style.boxShadow = "none";
-    el.style.paddingBottom = "0";
-    el.style.paddingLeft = "0";
-    el.style.paddingRight = "0";
-  }
-
-  function setActiveNav() {
-    const file = currentKey();
-    const map = {
-      "index.html": "navMenu",
-      "promo.html": "navPromo",
-      "howtoorder.html": "navHow",
-      "contactus.html": "navContact",
-    };
-
-    ["navMenu", "navPromo", "navHow", "navContact"].forEach(clearActive);
-
-    const activeId = map[file];
-    const el = document.getElementById(activeId);
-    if (!el) return;
-
-    el.classList.add("active");
-    el.style.display = "inline-block";
-    el.style.paddingBottom = "6px";
-    el.style.paddingLeft = "2px";
-    el.style.paddingRight = "2px";
-    el.style.boxShadow = "inset 0 -1px 0 rgba(160, 212, 178, 0.85)";
-  }
-
   function getCartCount() {
     try {
       const arr = JSON.parse(sessionStorage.getItem("cart_v1") || "[]");
@@ -90,6 +57,29 @@
     });
   }
 
+  // Ported verbatim from Website/public/shop/navbar-loader.js — same ids
+  // (#navToggle, #navPanel), same aria-expanded toggle, same behaviour.
+  function wireMobileMenu() {
+    const btn = document.getElementById("navToggle");
+    const panel = document.getElementById("navPanel");
+    if (!btn || !panel) return;
+
+    btn.addEventListener("click", function () {
+      const open = panel.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(open));
+    });
+
+    // A link inside the panel navigating away should close it, so a visitor
+    // coming straight back (browser back button) doesn't land on a page
+    // with the mobile menu still stuck open.
+    panel.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        panel.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
   // ✅ ลองโหลดแบบชัวร์สุด: basePath + navbar.html
   const url = basePath() + "navbar.html?v=" + Date.now();
 
@@ -102,9 +92,9 @@
     .then((html) => {
       mount.innerHTML = html;
 
-      setActiveNav();
       wireCartButton();
       renderCartBadge();
+      wireMobileMenu();
 
       window.addEventListener("cart:updated", renderCartBadge);
     })

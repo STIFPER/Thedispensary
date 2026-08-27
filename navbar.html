@@ -1,92 +1,204 @@
 <style>
+  /* ---------------------------------------------------------------------
+     Same nav bar as the main brand site (Website/src/components/NavBar.jsx
+     + public/shop/nav-shared.css) — wordmark, Home/Menu/About/Location/
+     Contact list, mobile hamburger panel, mint-on-active. Values are
+     copied in by hand rather than loaded from the main site at runtime:
+     this deployment is a separate Cloudflare Pages project on a different
+     domain, and the two are meant to stay independent (see README.md).
+     If the main site's nav design changes, this file needs the matching
+     edit — it will not pick it up on its own.
+
+     "Menu" is hardcoded active, not computed. Every page in this
+     deployment — index.html, promo.html, howtoorder.html, contactus.html —
+     falls under "Menu" from the main site's five-item nav; there is no
+     per-file branching left to do. Home/About/Location/Contact point at a
+     different domain and can never be the current page from here, so they
+     never take the active state.
+     --------------------------------------------------------------------- */
+  .td-logo {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    font-size: clamp(0.875rem, 0.854rem + 0.093vw, 0.9375rem);
+    line-height: 1.1;
+    color: #a0d4b2;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
   .nav-link {
-    display: inline-block;
-    color: rgb(156 163 175);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.6875rem;
+    line-height: 1.4;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding-bottom: 10px;
-    border-bottom: 3px solid transparent;
-    transition:
-      color 0.2s ease,
-      border-color 0.2s ease;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: color 0.3s ease;
   }
-
-  .nav-link:hover {
-    color: #fff;
+  @media (hover: hover) {
+    .nav-link:hover {
+      color: #ffffff;
+    }
   }
-
   .nav-link.active {
-    color: #fff;
-    border-bottom-color: #a0d4b2;
+    color: #a0d4b2;
+  }
+
+  /* Mobile menu button — three bars that rotate into an X when open. */
+  #navToggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20px;
+    height: 16px;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    color: #ffffff;
+  }
+  @media (min-width: 768px) {
+    #navToggle {
+      display: none;
+    }
+  }
+  #navToggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: currentColor;
+    transition:
+      transform 0.3s ease,
+      opacity 0.2s ease;
+  }
+  #navToggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  #navToggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  #navToggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .td-panel {
+    display: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(29, 30, 30, 0.98);
+  }
+  .td-panel.open {
+    display: block;
+  }
+  @media (min-width: 768px) {
+    .td-panel {
+      display: none !important;
+    }
+  }
+  .td-panel a {
+    display: block;
+    padding: 16px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+  }
+  .td-panel li:last-child a {
+    border-bottom: 0;
+  }
+  .td-panel a.active {
+    color: #a0d4b2;
   }
 
   /* 🔴 ซ่อนทุกอย่างที่ไม่อยากให้เห็น */
   .hidden {
     display: none !important;
   }
+
+  /* Deliberately NOT using Tailwind's "hidden md:flex" pair for the desktop
+     link list: the !important override two lines up is older than this pass
+     and exists to force-hide the retired tabs, but !important beats
+     Tailwind's non-important .md\:flex every time regardless of viewport —
+     the list stayed display:none at every width when it first used that
+     pair. Its own rule sidesteps the collision entirely. */
+  .td-desktop-links {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .td-desktop-links {
+      display: flex;
+    }
+  }
 </style>
 
 <nav
-  class="sticky top-0 z-40 bg-[#1d1e1e]/95 backdrop-blur-md border-b border-gray-700 py-3 shadow-lg"
+  class="sticky top-0 z-40 bg-[#1d1e1e]/95 backdrop-blur-md border-b border-gray-700 shadow-lg"
 >
-  <div class="max-w-[1200px] mx-auto px-4 flex justify-between items-center">
-    <div class="overflow-x-auto no-scrollbar flex-1 mr-4">
-      <div
-        class="flex space-x-6 whitespace-nowrap font-bold text-xs md:text-sm text-gray-400 uppercase tracking-wide"
-      >
-        <!-- ✅ เหลือแค่นี้ -->
-        <a id="navMenu" href="index.html" class="nav-link"> FLOWER MENU </a>
-
-        <a id="navPromo" href="promo.html" class="nav-link">
-          <span class="relative inline-flex h-1.5 w-1.5 mr-1.5 align-middle">
-            <span
-              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E61633] opacity-75"
-            ></span>
-            <span
-              class="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#E61633]"
-            ></span>
-          </span>
-          PROMOTIONS
-        </a>
-        <!-- ❌ ซ่อนไว้ทั้งหมด -->
-        <a id="navHow" href="howtoorder.html" class="nav-link hidden"
-          >HOW TO ORDER</a
-        >
-        <a id="navContact" href="contactus.html" class="nav-link hidden"
-          >CONTACT US</a
-        >
-      </div>
-    </div>
-
-    <!-- ❌ ซ่อนตะกร้า -->
-    <a
-      id="navCartBtn"
-      href="index.html"
-      class="hidden relative p-2 text-white hover:text-[#a0d4b2] transition-colors"
-      aria-label="Open cart"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
-        <path d="M3 6h18"></path>
-        <path d="M16 10a4 4 0 0 1-8 0"></path>
-      </svg>
-
-      <span
-        id="navCartCount"
-        class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#1d1e1e]"
-      >
-      </span>
+  <div class="max-w-[1200px] mx-auto px-4 py-4 flex items-center justify-between gap-6">
+    <a href="https://thedis-th.pages.dev/" class="td-logo shrink-0">
+      The Dispensary
     </a>
+
+    <div class="flex items-center gap-5">
+      <!-- Desktop: the same five links as the main site, same order. -->
+      <ul class="td-desktop-links items-center gap-7 list-none m-0 p-0">
+        <li><a href="https://thedis-th.pages.dev/" class="nav-link">Home</a></li>
+        <li><a id="navMenu" href="index.html" class="nav-link active">Menu</a></li>
+        <li><a href="https://thedis-th.pages.dev/about" class="nav-link">About</a></li>
+        <li><a href="https://thedis-th.pages.dev/location" class="nav-link">Location</a></li>
+        <li><a href="https://thedis-th.pages.dev/contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- ❌ ซ่อนตะกร้า (ของเดิม ไม่แตะ) -->
+      <a
+        id="navCartBtn"
+        href="index.html"
+        class="hidden relative p-2 text-white hover:text-[#a0d4b2] transition-colors"
+        aria-label="Open cart"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+          <path d="M3 6h18"></path>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span
+          id="navCartCount"
+          class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#1d1e1e]"
+        ></span>
+      </a>
+
+      <!-- Mobile: same five links, behind a hamburger — identical pattern
+           to Website/public/shop/navbar.html's mobile panel. -->
+      <button id="navToggle" type="button" aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="td-panel" id="navPanel">
+    <ul class="max-w-[1200px] mx-auto px-4 list-none m-0">
+      <li><a href="https://thedis-th.pages.dev/">Home</a></li>
+      <li><a href="index.html" class="active">Menu</a></li>
+      <li><a href="https://thedis-th.pages.dev/about">About</a></li>
+      <li><a href="https://thedis-th.pages.dev/location">Location</a></li>
+      <li><a href="https://thedis-th.pages.dev/contact">Contact</a></li>
+    </ul>
   </div>
 </nav>
