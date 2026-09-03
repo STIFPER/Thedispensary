@@ -1,7 +1,7 @@
 {
   "meta": {
     "showCompound": true,
-    "showCBD": false
+    "showCBD": true
   },
   "products": [
     {
@@ -17,7 +17,7 @@
     {
       "cat": "SATIVA",
       "name": "DOPAMINE",
-      "tags": [],
+      "tags": ["BUY 1 GET 1 FREE"],
       "thc": "16-20%",
       "cbd": "0%",
       "p1": 700,
@@ -45,9 +45,7 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"],
-      "outOfStock": ["g1"],
-      "hidden": true
+      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"]
     },
     {
       "cat": "HYBRID",
@@ -62,7 +60,7 @@
     {
       "cat": "HYBRID",
       "name": "APPLE GELATO",
-      "tags": [],
+      "tags": ["BUY 1 GET 1 FREE"],
       "thc": "24-28%",
       "cbd": "0%",
       "p1": 700,
@@ -72,7 +70,7 @@
     {
       "cat": "HYBRID",
       "name": "Permanent Marker",
-      "tags": [],
+      "tags": ["BUY 1 GET 1 FREE"],
       "thc": "24-28%",
       "cbd": "0%",
       "p1": 700,
@@ -93,7 +91,7 @@
     {
       "cat": "HYBRID",
       "name": "GRAPE SODA",
-      "tags": [],
+      "tags": ["BUY 1 GET 1 FREE"],
       "thc": "22-26%",
       "cbd": "<1%",
       "p1": 700,
@@ -174,6 +172,15 @@
       "p35": 2500,
       "terpenes": ["OCIMENE (FRUIT)", "MYRCENE (MUSK)"],
       "outOfStock": ["g35"]
+    },
+    {
+      "cat": "CBD",
+      "name": "CHARLOTTE'S ANGEL",
+      "tags": [],
+      "cbd": "16%",
+      "p1": 400,
+      "p35": 1250,
+      "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (LEMON)"]
     }
   ],
   "preRolls": [
@@ -184,6 +191,10 @@
     "TROP CHERRY GAS #14",
     "PINEAPPLE XPRESS 2.0",
     "SUPER BERRY RUNTZ",
-    "SENSI DAWG"
+    "SENSI DAWG",
+    "CASHEW SUNDAE",
+    "BLACK GARLIC",
+    "CAP JUNKY",
+    "RANCID RUNTZ"
   ]
 }
