@@ -23,7 +23,8 @@
       "p1": 700,
       "p35": 2200,
       "terpenes": ["Limonene (Citrus)", "Caryophyllene (Pepper)"],
-      "outOfStock": ["g35"]
+      "outOfStock": ["g1", "g35"],
+      "hidden": true
     },
     {
       "cat": "SATIVA",
@@ -33,7 +34,9 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["OCIMENE (SWEET)", "MYRCENE (EARTHY)"]
+      "terpenes": ["OCIMENE (SWEET)", "MYRCENE (EARTHY)"],
+      "outOfStock": ["g1", "g35"],
+      "hidden": true
     },
 
     {
