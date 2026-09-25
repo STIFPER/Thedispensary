@@ -33,7 +33,7 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (EARTHY)", "LIMONENE (CITRUS)"]
+      "terpenes": ["OCIMENE (SWEET)", "MYRCENE (EARTHY)"]
     },
 
     {
@@ -54,7 +54,7 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (FRUITY)", "LIMONENE (GAS)"]
+      "terpenes": ["CARYOPHYLLENE (GAS)", "LIMONENE (CITRUS)"]
     },
     {
       "cat": "HYBRID",
