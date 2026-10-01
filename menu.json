@@ -17,7 +17,7 @@
     {
       "cat": "SATIVA",
       "name": "DOPAMINE",
-      "tags": ["BUY 1 GET 1 FREE"],
+      "tags": [],
       "thc": "16-20%",
       "cbd": "0%",
       "p1": 700,
@@ -34,15 +34,13 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["OCIMENE (SWEET)", "MYRCENE (EARTHY)"],
-      "outOfStock": ["g1", "g35"],
-      "hidden": true
+      "terpenes": ["OCIMENE (SWEET)", "MYRCENE (EARTHY)"]
     },
 
     {
       "cat": "SATIVA",
       "name": "TROP CHERRY GAS #14",
-      "tags": [],
+      "tags": ["BUY 1 GET 1 FREE"],
       "thc": "20-22%",
       "cbd": "0%",
       "p1": 700,
@@ -52,7 +50,7 @@
     {
       "cat": "HYBRID",
       "name": "RANCID RUNTZ",
-      "tags": [],
+      "tags": ["BUY 1 GET 1 FREE"],
       "thc": "28-30%",
       "cbd": "<1%",
       "p1": 700,
@@ -62,7 +60,7 @@
     {
       "cat": "HYBRID",
       "name": "APPLE GELATO",
-      "tags": ["BUY 1 GET 1 FREE"],
+      "tags": [],
       "thc": "24-28%",
       "cbd": "0%",
       "p1": 700,
@@ -93,7 +91,7 @@
     {
       "cat": "HYBRID",
       "name": "GRAPE SODA",
-      "tags": ["BUY 1 GET 1 FREE"],
+      "tags": [],
       "thc": "22-26%",
       "cbd": "<1%",
       "p1": 700,
@@ -152,12 +150,12 @@
       "p1": 700,
       "p35": 2200,
       "terpenes": ["BISABOLOL (NUTTY)", "CARYOPHYLLENE (EARTHY)"],
-      "hidden": true
+      "outOfStock": ["g1"]
     },
     {
       "cat": "INDICA",
       "name": "CHERRY MARKER",
-      "tags": [],
+      "tags": ["BUY 1 GET 1 FREE"],
       "thc": "24-28%",
       "cbd": "<1%",
       "p1": 700,
@@ -192,11 +190,10 @@
     "PURE MICHIGAN",
     "TROP CHERRY GAS #14",
     "PINEAPPLE XPRESS 2.0",
-    "SUPER BERRY RUNTZ",
-    "SENSI DAWG",
     "CASHEW SUNDAE",
     "BLACK GARLIC",
     "CAP JUNKY",
-    "RANCID RUNTZ"
+    "RANCID RUNTZ",
+    "OREOZ"
   ]
 }

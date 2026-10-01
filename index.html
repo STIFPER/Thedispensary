@@ -1551,10 +1551,11 @@
         const hasPromo = (p) => (p.tags || []).some((t) => t.includes("BUY 1"));
         const sortPromoLast = (arr) =>
           [...arr].sort((a, b) => hasPromo(a) - hasPromo(b));
-        // Stock sinks below promo: fully in-stock (both g1 and g35) always on
-        // top, fully sold-out always at the very bottom, partial stock in
-        // between. Applied after sortPromoLast so, within the same stock
-        // tier, the promo ordering from above still holds (stable sort).
+        // Within each promo tier, lower stock sinks further down: fully
+        // in-stock (both g1 and g35) on top, fully sold-out at the bottom,
+        // partial stock in between. Applied before sortPromoLast so BOGO
+        // items always sink below every non-BOGO item regardless of stock
+        // (stable sort keeps this stock ordering within each promo tier).
         const stockRank = (p) => {
           const g1Out = isOutOfStock(p, "g1");
           const g35Out = isOutOfStock(p, "g35");
@@ -1564,7 +1565,7 @@
         };
         const sortByStock = (arr) =>
           [...arr].sort((a, b) => stockRank(a) - stockRank(b));
-        const arrangeBox = (arr) => sortByStock(sortPromoLast(arr));
+        const arrangeBox = (arr) => sortPromoLast(sortByStock(arr));
         const sativa = arrangeBox(products.filter((p) => p.cat === "SATIVA"));
         const indica = arrangeBox(products.filter((p) => p.cat === "INDICA"));
         const hybrid = arrangeBox(products.filter((p) => p.cat === "HYBRID"));
