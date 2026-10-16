@@ -55,7 +55,8 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["CARYOPHYLLENE (GAS)", "LIMONENE (CITRUS)"]
+      "terpenes": ["CARYOPHYLLENE (GAS)", "LIMONENE (CITRUS)"],
+      "outOfStock": ["g1"]
     },
     {
       "cat": "HYBRID",
@@ -180,7 +181,8 @@
       "cbd": "16%",
       "p1": 400,
       "p35": 1250,
-      "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (LEMON)"]
+      "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (LEMON)"],
+      "outOfStock": ["g1"]
     }
   ],
   "preRolls": [
