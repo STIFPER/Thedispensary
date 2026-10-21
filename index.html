@@ -21,6 +21,12 @@
     />
     <meta name="theme-color" content="#1d1e1e" />
 
+    <script>
+      if (new URLSearchParams(window.location.search).get("display") === "portrait") {
+        document.documentElement.classList.add("portrait-display");
+      }
+    </script>
+
     <link rel="dns-prefetch" href="https://unpkg.com" />
     <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -389,6 +395,173 @@
         .hw-bat-x {
           display: none;
         }
+      }
+      /* Portrait capture mode keeps the existing menu and its data, but fits
+         the complete two-column composition into a 9:16 recording frame. */
+      html.portrait-display,
+      html.portrait-display body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      html.portrait-display body {
+        margin: 0;
+      }
+      .portrait-display #navbar,
+      .portrait-display #overlay-root {
+        display: none !important;
+      }
+      .portrait-display #root {
+        display: grid;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        place-items: center;
+        overflow: hidden;
+        content-visibility: visible;
+      }
+      .portrait-display #root > div {
+        width: min(100vw, 56.25vh) !important;
+        width: min(100vw, 56.25dvh) !important;
+        height: min(100vh, 177.7778vw) !important;
+        height: min(100dvh, 177.7778vw) !important;
+        min-height: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
+        transform: scale(var(--portrait-fit-scale, 1));
+        transform-origin: center center;
+      }
+      .portrait-display #root > div > header {
+        flex: 0 0 auto;
+        padding: 1.5vh 3vw 1.2vh !important;
+      }
+      .portrait-display #root > div > header h2 {
+        font-size: clamp(15px, 1.8vh, 26px) !important;
+        margin-bottom: 0.35vh !important;
+      }
+      .portrait-display #root > div > header h1 {
+        font-size: clamp(28px, 3.4vh, 52px) !important;
+        margin-bottom: 0.45vh !important;
+      }
+      .portrait-display #root > div > header > p {
+        font-size: clamp(12px, 1.45vh, 20px) !important;
+        margin-bottom: 1.2vh !important;
+      }
+      .portrait-display #root > div > header > div {
+        padding-top: 0.8vh !important;
+        padding-bottom: 0.8vh !important;
+        gap: 0.6vh !important;
+        font-size: clamp(8px, 0.95vh, 12px) !important;
+      }
+      .portrait-display #root > div > header > div strong {
+        font-size: clamp(9px, 1.05vh, 14px) !important;
+        margin-bottom: 0.2vh !important;
+      }
+      .portrait-display #root > div > main {
+        display: flex !important;
+        flex: 1 1 auto;
+        align-items: flex-start;
+        gap: 2.2% !important;
+        width: 100%;
+        min-height: 0;
+        margin: 0 auto;
+        padding: 0 3.4% !important;
+        box-sizing: border-box;
+      }
+      .portrait-display #root > div > main > div {
+        display: flex !important;
+        flex: 1 1 0%;
+        flex-direction: column;
+        width: 50% !important;
+        gap: 1.4vh !important;
+      }
+      .portrait-display #root > div > main > div > div {
+        flex: 0 0 auto;
+      }
+      .portrait-display #root > div > main > div > div > div.p-2.space-y-1 {
+        padding: 0.35vh 0.65vw !important;
+      }
+      .portrait-display #root > div > main > div > div > div.group.py-3.px-2 {
+        padding: 0.65vh 0.55vw !important;
+      }
+      .portrait-display #root > div > main h3 {
+        font-size: clamp(10px, 1.35vh, 16px) !important;
+        margin-bottom: 0.2vh !important;
+      }
+      .portrait-display #root > div > main .group.py-3.px-2 > div > div {
+        margin-bottom: 0.25vh !important;
+        gap: 0.2vh !important;
+      }
+      .portrait-display #root > div > main .group.py-3.px-2 > div > div span {
+        font-size: clamp(7px, 0.82vh, 10px) !important;
+      }
+      .portrait-display #root > div > main .group.py-3.px-2 .inline-block {
+        font-size: clamp(6px, 0.68vh, 8px) !important;
+        padding: 0.15vh 0.45vw !important;
+        margin-right: 0.15vw !important;
+        margin-bottom: 0.2vh !important;
+      }
+      .portrait-display #root > div > main [class*="grid-cols-[80px_1px_80px]"] {
+        grid-template-columns: 1fr 1px 1fr !important;
+        gap: 0 0.4vw !important;
+      }
+      .portrait-display #root > div > main [class*="grid-cols-[80px_1px_80px]"] .h-6 {
+        height: 1.45vh !important;
+      }
+      .portrait-display #root > div > main [class*="grid-cols-[80px_1px_80px]"] .h-8 {
+        height: 2vh !important;
+      }
+      .portrait-display #root > div > main [class*="grid-cols-[80px_1px_80px]"] .text-xl {
+        font-size: clamp(11px, 1.45vh, 17px) !important;
+      }
+      .portrait-display #root > div > main [class*="grid-cols-[80px_1px_80px]"] .text-xs,
+      .portrait-display #root > div > main [class*="grid-cols-[80px_1px_80px]"] .text-\[9px\],
+      .portrait-display #root > div > main [class*="grid-cols-[80px_1px_80px]"] .text-\[10px\] {
+        font-size: clamp(7px, 0.82vh, 10px) !important;
+        padding: 0 !important;
+      }
+      .portrait-display #root > div > main .group.py-3.px-2 > div:first-child > div:first-child {
+        width: 3.8vw !important;
+        min-width: 3.8vw !important;
+        margin-right: 0.45vw !important;
+      }
+      .portrait-display #root > div > main .group.py-3.px-2 > div:first-child > div:first-child > div {
+        transform: scale(0.78);
+      }
+      .portrait-display #root > div > main > div > div > div.flex.justify-between.items-center {
+        padding: 0.55vh 1vw !important;
+      }
+      .portrait-display #root > div > main > div > div > div.flex.justify-between.items-center h2 {
+        font-size: clamp(13px, 1.7vh, 21px) !important;
+      }
+      .portrait-display #root > div > main > div > div > div.p-3,
+      .portrait-display #root > div > main > div > div > div.p-4 {
+        padding: 0.55vh 0.65vw !important;
+      }
+      .portrait-display #root > div > main button {
+        min-height: 2.8vh !important;
+        padding: 0.25vh 0.45vw !important;
+      }
+      .portrait-display #root > div > main button span {
+        font-size: clamp(7px, 0.85vh, 10px) !important;
+      }
+      .portrait-display #root > div > main > div > div > div.px-4.pb-2 {
+        padding: 0.3vh 0.6vw 0.4vh !important;
+        font-size: clamp(6px, 0.65vh, 9px) !important;
+      }
+      .portrait-display .hw-glow,
+      .portrait-display .hw-flicker,
+      .portrait-display .hw-bat-y,
+      .portrait-display .hw-wing,
+      .portrait-display .hw-spider,
+      .portrait-display .hw-spider-sm,
+      .portrait-display .hw-float-sm,
+      .portrait-display .hw-float,
+      .portrait-display .hw-twinkle {
+        animation: none !important;
+      }
+      .portrait-display .hw-bat-x {
+        display: none !important;
       }
     </style>
   </head>
@@ -3423,6 +3596,37 @@
       const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(/*#__PURE__*/ React.createElement(App, null));
       if (window.__dismissLoading) window.__dismissLoading();
+
+      if (document.documentElement.classList.contains("portrait-display")) {
+        const fitPortraitFrame = () => {
+          const frame = document.querySelector("#root > div");
+          if (!frame) return;
+          frame.style.setProperty("--portrait-fit-scale", "1");
+          requestAnimationFrame(() => {
+            const available = frame.clientHeight;
+            const contentHeight = frame.scrollHeight;
+            const scale =
+              available > 0 && contentHeight > available
+                ? Math.max(0.72, available / contentHeight)
+                : 1;
+            frame.style.setProperty(
+              "--portrait-fit-scale",
+              scale.toFixed(4),
+            );
+          });
+        };
+        const portraitRoot = document.getElementById("root");
+        const portraitObserver = new MutationObserver(fitPortraitFrame);
+        portraitObserver.observe(portraitRoot, {
+          childList: true,
+          characterData: true,
+          subtree: true,
+        });
+        window.addEventListener("resize", fitPortraitFrame);
+        if (document.fonts?.ready) document.fonts.ready.then(fitPortraitFrame);
+        setTimeout(fitPortraitFrame, 250);
+        setTimeout(fitPortraitFrame, 1000);
+      }
     </script>
   </body>
 </html>
