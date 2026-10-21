@@ -31,6 +31,11 @@
     />
 
     <link
+      href="https://fonts.googleapis.com/css2?family=Creepster&family=Griffy&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
       rel="preload"
       href="https://unpkg.com/react@18/umd/react.production.min.js"
       as="script"
@@ -169,6 +174,220 @@
         to {
           opacity: 1;
           transform: translateY(-8px);
+        }
+      }
+
+      /* 🎃 HALLOWEEN CAMPAIGN — header decoration only (see HalloweenHeader).
+         Remove this block, the Halloween* components and HALLOWEEN_ON to retire
+         it; it also switches itself off after HALLOWEEN_END in the script. */
+      .hw-glow {
+        animation: hwGlow 5s ease-in-out infinite;
+      }
+      @keyframes hwGlow {
+        0%,
+        100% {
+          opacity: 0.55;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.95;
+          transform: scale(1.06);
+        }
+      }
+      /* candle flicker: stepped so it stutters like a flame, not a pulse */
+      /* candle flicker: stepped so it stutters like a flame, not a pulse */
+      .hw-flicker {
+        animation: hwFlicker 3.4s steps(1, end) infinite;
+      }
+      @keyframes hwFlicker {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 7px rgba(255, 122, 26, 0.85));
+        }
+        12% {
+          filter: drop-shadow(0 0 3px rgba(255, 122, 26, 0.5));
+        }
+        24% {
+          filter: drop-shadow(0 0 9px rgba(255, 150, 50, 0.95));
+        }
+        41% {
+          filter: drop-shadow(0 0 4px rgba(255, 122, 26, 0.6));
+        }
+        63% {
+          filter: drop-shadow(0 0 8px rgba(255, 140, 40, 0.9));
+        }
+        80% {
+          filter: drop-shadow(0 0 5px rgba(255, 122, 26, 0.65));
+        }
+      }
+      /* Fliers (bats, ghosts, Baba Yaga) live in two side "zones" — the gutters
+         either side of the centred title — so nothing ever flies across text.
+         Outer element crosses its zone (animating `left` so the % is the zone's
+         width), inner one bobs, svg flaps.
+         The zones sit in a full-bleed stage (see HalloweenLayer), so the OUTER
+         edge is the real screen edge: fliers come in from / leave off-screen.
+         The INNER edge (towards the title) is a soft mask fade instead of a hard
+         clip — a clip there sliced fliers in half in the middle of the page. */
+      .hw-zone {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .hw-zone-l {
+        left: 0;
+        width: calc(50% - 215px);
+        -webkit-mask-image: linear-gradient(to right, #000 0%, #000 60%, transparent 100%);
+        mask-image: linear-gradient(to right, #000 0%, #000 60%, transparent 100%);
+      }
+      .hw-zone-r {
+        right: 0;
+        width: calc(50% - 215px);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 40%, #000 100%);
+        mask-image: linear-gradient(to right, transparent 0%, #000 40%, #000 100%);
+      }
+      .hw-bat-x {
+        position: absolute;
+        left: 0;
+        --hw-bob: 26px;
+        animation: hwFlyX linear infinite;
+      }
+      @keyframes hwFlyX {
+        from {
+          left: -100px;
+        }
+        to {
+          left: 100%;
+        }
+      }
+      .hw-bat-y {
+        animation: hwFlyY ease-in-out infinite alternate;
+      }
+      @keyframes hwFlyY {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(var(--hw-bob, 26px));
+        }
+      }
+      /* Phones have no gutters (the title fills the width), so the only free
+         space is a thin strip above the badge: keep just a couple of small bats
+         there and hide everything else. */
+      @media (max-width: 1023px) {
+        .hw-zone-l {
+          left: 0;
+          right: 0;
+          bottom: auto;
+          width: auto;
+          height: 30px;
+          -webkit-mask-image: none;
+          mask-image: none;
+        }
+        .hw-zone-r {
+          display: none;
+        }
+        .hw-bat-x {
+          top: 4px !important;
+          --hw-bob: 5px;
+        }
+      }
+      .hw-wing {
+        transform-origin: center;
+        animation: hwFlap 0.32s ease-in-out infinite alternate;
+      }
+      @keyframes hwFlap {
+        from {
+          transform: scaleY(1);
+        }
+        to {
+          transform: scaleY(0.45);
+        }
+      }
+      .hw-spider {
+        transform-origin: top center;
+        animation: hwDangle 3.8s ease-in-out infinite alternate;
+      }
+      @keyframes hwDangle {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(18px);
+        }
+      }
+      /* Own class rather than Tailwind's `hidden lg:block`: navbar.html ships a
+         legacy `.hidden { display:none !important }` that beats lg:block. */
+      .hw-wide {
+        display: none;
+      }
+      @media (min-width: 1024px) {
+        .hw-wide {
+          display: block;
+        }
+      }
+      .hw-spider-sm {
+        transform-origin: top center;
+        animation: hwDangleSm 3.2s ease-in-out infinite alternate;
+      }
+      @keyframes hwDangleSm {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(7px);
+        }
+      }
+      .hw-float {
+        animation: hwFloat 4.2s ease-in-out infinite alternate;
+      }
+      @keyframes hwFloat {
+        from {
+          transform: translateY(0) rotate(-3deg);
+        }
+        to {
+          transform: translateY(-14px) rotate(3deg);
+        }
+      }
+      /* small floating ghost beside box titles */
+      .hw-float-sm {
+        animation: hwFloatSm 3.4s ease-in-out infinite alternate;
+      }
+      @keyframes hwFloatSm {
+        from {
+          transform: translateY(1px) rotate(-4deg);
+        }
+        to {
+          transform: translateY(-3px) rotate(4deg);
+        }
+      }
+      .hw-twinkle {
+        animation: hwTwinkle 2.8s ease-in-out infinite;
+      }
+      @keyframes hwTwinkle {
+        0%,
+        100% {
+          opacity: 0.12;
+        }
+        50% {
+          opacity: 0.95;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hw-glow,
+        .hw-flicker,
+        .hw-bat-y,
+        .hw-wing,
+        .hw-spider,
+        .hw-spider-sm,
+        .hw-float-sm,
+        .hw-float,
+        .hw-twinkle {
+          animation: none;
+        }
+        .hw-bat-x {
+          display: none;
         }
       }
     </style>
@@ -439,6 +658,52 @@
           name,
         );
       };
+      const SPECIAL_NAME_FONTS = ["Griffy", "Creepster"];
+      const hwKind = (product) => {
+        const t = (product.tags || []).find((x) => x.startsWith("NEW:HALLOWEEN"));
+        return t ? t.split(":")[2] || "witch" : null;
+      };
+      const renderName = (product, iconSize = 20) => {
+        const nameEl = product.nameImage
+          ? /*#__PURE__*/ React.createElement("img", {
+              src: product.nameImage,
+              alt: product.name,
+              style: {
+                height: "1.05em",
+                width: "auto",
+                maxWidth: "100%",
+                display: "block",
+              },
+            })
+          : SPECIAL_NAME_FONTS.includes(product.nameFont)
+            ? /*#__PURE__*/ React.createElement(
+                "span",
+                {
+                  style: {
+                    fontFamily: `'${product.nameFont}', Inter, sans-serif`,
+                    fontWeight: 400,
+                    fontSize: "1.25em",
+                    letterSpacing: "0.02em",
+                    lineHeight: 1.1,
+                  },
+                },
+                product.name,
+              )
+            : product.name;
+        const kind = HALLOWEEN_ON ? hwKind(product) : null;
+        if (!kind) return nameEl;
+        return /*#__PURE__*/ React.createElement(
+          "span",
+          {
+            style: { display: "inline-flex", alignItems: "center", gap: "8px" },
+          },
+          nameEl,
+          /*#__PURE__*/ React.createElement(HwMascot, {
+            kind,
+            size: iconSize,
+          }),
+        );
+      };
       const BadgeElement = ({ type, size = "sm" }) => {
         const styles = {
           full: {
@@ -483,6 +748,18 @@
             {
               style: {
                 fontSize: config.fontNew,
+              },
+            },
+            "NEW",
+          );
+        } else if (type && type.startsWith("NEW HALLOWEEN")) {
+          bgClass = "bg-[#ff7a1a]";
+          content = /*#__PURE__*/ React.createElement(
+            "span",
+            {
+              style: {
+                fontSize: config.fontNew,
+                color: "#2b1447",
               },
             },
             "NEW",
@@ -613,7 +890,7 @@
           );
         }
         if (!content) return null;
-        return /*#__PURE__*/ React.createElement(
+        const badge = /*#__PURE__*/ React.createElement(
           "div",
           {
             className: `flex flex-col justify-center items-center text-center text-white font-inter font-black shrink-0 grow-0 hover:scale-110 hover:rotate-6 transition-transform duration-200 ${bgClass}`,
@@ -624,6 +901,7 @@
           },
           content,
         );
+        return badge;
       };
       const StatusBadge = ({ tags, size = "sm", soldOut = false }) => {
         const placeholderSize =
@@ -654,6 +932,10 @@
         const tag = tags[0];
         let type = "";
         if (tag === "NEW") type = "NEW";
+        else if (tag.startsWith("NEW:HALLOWEEN"))
+          type = HALLOWEEN_ON
+            ? "NEW HALLOWEEN:" + (tag.split(":")[2] || "witch")
+            : "NEW";
         else if (tag === "BEST SELLER") type = "BEST SELLER";
         else if (tag.includes("BUY 1")) type = "BUY 1";
         if (type) {
@@ -807,7 +1089,7 @@
                 {
                   className: `font-inter font-black text-base md:text-lg uppercase leading-tight transition-colors mb-1 ${bothOut ? "text-gray-500" : "text-white group-hover:text-[#a0d4b2]"}`,
                 },
-                product.name,
+                renderName(product),
               ),
               /*#__PURE__*/ React.createElement(
                 "div",
@@ -861,28 +1143,73 @@
           ),
         );
       };
-      const BoxHeader = ({ title, bgColor }) =>
+      // Halloween mascot beside a box title: "witch" = Baba Yaga pumpkin in a
+      // witch hat, "ghost" = little Casper. Renders nothing off-season.
+      const HwMascot = ({ kind, size = 20 }) =>
+        !HALLOWEEN_ON
+          ? null
+          : kind === "ghost"
+            ? React.createElement(Ghost, {
+                size: size * 1.05,
+                className: "hw-float-sm shrink-0",
+              })
+            : React.createElement(Pumpkin, {
+                size,
+                hat: true,
+                className: "hw-flicker shrink-0",
+              });
+      // `spider` = optional dangling spider; `mascot` = "witch" | "ghost". The
+      // corner web, mascot and spider only render while HALLOWEEN_ON; otherwise
+      // this is the plain header it always was.
+      const BoxHeader = ({
+        title,
+        bgColor,
+        spider = false,
+        mascot = "witch",
+      }) =>
         /*#__PURE__*/ React.createElement(
           "div",
           {
-            className:
-              "flex justify-between items-center px-4 py-2 border-b border-white/10",
+            className: `flex justify-between items-center px-4 py-2 border-b border-white/10 ${HALLOWEEN_ON ? "relative overflow-hidden" : ""}`,
             style: {
               backgroundColor: bgColor,
             },
           },
           /*#__PURE__*/ React.createElement(
-            "h2",
-            {
-              className:
-                "font-inter font-black text-xl md:text-2xl text-white uppercase tracking-tight",
-            },
-            title,
+            "div",
+            { className: "flex items-center gap-2" },
+            /*#__PURE__*/ React.createElement(
+              "h2",
+              {
+                className:
+                  "font-inter font-black text-xl md:text-2xl text-white uppercase tracking-tight",
+              },
+              title,
+            ),
+            /*#__PURE__*/ React.createElement(HwMascot, { kind: mascot }),
           ),
           /*#__PURE__*/ React.createElement("span", {
             className:
               "font-inter font-bold text-white/60 text-[10px] md:text-xs uppercase tracking-[0.2em]",
           }),
+          HALLOWEEN_ON &&
+            /*#__PURE__*/ React.createElement(
+              "div",
+              {
+                className:
+                  "absolute top-0 right-0 pointer-events-none text-white/30",
+              },
+              /*#__PURE__*/ React.createElement(Cobweb, {
+                size: 54,
+                flip: true,
+              }),
+              spider &&
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  { className: "absolute top-0 right-[58px]" },
+                  /*#__PURE__*/ React.createElement(Spider, { scale: 0.5 }),
+                ),
+            ),
         );
       const WelcomeModal = ({ onClose }) =>
         /*#__PURE__*/ React.createElement(
@@ -1252,7 +1579,7 @@
                         className:
                           "font-black text-3xl md:text-4xl text-[#a0d4b2] uppercase leading-none mb-3 tracking-tight",
                       },
-                      product.name,
+                      renderName(product, 30),
                     ),
                     /*#__PURE__*/ React.createElement(
                       "div",
@@ -1387,6 +1714,601 @@
           ),
         );
       };
+      // 🎉 FESTIVAL DECORATION
+      // One registry for every seasonal look. A festival is on only inside its
+      // [start, end) window (Bangkok time, judged by the visitor's clock), so
+      // the decoration removes itself when the festival is over — nobody has to
+      // remember to take it down. Add a festival = add a row here + its own
+      // components; the owner says which festivals get one. Purely decorative:
+      // nothing here reads or depends on menu.json.
+      // FESTIVAL_FORCE: set to an id ("halloween") or false to override the
+      // dates while testing; leave null in production.
+      const FESTIVALS = [
+        {
+          id: "halloween",
+          start: "2026-10-15T00:00:00+07:00",
+          end: "2026-11-03T00:00:00+07:00",
+        },
+      ];
+      const FESTIVAL_FORCE = null;
+      const ACTIVE_FESTIVAL = (() => {
+        if (FESTIVAL_FORCE !== null) return FESTIVAL_FORCE || null;
+        const now = new Date();
+        const f = FESTIVALS.find(
+          (x) => now >= new Date(x.start) && now < new Date(x.end),
+        );
+        return f ? f.id : null;
+      })();
+      const HALLOWEEN_ON = ACTIVE_FESTIVAL === "halloween";
+      // Festival palette: warm pumpkin orange + dusky purple against the menu's
+      // near-black, with cream for the moon. Soft, not loud — it sits behind the
+      // real content.
+      const HW_ORANGE = "#ff7a1a";
+      const HW_LILAC = "#b9a7e8";
+      const svgBase = (w, h, vb, extra) => ({
+        xmlns: "http://www.w3.org/2000/svg",
+        width: w,
+        height: h,
+        viewBox: vb,
+        "aria-hidden": "true",
+        ...extra,
+      });
+      // short alias — these shapes are long lists of raw SVG nodes
+      const sv = (tag, props, ...kids) =>
+        React.createElement(tag, props, ...kids);
+      // REFINED, SOLID STYLE: shapes keep their soft warm fills but get depth —
+      // one consistent light source (top-left), gradient shading, a lit
+      // jack-o'-lantern face, rim-light on the dark pieces. All gradients live in
+      // one shared <defs> (HwDefs) so any graphic can use them, even when the
+      // graphic that first declared them is display:none on small screens.
+      const HW_CREAM = "#ffe9b8";
+      const HW_MINT = "#7fd6a4";
+      const HwDefs = () =>
+        sv(
+          "svg",
+          { width: 0, height: 0, "aria-hidden": "true", style: { position: "absolute" } },
+          sv(
+            "defs",
+            null,
+            sv(
+              "radialGradient",
+              { id: "hwPump", cx: "0.36", cy: "0.28", r: "0.9" },
+              sv("stop", { offset: "0", stopColor: "#ffae52" }),
+              sv("stop", { offset: "0.55", stopColor: "#ff7a1a" }),
+              sv("stop", { offset: "1", stopColor: "#b84500" }),
+            ),
+            sv(
+              "linearGradient",
+              { id: "hwStem", x1: "0", y1: "0", x2: "1", y2: "1" },
+              sv("stop", { offset: "0", stopColor: "#86e6a8" }),
+              sv("stop", { offset: "1", stopColor: "#3f9d63" }),
+            ),
+            sv(
+              "linearGradient",
+              { id: "hwHat", x1: "0", y1: "0", x2: "0", y2: "1" },
+              sv("stop", { offset: "0", stopColor: "#43338f" }),
+              sv("stop", { offset: "1", stopColor: "#181033" }),
+            ),
+            sv(
+              "linearGradient",
+              { id: "hwGhostG", x1: "0", y1: "0", x2: "0", y2: "1" },
+              sv("stop", { offset: "0", stopColor: "#ffffff" }),
+              sv("stop", { offset: "0.6", stopColor: "#ece6ff", stopOpacity: "0.92" }),
+              sv("stop", { offset: "1", stopColor: "#cfc4ff", stopOpacity: "0.3" }),
+            ),
+            sv(
+              "linearGradient",
+              { id: "hwGhostSide", x1: "0", y1: "0", x2: "1", y2: "0" },
+              sv("stop", { offset: "0.5", stopColor: "#b9a7e8", stopOpacity: "0" }),
+              sv("stop", { offset: "1", stopColor: "#b9a7e8", stopOpacity: "0.34" }),
+            ),
+            sv(
+              "radialGradient",
+              { id: "hwMoonG", cx: "0.34", cy: "0.3", r: "0.95" },
+              sv("stop", { offset: "0", stopColor: "#fff7dc" }),
+              sv("stop", { offset: "0.6", stopColor: "#ffe4a0" }),
+              sv("stop", { offset: "1", stopColor: "#e9bd62" }),
+            ),
+            sv(
+              "linearGradient",
+              { id: "hwBowl", x1: "0", y1: "0", x2: "0", y2: "1" },
+              sv("stop", { offset: "0", stopColor: "#43338f" }),
+              sv("stop", { offset: "1", stopColor: "#181033" }),
+            ),
+            sv(
+              "linearGradient",
+              { id: "hwStraw", x1: "0", y1: "0", x2: "1", y2: "0" },
+              sv("stop", { offset: "0", stopColor: "#f3d68c" }),
+              sv("stop", { offset: "1", stopColor: "#c9a04a" }),
+            ),
+          ),
+        );
+      // Pumpkin: three lobes, soft rib shading, a lit carved face, glossy stem.
+      // hat = Baba Yaga's witch hat tilted on top (taller viewBox so the cone
+      // isn't clipped); drawn after the body so it sits in front.
+      const Pumpkin = ({ size = 20, className, hat = false }) =>
+        sv(
+          "svg",
+          svgBase(
+            size,
+            hat ? size * 1.33 : size,
+            hat ? "0 -8 24 32" : "0 0 24 24",
+            {
+              className,
+              style: { filter: "drop-shadow(0 0 4px rgba(255,122,26,0.5))" },
+            },
+          ),
+          !hat &&
+            sv("path", {
+              d: "M11.400 7.600C11 5.600 11.800 4 13.600 3.200l.7 1.300c-1.100.5-1.600 1.500-1.400 3.100z",
+              fill: "url(#hwStem)",
+            }),
+          sv("ellipse", { cx: "7.600", cy: "14.200", rx: "4.600", ry: "6.400", fill: "#d45a08" }),
+          sv("ellipse", { cx: "16.400", cy: "14.200", rx: "4.600", ry: "6.400", fill: "#d45a08" }),
+          sv("ellipse", { cx: "12", cy: "14", rx: "5.400", ry: "7.200", fill: "url(#hwPump)" }),
+          sv("path", {
+            d: "M9 7.600c-1.200 3.400-1.200 8.800.4 12.200M15 7.600c1.200 3.400 1.200 8.800-.4 12.200",
+            fill: "none",
+            stroke: "#a63e00",
+            strokeWidth: "0.6",
+            strokeLinecap: "round",
+            opacity: "0.55",
+          }),
+          sv("path", {
+            d: "M8.200 12 10.800 13.400 8.400 14.400zM15.800 12 13.200 13.400 15.600 14.400zM8.600 16.800 10.200 15.700 11.200 17 12 15.900 12.800 17 13.800 15.700 15.400 16.800 14 18.600H10z",
+            fill: "#ffe08a",
+          }),
+          hat &&
+            sv(
+              "g",
+              { transform: "rotate(8 12 6)" },
+              sv("path", {
+                d: "M8.200 6 12.800-6.800 16.800 6z",
+                fill: "url(#hwHat)",
+                stroke: "rgba(185,167,232,0.8)",
+                strokeWidth: "0.5",
+                strokeLinejoin: "round",
+              }),
+              sv("path", { d: "M8.900 3.400h8.200l.5 2.300H8.400z", fill: HW_ORANGE }),
+              sv("rect", {
+                x: "11.700",
+                y: "3.600",
+                width: "2.200",
+                height: "1.800",
+                rx: "0.3",
+                fill: "none",
+                stroke: "#ffe08a",
+                strokeWidth: "0.5",
+              }),
+              sv("ellipse", {
+                cx: "12.600",
+                cy: "6.200",
+                rx: "7.800",
+                ry: "1.700",
+                fill: "url(#hwHat)",
+                stroke: "rgba(185,167,232,0.8)",
+                strokeWidth: "0.5",
+              }),
+            ),
+        );
+      // Bat: sleek scalloped wings with darker membrane ribs for depth.
+      const Bat = ({ size = 40 }) =>
+        sv(
+          "svg",
+          svgBase(size, size * 0.47, "0 0 60 28", { className: "hw-wing" }),
+          sv("path", {
+            d: "M27.600 8.200 27 3 30 5.600 33 3 32.400 8.200C37 7.400 47 4.600 57.500 8.600 54.400 10 53.400 12.600 53.600 15.600 51.600 14 49.200 13.800 47.400 15 46.600 17.600 45.200 19.400 43 20.400 41.600 18.600 39.200 17.800 37 18.400 35.600 20 33.400 21.600 30 25 26.600 21.600 24.400 20 23 18.400 20.800 17.800 18.400 18.600 17 20.400 14.800 19.400 13.400 17.600 12.600 15 10.800 13.800 8.400 14 6.400 15.600 6.600 12.600 5.600 10 2.500 8.600 13 4.600 23 7.400 27.600 8.200z",
+            fill: "currentColor",
+          }),
+          sv("path", {
+            d: "M30 8 7 14M30 9 15 19M30 9.500 45 19M30 8 53 14",
+            stroke: "#0e0e0e",
+            strokeWidth: "0.7",
+            strokeLinecap: "round",
+            opacity: "0.35",
+            fill: "none",
+          }),
+        );
+      // Corner cobweb, geometric: radials fan out from the corner, the rings are
+      // straight chords (no droopy curves) and a few dew drops catch the light.
+      const Cobweb = ({ size = 110, flip = false, flipY = false }) => {
+        const radials = [
+          [100, 2],
+          [90, 38],
+          [66, 70],
+          [34, 92],
+          [2, 100],
+        ];
+        const at = (r, t) => [r[0] * t, r[1] * t];
+        let d = radials.map((r) => `M0 0L${r[0]} ${r[1]}`).join("");
+        [0.3, 0.55, 0.8].forEach((t) => {
+          d += "M" + radials.map((r) => at(r, t).join(" ")).join("L");
+        });
+        const dew = [1, 2, 3].map((i) => at(radials[i], 0.8));
+        return sv(
+          "svg",
+          svgBase(size, size, "0 0 100 100", {
+            style:
+              flip || flipY
+                ? { transform: `scale(${flip ? -1 : 1}, ${flipY ? -1 : 1})` }
+                : undefined,
+          }),
+          sv("path", {
+            d,
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "0.8",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+          }),
+          dew.map((p, i) =>
+            sv("circle", {
+              key: i,
+              cx: p[0],
+              cy: p[1],
+              r: "1.300",
+              fill: "currentColor",
+              opacity: "0.9",
+            }),
+          ),
+        );
+      };
+      // Spider on a hairline thread: glossy body, bent angular legs.
+      const Spider = ({ scale = 1 }) =>
+        sv(
+          "svg",
+          svgBase(26 * scale, 52 * scale, "0 0 26 52", {
+            className: scale < 1 ? "hw-spider-sm" : "hw-spider",
+          }),
+          sv("path", { d: "M13 0V30", stroke: "rgba(255,255,255,0.3)", strokeWidth: "1" }),
+          sv("path", {
+            d: "M9 37.500 4.500 33 1.500 36.500M8.600 40.500 3 40 1 45M9 43.500 4.800 47 4.500 51M17 37.500 21.500 33 24.500 36.500M17.400 40.500 23 40 25 45M17 43.500 21.200 47 21.500 51",
+            stroke: HW_LILAC,
+            strokeWidth: "1",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            fill: "none",
+          }),
+          sv("ellipse", { cx: "13", cy: "41", rx: "5", ry: "6.200", fill: HW_LILAC }),
+          sv("path", {
+            d: "M11.600 38.500h2.800L13 41l1.400 2.500h-2.800L13 41z",
+            fill: "#2b2347",
+            opacity: "0.55",
+          }),
+          sv("circle", { cx: "13", cy: "34", r: "3", fill: "#cdbcf5" }),
+          sv("circle", { cx: "11.800", cy: "33.300", r: "0.600", fill: "#2b2347" }),
+          sv("circle", { cx: "14.200", cy: "33.300", r: "0.600", fill: "#2b2347" }),
+        );
+      // Four-point sparkle (replaces the round star dots).
+      const Spark = ({ size = 9 }) =>
+        sv(
+          "svg",
+          svgBase(size, size, "0 0 9 9"),
+          sv("path", {
+            d: "M4.500 0 5.400 3.600 9 4.500 5.400 5.400 4.500 9 3.600 5.400 0 4.500 3.600 3.600z",
+            fill: HW_CREAM,
+          }),
+        );
+      // Crescent moon: gradient-lit, with a few craters and a faint dotted orbit.
+      const Moon = ({ size = 72 }) =>
+        sv(
+          "svg",
+          svgBase(size, size, "0 0 80 80", {
+            style: { filter: "drop-shadow(0 0 14px rgba(255,214,140,0.5))" },
+          }),
+          sv(
+            "mask",
+            { id: "hwMoonMask" },
+            sv("rect", { width: "80", height: "80", fill: "white" }),
+            sv("circle", { cx: "54", cy: "30", r: "28", fill: "black" }),
+          ),
+          sv("circle", {
+            cx: "40",
+            cy: "40",
+            r: "32",
+            fill: "url(#hwMoonG)",
+            mask: "url(#hwMoonMask)",
+          }),
+          sv(
+            "g",
+            { mask: "url(#hwMoonMask)", fill: "#d9a94f", opacity: "0.3" },
+            sv("circle", { cx: "20", cy: "42", r: "3.200" }),
+            sv("circle", { cx: "28", cy: "58", r: "2.200" }),
+            sv("circle", { cx: "16", cy: "53", r: "1.600" }),
+          ),
+          sv("circle", {
+            cx: "40",
+            cy: "40",
+            r: "38",
+            fill: "none",
+            stroke: HW_CREAM,
+            strokeWidth: "1.200",
+            strokeLinecap: "round",
+            strokeDasharray: "0.1 5",
+            opacity: "0.5",
+          }),
+        );
+      // CASPER N FRIENDS — a plain, friendly ghost with Casper's little tuft:
+      // gradient body that fades at the hem, lilac shading down one side, glossy
+      // eyes. Used big on the header, as faint "friends" beside it, and as a
+      // mascot in box headers.
+      const Ghost = ({ size = 46, className }) => {
+        const body =
+          "M4 25V11.500a8 8 0 0 1 16 0V25l-2.700-2.400L14.700 25 12 22.600 9.300 25 6.700 22.600 4 25z";
+        return sv(
+          "svg",
+          svgBase(size, size * 1.17, "0 0 24 28", {
+            className,
+            style: { filter: "drop-shadow(0 0 6px rgba(200,180,255,0.55))" },
+          }),
+          sv("path", { d: body, fill: "url(#hwGhostG)" }),
+          sv("path", { d: body, fill: "url(#hwGhostSide)" }),
+          sv("path", {
+            d: "M12 3.800C11 2.200 12 .9 13.600 1.500 12.600 1.900 12.600 2.800 13 3.700z",
+            fill: "#f6f3ff",
+          }),
+          sv("ellipse", { cx: "9", cy: "11.500", rx: "1", ry: "1.400", fill: "#1b1631" }),
+          sv("ellipse", { cx: "15", cy: "11.500", rx: "1", ry: "1.400", fill: "#1b1631" }),
+          sv("circle", { cx: "9.300", cy: "11", r: "0.300", fill: "#fff" }),
+          sv("circle", { cx: "15.300", cy: "11", r: "0.300", fill: "#fff" }),
+          sv("ellipse", { cx: "12", cy: "15.800", rx: "1.100", ry: "1.500", fill: "#2b2347" }),
+        );
+      };
+      // BABA YAGA — the witch of Slavic folklore flies in a mortar, steers with
+      // the pestle and sweeps her tracks away with a broom. Indigo silhouette with
+      // lilac rim-light, a straw broom, a mint rim on the mortar and a couple of
+      // sparkles in her wake.
+      const BabaYaga = ({ size = 70 }) =>
+        sv(
+          "svg",
+          svgBase(size, size * 0.62, "0 0 100 62", {
+            style: { filter: "drop-shadow(0 0 6px rgba(127,214,164,0.4))" },
+          }),
+          // broom: wooden handle, straw head, binding
+          sv("path", { d: "M28 41.500 54 44.500", stroke: "#a37d4e", strokeWidth: "2.400", strokeLinecap: "round" }),
+          sv("path", { d: "M30 40 5 34 3 41 5 49 12 57 30 46z", fill: "url(#hwStraw)" }),
+          sv("path", {
+            d: "M30 41 6 38M30 43 5 44M30 45 8 51M30 46 14 56",
+            stroke: "#a37d2e",
+            strokeWidth: "0.6",
+            opacity: "0.6",
+          }),
+          sv("path", { d: "M25 39.500 22.500 47", stroke: "#6d4fc2", strokeWidth: "1.600", strokeLinecap: "round" }),
+          // pestle
+          sv("path", { d: "M60 38 86 9", stroke: "#cfc4ff", strokeWidth: "3.200", strokeLinecap: "round" }),
+          sv("circle", { cx: "88", cy: "7", r: "3.600", fill: "#e9e3ff" }),
+          // cloak + torso
+          sv("path", {
+            d: "M44 33C36 35 31 41 31 49L47 47z",
+            fill: "#1c1438",
+            stroke: "rgba(185,167,232,0.7)",
+            strokeWidth: "0.7",
+            strokeLinejoin: "round",
+          }),
+          sv("path", {
+            d: "M43 33c-5 2-8 7-8 13l13-1 8-1c2-4 1-8-1-11z",
+            fill: "#241a4d",
+            stroke: "rgba(185,167,232,0.7)",
+            strokeWidth: "0.7",
+            strokeLinejoin: "round",
+          }),
+          // face in profile: hooked nose, glowing eye
+          sv("circle", { cx: "54", cy: "31", r: "3.200", fill: "#cfc4ff" }),
+          sv("path", { d: "M56.500 31.500 61 34 56.500 34.500z", fill: "#cfc4ff" }),
+          sv("circle", { cx: "55.200", cy: "30.400", r: "0.800", fill: "#ff9a3d" }),
+          // hat (crooked tip, orange band)
+          sv("path", {
+            d: "M46 28 49.500 15 48 9 53.500 5 56 17 60 28z",
+            fill: "url(#hwHat)",
+            stroke: "rgba(185,167,232,0.8)",
+            strokeWidth: "0.7",
+            strokeLinejoin: "round",
+          }),
+          sv("path", { d: "M47.500 21h10l.8 3.500H46.800z", fill: HW_ORANGE }),
+          sv("ellipse", {
+            cx: "53",
+            cy: "28.400",
+            rx: "13",
+            ry: "3",
+            fill: "url(#hwHat)",
+            stroke: "rgba(185,167,232,0.8)",
+            strokeWidth: "0.7",
+          }),
+          // mortar
+          sv("path", {
+            d: "M33 42h46c0 11-9 18-23 18S33 53 33 42z",
+            fill: "url(#hwBowl)",
+            stroke: "#a98bf0",
+            strokeWidth: "0.8",
+            strokeLinejoin: "round",
+          }),
+          sv("path", { d: "M31 42h50", stroke: "#cfc4ff", strokeWidth: "1.600", strokeLinecap: "round" }),
+          sv("path", { d: "M36 47.500h40", stroke: HW_MINT, strokeWidth: "0.900", opacity: "0.8" }),
+          // sparkles in her wake
+          sv("path", { d: "M3 22 4 26 8 27 4 28 3 32 2 28-2 27 2 26z", fill: HW_CREAM, opacity: "0.8" }),
+          sv("path", { d: "M17 50 17.800 52.600 20.500 53.400 17.800 54.200 17 57 16.200 54.200 13.500 53.400 16.200 52.600z", fill: HW_CREAM, opacity: "0.7" }),
+        );
+      // Everything sits behind/around the real header content; the wrapper is
+      // overflow-hidden + pointer-events-none so it can never block a tap.
+      // Two characters drive the look (the two Halloween strains on sale):
+      //   Casper n Friends -> friendly ghost (big one + two faint friends)
+      //   Baba Yaga        -> witch-hat pumpkins + a witch crossing in her mortar
+      // A flier = outer element crosses the header, inner one bobs.
+      const HwFlier = ({ top, dur, delay, bob, wide, opacity, children }) =>
+        sv(
+          "div",
+          {
+            className: `hw-bat-x ${wide ? "hw-wide" : ""}`,
+            style: {
+              top,
+              animationDuration: `${dur}s`,
+              animationDelay: `${delay}s`,
+              opacity,
+            },
+          },
+          sv(
+            "div",
+            { className: "hw-bat-y", style: { animationDuration: `${bob}s` } },
+            children,
+          ),
+        );
+      const HalloweenLayer = () =>
+        sv(
+          React.Fragment,
+          null,
+          sv(HwDefs),
+          sv("div", {
+            className: "hw-glow absolute inset-x-0 top-0 h-full -z-10",
+            style: {
+              background:
+                "radial-gradient(ellipse 60% 70% at 50% 18%, rgba(255,122,26,0.22), rgba(139,92,246,0.13) 48%, transparent 72%)",
+            },
+          }),
+          // Cobwebs break out of the 1400px header to hug the real page edges
+          // (the header is centred and narrower than the screen on desktop, so
+          // anchoring to its corners left a gap). 50% - 50vw = viewport edge.
+          sv(
+            "div",
+            {
+              className:
+                "absolute top-0 -z-10 h-[130px] overflow-hidden pointer-events-none text-white/20",
+              style: { left: "calc(50% - 50vw)", width: "100vw" },
+            },
+            sv("div", { className: "absolute top-0 left-0" }, sv(Cobweb, { size: 96 })),
+            sv(
+              "div",
+              { className: "absolute top-0 right-0" },
+              sv(Cobweb, { size: 96, flip: true }),
+              sv("div", { className: "absolute top-0 right-[22px]" }, sv(Spider)),
+            ),
+          ),
+          sv(
+            "div",
+            {
+              className:
+                "absolute inset-0 -z-10 overflow-hidden pointer-events-none",
+            },
+            // ── desktop only: fills the empty sides beside the centred title ──
+            sv("div", { className: "hw-wide absolute left-[11%] top-7" }, sv(Moon)),
+            // Casper (big) and his friends (small, fainter), each on its own beat
+            [
+              { r: "12%", t: 40, s: 46, o: 1, dur: 4.2, delay: 0 },
+              { r: "5%", t: 118, s: 26, o: 0.6, dur: 3.4, delay: -1.1 },
+              { r: "20%", t: 138, s: 22, o: 0.45, dur: 3.8, delay: -2.3 },
+            ].map((g, i) =>
+              sv(
+                "div",
+                {
+                  key: "g" + i,
+                  className: "hw-wide absolute",
+                  style: { right: g.r, top: g.t, opacity: g.o },
+                },
+                sv(
+                  "div",
+                  {
+                    className: "hw-float",
+                    style: {
+                      animationDuration: `${g.dur}s`,
+                      animationDelay: `${g.delay}s`,
+                    },
+                  },
+                  sv(Ghost, { size: g.s }),
+                ),
+              ),
+            ),
+            // twinkling stars — gutters only, never over the title
+            [
+              ["4%", "30%"],
+              ["12%", "52%"],
+              ["20%", "16%"],
+              ["8%", "66%"],
+              ["79%", "22%"],
+              ["88%", "46%"],
+              ["95%", "30%"],
+              ["84%", "64%"],
+            ].map((p, i) =>
+              sv(
+                "span",
+                {
+                  key: "s" + i,
+                  className: "hw-wide hw-twinkle absolute",
+                  style: {
+                    left: p[0],
+                    top: p[1],
+                    animationDelay: `${(i * 0.7) % 3}s`,
+                  },
+                },
+                sv(Spark, { size: i % 3 === 0 ? 10 : 7 }),
+              ),
+            ),
+          ),
+          // Fliers get their own full-bleed stage (same breakout as the cobwebs)
+          // so they cross from the real screen edge, not the 1400px header edge.
+          sv(
+            "div",
+            {
+              className:
+                "absolute top-0 bottom-0 -z-10 overflow-hidden pointer-events-none",
+              style: { left: "calc(50% - 50vw)", width: "100vw" },
+            },
+            // LEFT zone: bats + Baba Yaga crossing in her mortar + a faint friend.
+            // (On phones this zone becomes the thin strip above the badge and the
+            // `wide` fliers are hidden.)
+            sv(
+              "div",
+              { className: "hw-zone hw-zone-l" },
+              [
+                { top: 22, size: 34, dur: 15, delay: 0, bob: 1.7, c: "#8b6bd9" },
+                { top: 150, size: 30, dur: 19, delay: -6, bob: 1.9, c: "#7c5cd0" },
+              ].map((b, i) =>
+                sv(
+                  HwFlier,
+                  { key: "lb" + i, ...b },
+                  sv("div", { style: { color: b.c } }, sv(Bat, { size: b.size })),
+                ),
+              ),
+              sv(
+                HwFlier,
+                { top: 84, dur: 30, delay: -10, bob: 2.6, opacity: 0.9, wide: true },
+                sv(BabaYaga, { size: 74 }),
+              ),
+              sv(
+                HwFlier,
+                { top: 190, dur: 26, delay: -8, bob: 2.8, opacity: 0.6, wide: true },
+                sv(Ghost, { size: 24 }),
+              ),
+            ),
+            // RIGHT zone: more bats (desktop only)
+            sv(
+              "div",
+              { className: "hw-zone hw-zone-r" },
+              [
+                { top: 56, size: 24, dur: 21, delay: -9, bob: 1.3, c: "#6d4fc2" },
+                { top: 118, size: 40, dur: 24, delay: -14, bob: 2.1, c: "#9a7be6" },
+                { top: 196, size: 26, dur: 18, delay: -5, bob: 1.5, c: "#6d4fc2" },
+              ].map((b, i) =>
+                sv(
+                  HwFlier,
+                  { key: "rb" + i, ...b },
+                  sv("div", { style: { color: b.c } }, sv(Bat, { size: b.size })),
+                ),
+              ),
+            ),
+          ),
+        );
+      // The one piece of text in the whole campaign: "Happy Halloween".
+      // Baba Yaga's witch-hat pumpkin on one side, Casper on the other.
+      const HalloweenChip = () =>
+        sv(
+          "div",
+          {
+            className:
+              "inline-flex items-center gap-2.5 mb-4 text-[#ffb066] font-inter font-black text-[10px] md:text-[11px] uppercase tracking-[0.25em]",
+          },
+          sv(Pumpkin, { size: 18, hat: true, className: "hw-flicker" }),
+          "Happy Halloween",
+          sv(Ghost, { size: 18 }),
+        );
       const App = () => {
         // 🔒 CONTROL PANEL
         const ENABLE_WELCOME = false;
@@ -1553,8 +2475,9 @@
           [...arr].sort((a, b) => hasPromo(a) - hasPromo(b));
         // Within each promo tier, lower stock sinks further down: fully
         // in-stock (both g1 and g35) on top, fully sold-out at the bottom,
-        // partial stock in between. Applied before sortPromoLast so BOGO
-        // items always sink below every non-BOGO item regardless of stock
+        // partial stock in between. Applied before the tier sort so NEW items
+        // always lead and BOGO items always sink below every other item
+        // regardless of stock
         // (stable sort keeps this stock ordering within each promo tier).
         const stockRank = (p) => {
           const g1Out = isOutOfStock(p, "g1");
@@ -1565,7 +2488,11 @@
         };
         const sortByStock = (arr) =>
           [...arr].sort((a, b) => stockRank(a) - stockRank(b));
-        const arrangeBox = (arr) => sortPromoLast(sortByStock(arr));
+        const hasNew = (p) => (p.tags || []).some((t) => t.startsWith("NEW"));
+        const tierRank = (p) => (hasNew(p) ? 0 : hasPromo(p) ? 2 : 1);
+        const sortNewFirst = (arr) =>
+          [...arr].sort((a, b) => tierRank(a) - tierRank(b));
+        const arrangeBox = (arr) => sortNewFirst(sortByStock(arr));
         const sativa = arrangeBox(products.filter((p) => p.cat === "SATIVA"));
         const indica = arrangeBox(products.filter((p) => p.cat === "INDICA"));
         const hybrid = arrangeBox(products.filter((p) => p.cat === "HYBRID"));
@@ -1629,8 +2556,10 @@
             "header",
             {
               className:
-                "max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 flex flex-col items-center text-center",
+                "max-w-[1400px] mx-auto w-full px-4 pt-8 pb-6 flex flex-col items-center text-center relative isolate",
             },
+            HALLOWEEN_ON && /*#__PURE__*/ React.createElement(HalloweenLayer),
+            HALLOWEEN_ON && /*#__PURE__*/ React.createElement(HalloweenChip),
             /*#__PURE__*/ React.createElement(
               "h2",
               {
@@ -1727,6 +2656,7 @@
                 /*#__PURE__*/ React.createElement(BoxHeader, {
                   title: "SATIVA",
                   bgColor: "#9e9e5e",
+                  spider: true,
                 }),
                 /*#__PURE__*/ React.createElement(
                   "div",
@@ -1775,7 +2705,7 @@
                 "div",
                 {
                   className:
-                    "order-6 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col",
+                    "order-6 border border-white/20 rounded-sm overflow-hidden bg-white/[0.01] flex flex-col relative",
                 },
                 /*#__PURE__*/ React.createElement(
                   "div",
@@ -1784,12 +2714,20 @@
                       "flex justify-between items-center gap-2 px-4 py-3 border-b border-white/20 bg-[#1d1e1e]",
                   },
                   /*#__PURE__*/ React.createElement(
-                    "h2",
-                    {
-                      className:
-                        "font-black text-2xl md:text-3xl text-[#a0d4b2] uppercase",
-                    },
-                    "PRE-ROLLS",
+                    "div",
+                    { className: "flex items-center gap-2" },
+                    /*#__PURE__*/ React.createElement(
+                      "h2",
+                      {
+                        className:
+                          "font-black text-2xl md:text-3xl text-[#a0d4b2] uppercase",
+                      },
+                      "PRE-ROLLS",
+                    ),
+                    /*#__PURE__*/ React.createElement(HwMascot, {
+                      kind: "witch",
+                      size: 24,
+                    }),
                   ),
                   /*#__PURE__*/ React.createElement(
                     "div",
@@ -1886,6 +2824,19 @@
                     ? "(CLICK STRAIN TO ADD • ROLLING SERVICE AVAILABLE)"
                     : "(ROLLING SERVICE AVAILABLE)",
                 ),
+                HALLOWEEN_ON &&
+                  /*#__PURE__*/ React.createElement(
+                    "div",
+                    {
+                      className:
+                        "absolute bottom-0 right-0 pointer-events-none text-white/25",
+                    },
+                    /*#__PURE__*/ React.createElement(Cobweb, {
+                      size: 64,
+                      flip: true,
+                      flipY: true,
+                    }),
+                  ),
               ),
             ),
             /*#__PURE__*/ React.createElement(
@@ -1902,6 +2853,7 @@
                 /*#__PURE__*/ React.createElement(BoxHeader, {
                   title: "INDICA",
                   bgColor: "#158cab",
+                  mascot: "ghost",
                 }),
                 /*#__PURE__*/ React.createElement(
                   "div",
@@ -1928,6 +2880,8 @@
                 /*#__PURE__*/ React.createElement(BoxHeader, {
                   title: "HYBRID",
                   bgColor: "#797a72",
+                  spider: true,
+                  mascot: "ghost",
                 }),
                 /*#__PURE__*/ React.createElement(
                   "div",
@@ -1968,13 +2922,32 @@
                         "flex justify-between items-center px-4 py-3 border-b border-blue-900/40 relative z-10 bg-[#0a101f]/80 backdrop-blur-sm",
                     },
                     /*#__PURE__*/ React.createElement(
-                      "h2",
-                      {
-                        className:
-                          "font-black text-xl md:text-2xl text-white uppercase tracking-tight",
-                      },
-                      "COMPOUND GENETICS",
+                      "div",
+                      { className: "flex items-center gap-2" },
+                      /*#__PURE__*/ React.createElement(
+                        "h2",
+                        {
+                          className:
+                            "font-black text-xl md:text-2xl text-white uppercase tracking-tight",
+                        },
+                        "COMPOUND GENETICS",
+                      ),
+                      /*#__PURE__*/ React.createElement(HwMascot, {
+                        kind: "ghost",
+                      }),
                     ),
+                    HALLOWEEN_ON &&
+                      /*#__PURE__*/ React.createElement(
+                        "div",
+                        {
+                          className:
+                            "absolute top-0 right-0 pointer-events-none text-white/25",
+                        },
+                        /*#__PURE__*/ React.createElement(Cobweb, {
+                          size: 54,
+                          flip: true,
+                        }),
+                      ),
                   ),
                   /*#__PURE__*/ React.createElement(
                     "div",

@@ -100,6 +100,29 @@
       "terpenes": ["MYRCENE (GRAPE)", "LINALOOL (FLORAL)"]
     },
     {
+      "cat": "SATIVA",
+      "name": "CASPER N FRIENDS",
+      "nameFont": "Creepster",
+      "tags": ["NEW:HALLOWEEN:ghost"],
+      "thc": "22-26%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["MYRCENE (GRAPE)", "LINALOOL (FLORAL)"]
+    },
+    {
+      "cat": "INDICA",
+      "name": "BABA YAGA",
+      "nameFont": "Griffy",
+      "nameImage": "assets/images/names/baba-yaga.png",
+      "tags": ["NEW:HALLOWEEN:witch"],
+      "thc": "24-28%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["LIMONENE (CITRUS)", "MYRCENE (CREAM)"]
+    },
+    {
       "cat": "HYBRID",
       "name": "OREOZ",
       "tags": [],
@@ -124,7 +147,7 @@
     {
       "cat": "INDICA",
       "name": "BLACK GARLIC",
-      "tags": ["NEW"],
+      "tags": [],
       "thc": "23-27%",
       "cbd": "0%",
       "p1": 700,
