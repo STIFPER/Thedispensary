@@ -3607,7 +3607,7 @@
             const contentHeight = frame.scrollHeight;
             const scale =
               available > 0 && contentHeight > available
-                ? Math.max(0.72, available / contentHeight)
+                ? available / contentHeight
                 : 1;
             frame.style.setProperty(
               "--portrait-fit-scale",
