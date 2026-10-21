@@ -152,7 +152,8 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (EARTHY)", "HUMULENE (WOOD)"]
+      "terpenes": ["MYRCENE (EARTHY)", "HUMULENE (WOOD)"],
+      "outOfStock": ["g35"]
     },
     {
       "cat": "INDICA",
