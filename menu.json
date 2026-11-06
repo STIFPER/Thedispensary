@@ -36,6 +36,17 @@
       "p35": 2200,
       "terpenes": ["OCIMENE (SWEET)", "MYRCENE (EARTHY)"]
     },
+    {
+      "cat": "SATIVA",
+      "name": "LEMON UPZ",
+      "tags": [],
+      "thc": "24-28%",
+      "cbd": "0%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["LIMONENE (LEMON)", "CARYOPHYLLENE (PEPPER)"],
+      "outOfStock": ["g35"]
+    },
 
     {
       "cat": "SATIVA",
@@ -55,8 +66,7 @@
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["CARYOPHYLLENE (GAS)", "LIMONENE (CITRUS)"],
-      "outOfStock": ["g1"]
+      "terpenes": ["CARYOPHYLLENE (GAS)", "LIMONENE (CITRUS)"]
     },
     {
       "cat": "HYBRID",
@@ -108,7 +118,8 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (GRAPE)", "LINALOOL (FLORAL)"]
+      "terpenes": ["MYRCENE (GRAPE)", "LINALOOL (FLORAL)"],
+      "hidden": true
     },
     {
       "cat": "INDICA",
@@ -120,7 +131,8 @@
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["LIMONENE (CITRUS)", "MYRCENE (CREAM)"]
+      "terpenes": ["LIMONENE (CITRUS)", "MYRCENE (CREAM)"],
+      "hidden": true
     },
     {
       "cat": "HYBRID",
@@ -205,21 +217,24 @@
       "cbd": "16%",
       "p1": 400,
       "p35": 1250,
-      "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (LEMON)"],
-      "outOfStock": ["g1"]
+      "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (LEMON)"]
     }
   ],
   "preRolls": [
-    "MATCHA LOLLIPOP",
-    "GOOFIEZ",
+    "OREOZ",
     "DA FUNK",
-    "PURE MICHIGAN",
-    "TROP CHERRY GAS #14",
-    "PINEAPPLE XPRESS 2.0",
-    "CASHEW SUNDAE",
-    "BLACK GARLIC",
+    "GOOFIEZ",
     "CAP JUNKY",
+    "LEMON UPZ",
+    "SENSI DAWG",
+    "BLACK GARLIC",
     "RANCID RUNTZ",
-    "OREOZ"
+    "SWEET OCTANE",
+    "CASHEW SUNDAE",
+    "PURE MICHIGAN",
+    "MATCHA LOLLIPOP",
+    "TROP CHERRY GAS #14",
+    "VANILLA FRUITEN PIE",
+    "PINEAPPLE XPRESS 2.0"
   ]
 }
