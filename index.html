@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@600;700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%25%7C.%2F%2C%E0%B8%BF"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@600;700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%25%7C.%2F%2C%E0%B8%BF%28%29%C3%97%3C%23-%27"
       rel="stylesheet"
     />
 
@@ -1091,6 +1091,17 @@
                 },
                 renderName(product),
               ),
+              // Optional parentage — products with `cross` in menu.json, shown in
+              // brackets as on the grower's sheet: (Parent A x Parent B).
+              product.cross &&
+                /*#__PURE__*/ React.createElement(
+                  "div",
+                  {
+                    className:
+                      "font-inter leading-snug mb-2 text-xs md:text-[13px] font-bold text-white/85",
+                  },
+                  "(" + product.cross.replace(/^\(|\)$/g, "").trim() + ")",
+                ),
               /*#__PURE__*/ React.createElement(
                 "div",
                 {
@@ -2489,7 +2500,11 @@
         const sortByStock = (arr) =>
           [...arr].sort((a, b) => stockRank(a) - stockRank(b));
         const hasNew = (p) => (p.tags || []).some((t) => t.startsWith("NEW"));
-        const tierRank = (p) => (hasNew(p) ? 0 : hasPromo(p) ? 2 : 1);
+        const hasBest = (p) => (p.tags || []).includes("BEST SELLER");
+        // BEST SELLER always leads its box, then NEW, then everything else,
+        // then BUY 1 GET 1 FREE at the bottom.
+        const tierRank = (p) =>
+          hasBest(p) ? -1 : hasNew(p) ? 0 : hasPromo(p) ? 2 : 1;
         const sortNewFirst = (arr) =>
           [...arr].sort((a, b) => tierRank(a) - tierRank(b));
         const arrangeBox = (arr) => sortNewFirst(sortByStock(arr));
@@ -2675,6 +2690,7 @@
                 ),
               ),
               menu?.meta?.showCBD &&
+                cbd.length > 0 &&
                 /*#__PURE__*/ React.createElement(
                   "div",
                   {
@@ -2900,6 +2916,7 @@
                 ),
               ),
               menu?.meta?.showCompound &&
+                compound.length > 0 &&
                 /*#__PURE__*/ React.createElement(
                   "div",
                   {

@@ -7,6 +7,7 @@
     {
       "cat": "SATIVA",
       "name": "PINEAPPLE XPRESS 2.0",
+      "cross": "Pineapple Xpress x Pineapple Xpress",
       "tags": ["BEST SELLER"],
       "thc": "32-35%",
       "cbd": "1-2%",
@@ -17,6 +18,7 @@
     {
       "cat": "SATIVA",
       "name": "DOPAMINE",
+      "cross": "Blueberry Banana x Grape Gas",
       "tags": [],
       "thc": "16-20%",
       "cbd": "0%",
@@ -29,6 +31,7 @@
     {
       "cat": "SATIVA",
       "name": "LEMON CHERRY RUNTZ",
+      "cross": "Sunset Sherbet x Runtz",
       "tags": [],
       "thc": "22-26%",
       "cbd": "0%",
@@ -39,6 +42,7 @@
     {
       "cat": "SATIVA",
       "name": "LEMON UPZ",
+      "cross": "Lemon Lipz #2 x Peanut Butter Breath",
       "tags": [],
       "thc": "24-28%",
       "cbd": "0%",
@@ -51,16 +55,19 @@
     {
       "cat": "SATIVA",
       "name": "TROP CHERRY GAS #14",
+      "cross": "Tropicana Cherry x Runtz",
       "tags": ["BUY 1 GET 1 FREE"],
       "thc": "20-22%",
       "cbd": "0%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"]
+      "terpenes": ["MYRCENE (MUSK)", "LIMONENE (CITRUS)"],
+      "outOfStock": ["g1"]
     },
     {
       "cat": "HYBRID",
       "name": "RANCID RUNTZ",
+      "cross": "GMO x Runtz BX3",
       "tags": ["BUY 1 GET 1 FREE"],
       "thc": "28-30%",
       "cbd": "<1%",
@@ -71,6 +78,7 @@
     {
       "cat": "HYBRID",
       "name": "APPLE GELATO",
+      "cross": "Gelato x Apples & Bananas",
       "tags": [],
       "thc": "24-28%",
       "cbd": "0%",
@@ -87,11 +95,13 @@
       "p1": 700,
       "p35": 2200,
       "terpenes": ["Myrcene (Herbal)", "Caryophyllene (Pepper)"],
-      "outOfStock": ["g35"]
+      "outOfStock": ["g1", "g35"],
+      "hidden": true
     },
     {
       "cat": "HYBRID",
       "name": "Cap Junky",
+      "cross": "Alien Cookies x Kush Mints",
       "tags": [],
       "thc": "23-28%",
       "cbd": "<1%",
@@ -102,6 +112,7 @@
     {
       "cat": "HYBRID",
       "name": "GRAPE SODA",
+      "cross": "Trop Cherry Gas x Grape Gas",
       "tags": [],
       "thc": "22-26%",
       "cbd": "<1%",
@@ -159,6 +170,7 @@
     {
       "cat": "INDICA",
       "name": "BLACK GARLIC",
+      "cross": "GMO x Dog Patch",
       "tags": [],
       "thc": "23-27%",
       "cbd": "0%",
@@ -181,6 +193,7 @@
     {
       "cat": "INDICA",
       "name": "CASHEW SUNDAE",
+      "cross": "Biscotti x Bubblegum",
       "tags": [],
       "thc": "19-21%",
       "cbd": "0%",
@@ -192,32 +205,93 @@
     {
       "cat": "INDICA",
       "name": "CHERRY MARKER",
+      "cross": "Permanent Marker x Lemon Cherry Gelato",
       "tags": ["BUY 1 GET 1 FREE"],
       "thc": "24-28%",
       "cbd": "<1%",
       "p1": 700,
       "p35": 2200,
-      "terpenes": ["MYRCENE (FRUITY)", "CARYOPHYLLENE (GAS)"]
+      "terpenes": ["MYRCENE (FRUITY)", "CARYOPHYLLENE (GAS)"],
+      "outOfStock": ["g1"]
     },
     {
       "cat": "COMPOUND",
       "name": "DA FUNK",
+      "cross": "First Class Funk x White Runtz",
       "tags": ["BUY 1 GET 1 FREE"],
       "thc": "21-23%",
       "cbd": "<1%",
       "p1": 700,
       "p35": 2500,
       "terpenes": ["OCIMENE (FRUIT)", "MYRCENE (MUSK)"],
-      "outOfStock": ["g35"]
+      "outOfStock": ["g1", "g35"],
+      "hidden": true
+    },
+    {
+      "cat": "INDICA",
+      "name": "BLACK LOBSTER",
+      "cross": "Facade VIP x Blue Lobster",
+      "tags": ["NEW"],
+      "thc": "25-28%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["MYRCENE (BERRY)", "CARYOPHYLLENE (GAS)"]
+    },
+    {
+      "cat": "INDICA",
+      "name": "BLACKBERRY BANANA",
+      "cross": "Don Mega x Blackberry Octane",
+      "tags": ["NEW"],
+      "thc": "26-30%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["CARYOPHYLLENE (GAS)", "LIMONENE (BERRY)"]
+    },
+    {
+      "cat": "SATIVA",
+      "name": "DOPE LOBSTER",
+      "cross": "Dopamine x Blue Lobster",
+      "tags": ["NEW"],
+      "thc": "25-28%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["LIMONENE (CITRUS)", "MYRCENE (BERRY)"]
+    },
+    {
+      "cat": "SATIVA",
+      "name": "GOLD LOBSTER",
+      "cross": "Gold Gummy x Blue Lobster",
+      "tags": ["NEW"],
+      "thc": "24-28%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["LIMONENE (LEMON)", "MYRCENE (SWEET)"]
+    },
+    {
+      "cat": "HYBRID",
+      "name": "PAINT STRIPPER",
+      "cross": "Chem De Monaco x Blue Lobster",
+      "tags": ["NEW"],
+      "thc": "26-30%",
+      "cbd": "<1%",
+      "p1": 700,
+      "p35": 2200,
+      "terpenes": ["CARYOPHYLLENE (GAS)", "LIMONENE (CITRUS)"]
     },
     {
       "cat": "CBD",
       "name": "CHARLOTTE'S ANGEL",
+      "cross": "Dutch Charlotte x Red Angel",
       "tags": [],
       "cbd": "16%",
       "p1": 400,
       "p35": 1250,
-      "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (LEMON)"]
+      "terpenes": ["MYRCENE (FRUIT)", "LIMONENE (LEMON)"],
+      "outOfStock": ["g1"]
     }
   ],
   "preRolls": [
@@ -227,7 +301,6 @@
     "CAP JUNKY",
     "LEMON UPZ",
     "SENSI DAWG",
-    "BLACK GARLIC",
     "RANCID RUNTZ",
     "SWEET OCTANE",
     "CASHEW SUNDAE",
