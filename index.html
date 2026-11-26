@@ -741,6 +741,7 @@
         };
         let content = null;
         let bgClass = "";
+        let bgStyle = null;
         if (type === "NEW") {
           bgClass = "bg-[#A4F21E]";
           content = /*#__PURE__*/ React.createElement(
@@ -760,6 +761,21 @@
               style: {
                 fontSize: config.fontNew,
                 color: "#2b1447",
+              },
+            },
+            "NEW",
+          );
+        } else if (type === "NEW LOBSTER") {
+          // Blue Lobster V2 drop (tag "NEW:LOBSTER" in menu.json): lobster-blue
+          // radial badge with black NEW.
+          bgStyle = { background: "radial-gradient(circle at 50% 38%, #8ff3ff 0%, #3fcdf2 34%, #22a8e8 66%, #0a6fb4 100%)" };
+          content = /*#__PURE__*/ React.createElement(
+            "span",
+            {
+              style: {
+                fontSize: `calc(${config.fontNew} * 1.22)`,
+                letterSpacing: "0.02em",
+                color: "#000000",
               },
             },
             "NEW",
@@ -897,6 +913,7 @@
             style: {
               ...boxStyle,
               ...clipStyle,
+              ...(bgStyle || {}),
             },
           },
           content,
@@ -932,6 +949,7 @@
         const tag = tags[0];
         let type = "";
         if (tag === "NEW") type = "NEW";
+        else if (tag === "NEW:LOBSTER") type = "NEW LOBSTER";
         else if (tag.startsWith("NEW:HALLOWEEN"))
           type = HALLOWEEN_ON
             ? "NEW HALLOWEEN:" + (tag.split(":")[2] || "witch")
